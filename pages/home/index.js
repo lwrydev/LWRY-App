@@ -7,7 +7,7 @@ export default function Home(props) {
     <div>
       <h1>Home</h1>
       <Link href={user ? "/test" : "/login"}>
-        <Button variant="contained">บริการให้คำปรึกษา</Button>
+        <a>บริการให้คำปรึกษา</a>
       </Link>
     </div>
   )
