@@ -1,1 +1,2 @@
-export default () => <h1>LWRY :: App portal website Next.js</h1>
+import MainContainer from "./container/MainContainer"
+export default () => <MainContainer/>
