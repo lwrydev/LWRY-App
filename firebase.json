@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "lawlivery-apps",
+    "public": "out",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
