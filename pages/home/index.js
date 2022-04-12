@@ -1,4 +1,3 @@
-import { Button } from '@material-ui/core'
 import Link from 'next/link'
 
 export default function Home(props) {
