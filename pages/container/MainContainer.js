@@ -28,6 +28,6 @@ export default function MainContainer(props) {
   }
 
   return (
-    <Home extraData={{name: ''}}/>
+    <Home extraData={user}/>
   )
 }
