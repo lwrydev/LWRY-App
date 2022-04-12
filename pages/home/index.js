@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 export default function Home(props) {
-  const user = props.extraData.name
+  const user = props.extraData
 
   return (
     <div>
