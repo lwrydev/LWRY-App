@@ -14,9 +14,9 @@ const firebaseConfig = {
   measurementId: "G-24QRMG39CW"
 };
 
-const app = initializeApp(firebaseConfig);
+const firebase = initializeApp(firebaseConfig);
 
 // Get a reference to the database service
-const database = getDatabase(app);
-const firestore = getFirestore(app);
-export {app, database, firestore}
+const database = getDatabase(firebase);
+const firestore = getFirestore(firebase);
+export { firebase, database, firestore }

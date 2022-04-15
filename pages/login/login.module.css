@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+
+.form {
+  margin: 0;
+  width: 300px;
+}
+
+.titleLogin {
+  font-size: 26px;
+  padding: 20px 0;
+}
+
+.input {
+  margin: 10px 0;
+  height: 44px;
+  border-radius: 22px;
+}
+
+.btnSubmit {
+  width: 100%;
+  height: 44px;
+  margin-top: 10px;
+  border-radius: 22px;
+}
+
+.forget {
+  text-align: end;
+  padding: 5px;
+}
+
+.fotgotText {
+  cursor: pointer;
+  color: #666;
+  text-decoration: none;
+}
+
+.btnGoogle {
+  cursor: pointer;
+  width: 100%;
+  height: 44px;
+  border-radius: 22px;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.googleLogo {
+  font-size: 24px;
+}
+
+.googleText {
+  height: 44px;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+@media only screen and (max-width:800px) {}
+
+@media only screen and (max-width:500px) {
+  .form {
+    width: 250px !important;
+  }
+
+  .titleLogin {
+    font-size: 20px;
+  }
+
+  .input {
+    font-size: 12px;
+  }
+
+  .btnSubmit {
+    font-size: 12px;
+  }
+
+  .forget {
+    font-size: 12px;
+  }
+
+  .btnGoogle {
+    font-size: 12px;
+  }
+
+  .googleLogo {
+    font-size: 18px;
+  }
+}

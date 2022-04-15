@@ -1,2 +1,2 @@
-import MainContainer from "./container/MainContainer"
-export default () => <MainContainer/>
+import Home from "./home"
+export default ({ user }) => <Home user={user} />

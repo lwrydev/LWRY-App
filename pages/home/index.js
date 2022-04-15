@@ -1,14 +1,11 @@
-import Link from 'next/link'
+import Link from "next/link"
+import { Button } from "react-bootstrap"
+import styles from './home.module.css'
 
-export default function Home(props) {
-  const user = props.extraData
-
+export default function Home({ user }) {
   return (
-    <div>
-      <h1>Home</h1>
-      <Link href={user ? "/test" : "/login"}>
-        <a>บริการให้คำปรึกษา</a>
-      </Link>
+    <div className={styles.container}>
+      <Button href={user ? '/init_consulting_service' : '/login'} variant="outline-primary">บริการให้คำปรึกษาเบื้องต้น</Button>
     </div>
   )
 }
