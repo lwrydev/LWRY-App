@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "lawlivery-apps",
-    "public": "out",
+    "public": "build",
     "ignore": [
       "firebase.json",
       "**/.*",
