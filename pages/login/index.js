@@ -11,13 +11,10 @@ import IconApple from '../../assets/logo/Icon_metro_apple.svg'
 import { Button, Form } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
 import { useRouter } from "next/router"
-import { useWindowSize } from 'usehooks-ts'
 import Link from 'next/link'
 import LawliveryApp from '../../components/lawliveryApp/LawliveryApp'
 
 export default function Login({ user }) {
-  const [landscape, setLandscape] = useState(false)
-  const { width, height } = useWindowSize()
 
   const [email, setEmail] = useState('')
 
@@ -28,14 +25,6 @@ export default function Login({ user }) {
       router.push('/home')
     }
   }, [])
-
-  useEffect(() => {
-    if (width > height) {
-      setLandscape(true)
-    } else {
-      setLandscape(false)
-    }
-  }, [width])
 
   const nextLogin = (e) => {
     e.preventDefault()
