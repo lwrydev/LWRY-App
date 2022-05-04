@@ -1,6 +1,19 @@
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 30px;
+  padding: 120px 3% 50px 10%;
+  background: #F5F5F5 0% 0% no-repeat padding-box;
+  min-height: 100vh;
+}
+
+.nameTitle {
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #434343;
+  opacity: 1;
+}
+
+@media (max-width: 500px) {
+  .nameTitle {
+    font-size: 26px;
+  }
 }

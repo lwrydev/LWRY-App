@@ -1,0 +1,18 @@
+.content {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: #F5F5F5 0% 0% no-repeat padding-box;
+  flex-wrap: wrap;
+}
+
+.item {
+  color: var(--primary-text);
+  text-align: left;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0px;
+  color: #434343;
+  opacity: 1;
+  margin: 0 10px;
+}

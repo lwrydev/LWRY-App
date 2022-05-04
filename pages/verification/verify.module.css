@@ -1,0 +1,55 @@
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 97vh;
+  width: 100vw;
+}
+
+.emailBlock {background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 20px;
+  opacity: 1;
+  padding: 40px;
+  margin: 20px;
+}
+
+.loginBtn {
+  width: 170px;
+  height: 36px;
+  background: #0A66E2 0% 0% no-repeat padding-box;
+  border-radius: 13px;
+  opacity: 1;
+  margin-top: 10px;
+}
+
+.formBlock {
+  width: 800px;
+  max-width: 90vw;
+  height: 200px;
+}
+
+.resultBlock {
+  max-width: 450px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 20px;
+  opacity: 1;
+  padding: 40px;
+  margin: 20px;
+}
+
+.verifyPass {
+  font-size: 32px;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  opacity: 1;
+}
+
+.tyText {
+  font-size: 16px;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  opacity: 1;
+  margin-bottom: 20px;
+}

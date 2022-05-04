@@ -1,32 +1,50 @@
-import { useRouter } from "next/router"
-import { useState, useEffect } from "react"
-import Layout from "../components/Layout"
+import LayoutHome from "../components/layout/Layout_Home"
+import Layout from "../components/layout/Layout"
 
 import 'bootstrap/dist/css/bootstrap.min.css'
+import '../styles/globals.css'
 
-import { firebase } from "../config/firebase"
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
+
+import "../config/firebase"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 
 const auth = getAuth()
 
-export default function MyApp({ Component, pageProps }) {
+export default function _app({ Component, pageProps }) {
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  const router = useRouter()
 
   useEffect(() => {
-    onAuthStateChanged(auth, callbackAuth)
-  }, [])
-
-  const callbackAuth = (userDoc) => {
-    if (userDoc) {
-      setUser(userDoc)
-    } else {
-      setUser(null)
-    }
-  }
+    onAuthStateChanged(auth, userData => {
+      console.log(userData);
+      setUser(userData)
+      setLoading(false)
+    })
+  }, [user])
 
   return (
-    <Layout >
-      <Component {...pageProps} user={user} />
-    </Layout>
+    <>
+      {loading
+        ?
+        <></>
+        :
+        <>
+          {!user || (router.pathname.includes('/login') || router.pathname.includes('/register') || router.pathname.includes('/verification'))
+            ?
+            <Layout user={user} setUser={setUser} >
+              <Component {...pageProps} user={user} setUser={setUser} />
+            </Layout>
+            :
+            <LayoutHome user={user} setUser={setUser} >
+              <Component {...pageProps} user={user} setUser={setUser} />
+            </LayoutHome>
+          }
+        </>
+      }
+    </>
   )
 }

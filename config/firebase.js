@@ -4,14 +4,14 @@ import { getFirestore } from 'firebase/firestore';
 
 // TODO: Replace with your app's Firebase project configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDV7hFRgeQN8ggN9ngNt_lppQP5qB5HZ3k",
-  authDomain: "lawlivery-5f290.firebaseapp.com",
-  databaseURL: "https://lawlivery-5f290-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "lawlivery-5f290",
-  storageBucket: "lawlivery-5f290.appspot.com",
-  messagingSenderId: "308749479482",
-  appId: "1:308749479482:web:15a620cb4b1ce8de850f03",
-  measurementId: "G-24QRMG39CW"
+  apiKey: "AIzaSyDPFITkSmr1rmi67frHJY6O-wqFcqPj7k8",
+  authDomain: "lwryapp-52af8.firebaseapp.com",
+  databaseURL: "https://lwryapp-52af8-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "lwryapp-52af8",
+  storageBucket: "lwryapp-52af8.appspot.com",
+  messagingSenderId: "519015083549",
+  appId: "1:519015083549:web:e3a7938969579e264da0f4",
+  measurementId: "G-7JKEB0REF7"
 };
 
 const firebase = initializeApp(firebaseConfig);

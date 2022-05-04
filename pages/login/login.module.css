@@ -1,94 +1,253 @@
-.container {
+.content {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90vh;
+  height: 94vh;
 }
 
-.form {
-  margin: 0;
-  width: 300px;
+.loginBlock {
+  background: var(--element) 0% 0% no-repeat padding-box;
+  border: 1px solid var(--element-border);
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 20px;
+  opacity: 1;
+  padding: 30px;
+  max-width: 410px;
 }
 
-.titleLogin {
-  font-size: 26px;
-  padding: 20px 0;
-}
-
-.input {
-  margin: 10px 0;
-  height: 44px;
-  border-radius: 22px;
-}
-
-.btnSubmit {
-  width: 100%;
-  height: 44px;
-  margin-top: 10px;
-  border-radius: 22px;
-}
-
-.forget {
-  text-align: end;
-  padding: 5px;
-}
-
-.fotgotText {
-  cursor: pointer;
-  color: #666;
-  text-decoration: none;
-}
-
-.btnGoogle {
-  cursor: pointer;
-  width: 100%;
-  height: 44px;
-  border-radius: 22px;
-  margin-top: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.googleLogo {
+.loginTitle {
+  color: var(--primary-text);
+  text-align: left;
+  font-weight: bold;
   font-size: 24px;
+  letter-spacing: 0px;
+  color: #434343;
+  opacity: 1;
+  margin-bottom: 16px;
 }
 
-.googleText {
-  height: 44px;
-  padding-left: 10px;
+.qaText {
+  color: var(--normal-text);
+  text-align: left;
+  font-size: 14px;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  opacity: 1;
+  margin-right: 7px;
+}
+
+.createText {
+  color: var(--text-element);
+  text-align: left;
+  font-size: 14px;
+  letter-spacing: 0px;
+  color: #406EAC;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.logoEmail {
+  position: absolute;
   display: flex;
+  margin-left: 16px;
+}
+
+.inputEmail {
+  height: 48px;
+  width: 350px;
+  background: var(--element) 0% 0% no-repeat padding-box;
+  border: 1px solid var(--element-border);
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 11px;
+  opacity: 1;
+  margin: 16px 0;
+  padding: 0 10px 0 48px;
+}
+
+.nextButton {
+  width: 107px;
+  height: 37px;
+  background: #0A66E2 0% 0% no-repeat padding-box;
+  border-radius: 13px;
+  opacity: 1;
+}
+
+.line {
+  height: 0px;
+  border: 1px solid var(--secondary-text);
+  border: 1px solid #9B9B9B;
+  background: #9B9B9B;
+  opacity: 1;
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-@media only screen and (max-width:800px) {}
+.orText {
+  font-size: 16px;
+  letter-spacing: 0px;
+  color: #616161;
+  opacity: 1;
+  background: var(--element) 0% 0% no-repeat padding-box;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  padding: 0 8px;
+}
 
-@media only screen and (max-width:500px) {
-  .form {
-    width: 250px !important;
-  }
+.btn:hover {
+  cursor: pointer;
+  opacity: 1;
+}
 
-  .titleLogin {
-    font-size: 20px;
-  }
+.googleBtn {
+  height: 48px;
+  width: 350px;
+  background: var(--element) 0% 0% no-repeat padding-box;
+  border: 1px solid var(--element-border);
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 11px;
+  opacity: 0.9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0;
+}
 
-  .input {
-    font-size: 12px;
-  }
+.googleTitle {
+  color: var(--normal-text);
+  text-align: left;
+  font-size: 16px;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  opacity: 1;
+  padding-left: 18px;
+}
 
-  .btnSubmit {
-    font-size: 12px;
-  }
+.facebookBtn {
+  height: 48px;
+  width: 350px;
+  border: 1px solid var(--element-border);
+  background: #1E6FEA 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 11px;
+  opacity: 0.9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0;
+}
 
-  .forget {
-    font-size: 12px;
-  }
+.facebookTitle {
+  color: var(--element);
+  text-align: left;
+  font-size: 16px;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 1;
+  padding-left: 18px;
+}
 
-  .btnGoogle {
-    font-size: 12px;
-  }
+.lineBtn {
+  height: 48px;
+  width: 350px;
+  border: 1px solid var(--element-border);
+  background: #03C302 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 11px;
+  opacity: 0.9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0;
+}
 
-  .googleLogo {
-    font-size: 18px;
-  }
+.lineTitle {
+  color: var(--element);
+  text-align: left;
+  font-size: 16px;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 1;
+  padding-left: 18px;
+}
+
+.appleBtn {
+  height: 48px;
+  width: 350px;
+  border: 1px solid var(--element-border);
+  background: #000000 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 11px;
+  opacity: 0.9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.appleTitle {
+  color: var(--element);
+  text-align: left;
+  font-size: 16px;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 1;
+  padding-left: 18px;
+}
+
+.formBlock {
+  height: 200px;
+}
+
+.profileImg {
+  width: 40px;
+  height: 40px;
+  background: var(--primary) 0% 0% no-repeat padding-box;
+  background: #15355F 0% 0% no-repeat padding-box;
+  opacity: 1;
+  border-radius: 20px;
+}
+
+.accBlock {
+  margin-left: 16px;
+}
+
+.accText {
+  color: var(--normal-text);
+  font-size: 14px;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  opacity: 1;
+}
+
+.emailText {
+  color: var(--primary-text);
+  text-align: left;
+  font-size: 18px;
+  letter-spacing: 0px;
+  color: #434343;
+  opacity: 1;
+}
+
+.otherOptions {
+  padding-top: 24px;
+  border-top: 1px solid #E0E0E0;
+}
+
+.optionLink {
+  color: var(--text-element);
+  text-align: left;
+  font-size: 16px;
+  letter-spacing: 0px;
+  color: #406EAC;
+  margin: 10px 0;
+  opacity: 1;
+}
+
+.optionLink:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }
