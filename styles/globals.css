@@ -4,7 +4,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Kanit';
+  font-family: 'Kanit' !important;
   background: #F8F8F8 0% 0% no-repeat padding-box;
 }
 

@@ -48,10 +48,11 @@ export default function Login({ user }) {
   return (
     <div className={styles.content}>
       <div className='h-100 row align-items-center w-100'>
-        <div className={landscape ? "col-md-6 h-100 d-none justify-content-center align-items-center d-md-flex" : "d-none"}>
+        <div className='col-xl-2 col-lg-1 col-md-0 col-sm-0 col-0'></div>
+        <div className="col-xl-5 col-lg-6 col-md-6 col-sm-0 col-0 h-100 d-none justify-content-center align-items-center d-md-flex">
           <LawliveryApp />
         </div>
-        <div className={landscape ? "col-md-6" : "d-flex justify-content-center align-items-center w-100"}>
+        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 d-flex justify-content-center align-items-center">
           <div className={styles.loginBlock}>
             <div className={styles.loginTitle}>เข้าสู่ระบบ</div>
             <div className='d-flex'>
@@ -68,6 +69,7 @@ export default function Login({ user }) {
                   type='email'
                   value={email}
                   onChange={e => setEmail(e.target.value)}
+                  required
                 />
                 <div className={styles.logoEmail}><Image src={IconEmail} /></div>
               </div>
@@ -103,6 +105,7 @@ export default function Login({ user }) {
             </div>
           </div>
         </div>
+        <div className='col-xl-2 col-lg-2 col-md-0 col-sm-0 col-0'></div>
       </div>
     </div>
   )
