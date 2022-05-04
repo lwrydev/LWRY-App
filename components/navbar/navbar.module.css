@@ -1,0 +1,88 @@
+.content {
+  box-shadow: 0px 3px 6px #00000029;
+  padding: 0 !important;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  position: fixed !important;
+  width: 100% !important;
+  top: 0 !important;
+}
+
+.maxWidth {
+  max-width: 100% !important;
+}
+
+.userBtn {
+  font-size: 16px;
+  letter-spacing: 0px;
+  color: #15355F;
+  opacity: 1;
+  padding: 10px;
+}
+
+.menu {
+  border-bottom: 4px #fff solid;
+}
+
+.focusMenu {
+  border-bottom: 4px #15355F solid;
+}
+
+.focusMenu>a {
+  color: #15355F !important;
+}
+
+.profileImg {
+  width: 28px;
+  height: 28px;
+  background: var(--primary) 0% 0% no-repeat padding-box;
+  background: #15355F 0% 0% no-repeat padding-box;
+  opacity: 1;
+  border-radius: 14px;
+}
+
+.profileImg2 {
+  width: 40px;
+  height: 40px;
+  background: var(--primary) 0% 0% no-repeat padding-box;
+  background: #15355F 0% 0% no-repeat padding-box;
+  opacity: 1;
+  border-radius: 20px;
+}
+
+.accountBox {
+  width: 300px;
+  position: absolute;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  opacity: 1;
+  margin-left: -90px;
+  padding: 20px 5px;
+}
+
+.nameProfile {
+  font-size: 18px;
+  letter-spacing: 0px;
+  color: #9B9B9B;
+  opacity: 1;
+  padding: 5px 0;
+}
+
+.accountListMenu {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #434343;
+  opacity: 1;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 7px;
+}
+
+.accountListMenu:hover {
+  background: #EBEBEB 0% 0% no-repeat padding-box;
+  cursor: pointer;
+}

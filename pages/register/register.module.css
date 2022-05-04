@@ -1,0 +1,276 @@
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 97vh;
+  width: 100vw;
+}
+
+@media (max-width: 500px) {
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 95vh;
+    width: 100vw;
+  }  
+}
+
+.regisBlock {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 20px;
+  opacity: 1;
+  padding: 24px;
+  max-width: 410px;
+  margin: 24px 0;
+}
+
+.regisTitle {
+  color: var(--primary-text);
+  text-align: left;
+  font-weight: bold;
+  font-size: 24px;
+  letter-spacing: 0px;
+  color: #434343;
+  opacity: 1;
+  margin-bottom: 8px;
+}
+
+.qaText {
+  color: var(--normal-text);
+  text-align: left;
+  font-size: 14px;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  opacity: 1;
+  margin-right: 7px;
+}
+
+.loginText {
+  color: var(--text-element);
+  text-align: left;
+  font-size: 14px;
+  letter-spacing: 0px;
+  color: #406EAC;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.createTitle {
+  color: var(--primary-text);
+  text-align: left;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 0px;
+  color: #434343;
+  opacity: 1;
+  margin: 10px 0;
+}
+
+.createGrp {
+  display: flex;
+}
+
+.createIcon {
+  margin: 0 6px;
+  display: flex;
+  opacity: 0.9;
+}
+
+.createIcon:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.logoEmail {
+  position: absolute;
+  display: flex;
+  margin-left: 16px;
+}
+
+.inputEmail {
+  height: 48px;
+  width: 350px;
+  background: var(--element) 0% 0% no-repeat padding-box;
+  border: 1px solid var(--element-border);
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 11px;
+  opacity: 1;
+  padding: 0 10px 0 48px;
+}
+
+.inputName {
+  display: flex;
+  align-items: center;
+}
+
+.inputFirstName {
+  height: 48px;
+  width: 350px;
+  background: var(--element) 0% 0% no-repeat padding-box;
+  border: 1px solid var(--element-border);
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 11px 11px 0px 0px;
+  opacity: 1;
+  padding: 0 10px 0 48px;
+}
+
+.inputLastName {
+  height: 48px;
+  width: 350px;
+  background: var(--element) 0% 0% no-repeat padding-box;
+  border: 1px solid var(--element-border);
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 0px 0px 11px 11px;
+  opacity: 1;
+  padding: 0 10px 0 48px;
+}
+
+.passQuality {
+  color: var(--normal-text);
+  text-align: left;
+  font-size: 16px;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  opacity: 1;
+  padding-top: 8px;
+  display: flex;
+}
+
+.qaBox {
+  background: var(--hover-text) 0% 0% no-repeat padding-box;
+  background: #BDBDBD 0% 0% no-repeat padding-box;
+  border-radius: 6px;
+  opacity: 1;
+  align-items: center;
+  width: 14px;
+  height: 18px;
+  padding-left: 3px;
+  margin: 2px 0 0 5px;
+  cursor: pointer;
+}
+
+.qaT {
+  color: var(--element);
+  text-align: left;
+  font-size: 14px;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 1;
+}
+
+.qaBar {
+  width: 98px;
+  height: 8px;
+  border-radius: 3px;
+  opacity: 1;
+  margin: 0 3px 4px 0;
+  background: #E0E0E0 0% 0% no-repeat padding-box;
+}
+
+.barLow {
+  background: #D06262 0% 0% no-repeat padding-box;
+}
+
+.barMd {
+  background: #F7B729 0% 0% no-repeat padding-box;
+}
+
+.barHg {
+  background: #56A314 0% 0% no-repeat padding-box;
+}
+
+.colorLow {
+  background: #D06262 0% 0% no-repeat padding-box;
+}
+
+.colorMd {
+  background: #F7B729 0% 0% no-repeat padding-box;
+}
+
+.colorHg {
+  background: #56A314 0% 0% no-repeat padding-box;
+}
+
+.policyBlock {
+  display: flex;
+  margin-top: 10px;
+}
+
+.polCheck {
+  margin-right: 8px;
+}
+
+.polText {
+  font-size: 16px;
+  letter-spacing: 0px;
+  opacity: 1;
+  color: #6E6E6E;
+  margin-right: 5px;
+}
+
+.polTextLink {
+  font-size: 16px;
+  letter-spacing: 0px;
+  opacity: 1;
+  color: #406EAC;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.createAcc {
+  width: 107px;
+  height: 36px;
+  background: #0A66E2 0% 0% no-repeat padding-box;
+  border-radius: 13px;
+  opacity: 1;
+  margin-top: 10px;
+}
+
+.resultBlock {
+  max-width: 450px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 20px;
+  opacity: 1;
+  padding: 40px;
+  margin: 20px;
+}
+
+.tyMsg {
+  font-size: 32px;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  opacity: 1;
+}
+
+.verifyText {
+  font-size: 16px;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  opacity: 1;
+  margin-bottom: 20px;
+}
+
+.loginBtn {
+  width: 170px;
+  height: 36px;
+  background: #0A66E2 0% 0% no-repeat padding-box;
+  border-radius: 13px;
+  opacity: 1;
+  margin-top: 10px;
+}
+
+.notMatch {
+  border: 2px solid red;
+}

@@ -1,79 +1,109 @@
-import { useState } from 'react';
 import styles from './login.module.css'
-import { Form, Button } from 'react-bootstrap'
+import Image from 'next/image'
 
-import { Google } from 'react-bootstrap-icons'
+//icon
+import IconEmail from '../../assets/logo/email.svg'
+import IconGoogle from '../../assets/logo/google.svg'
+import IconFacebook2 from '../../assets/logo/facebook_sq.svg'
+import IconLine from '../../assets/logo/line.svg'
+import IconApple from '../../assets/logo/Icon_metro_apple.svg'
 
+import { Button, Form } from 'react-bootstrap'
+import { useEffect, useState } from 'react'
 import { useRouter } from "next/router"
+import { useWindowSize } from 'usehooks-ts'
+import Link from 'next/link'
+import LawliveryApp from '../../components/lawliveryApp/LawliveryApp'
 
-import { firebase } from '../../config/firebase';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+export default function Login({ user }) {
+  const [landscape, setLandscape] = useState(false)
+  const { width, height } = useWindowSize()
 
-const auth = getAuth();
-const provider = new GoogleAuthProvider()
-
-export default function Login(props) {
-  const [user, setUser] = useState(null)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
 
   const router = useRouter()
 
-  const submit = () => {
-    console.log('test');
-  }
+  useEffect(() => {
+    if (user) {
+      router.push('/home')
+    }
+  }, [])
 
-  const loginWithGoogle = () => {
-    signInWithPopup(auth, provider).then(result => {
-      router.push('/')
-    }).catch(error => {
-      
+  useEffect(() => {
+    if (width > height) {
+      setLandscape(true)
+    } else {
+      setLandscape(false)
+    }
+  }, [width])
+
+  const nextLogin = (e) => {
+    e.preventDefault()
+    router.push({
+      pathname: '/login/pw',
+      query: { email: email }
     })
   }
 
   return (
-    <div className={styles.container}>
-      <Form
-        className={styles.form}
-        onSubmit={() => submit()}
-      >
-        <div className={styles.titleLogin}>LOGIN</div>
-        <Form.Control
-          className={styles.input}
-          required
-          type="text"
-          aria-describedby="passwordHelpBlock"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-          placeholder='USERNAME'
-        />
-        <Form.Control
-          className={styles.input}
-          required
-          type="password"
-          aria-describedby="passwordHelpBlock"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          placeholder='PASSWORD'
-        />
-        <Button
-          className={styles.btnSubmit}
-          type='submit'
-        >
-          LOGIN
-        </Button>
-        <div className={styles.forget}><a className={styles.fotgotText}>Forgot password?</a></div>
-        <div>
-          <Button
-            className={styles.btnGoogle}
-            variant="outline-dark"
-            onClick={() => loginWithGoogle()}
-          >
-            <Google className={styles.googleLogo} />
-            <div className={styles.googleText}>LOGIN WITH GOOGLE</div>
-          </Button>
+    <div className={styles.content}>
+      <div className='h-100 row align-items-center w-100'>
+        <div className={landscape ? "col-md-6 h-100 d-none justify-content-center align-items-center d-md-flex" : "d-none"}>
+          <LawliveryApp />
         </div>
-      </Form>
+        <div className={landscape ? "col-md-6" : "d-flex justify-content-center align-items-center w-100"}>
+          <div className={styles.loginBlock}>
+            <div className={styles.loginTitle}>เข้าสู่ระบบ</div>
+            <div className='d-flex'>
+              <div className={styles.qaText}>ยังไม่มีบัญชีใช่หรือไม่?</div>
+              <Link href='/register'>
+                <div className={styles.createText}>สร้างบัญชี</div>
+              </Link>
+            </div>
+            <Form onSubmit={nextLogin}>
+              <div className='d-flex align-items-center'>
+                <input
+                  className={styles.inputEmail}
+                  placeholder='Email'
+                  type='email'
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+                <div className={styles.logoEmail}><Image src={IconEmail} /></div>
+              </div>
+              <div className='d-flex justify-content-end'>
+                <Button
+                  className={styles.nextButton}
+                  type='submit'
+                >
+                  ถัดไป
+                </Button>
+              </div>
+            </Form>
+            <div>
+              <div className={styles.line}>
+                <div className={styles.orText}>หรือ</div>
+              </div>
+            </div>
+            <div className={styles.googleBtn + ' ' + styles.btn} variant="light">
+              <Image src={IconGoogle} />
+              <div className={styles.googleTitle}>เข้าสู่ระบบด้วย Google</div>
+            </div>
+            <div className={styles.facebookBtn + ' ' + styles.btn} variant="primary">
+              <Image src={IconFacebook2} />
+              <div className={styles.facebookTitle}>เข้าสู่ระบบด้วย Facebook</div>
+            </div>
+            <div className={styles.lineBtn + ' ' + styles.btn} variant="success">
+              <Image src={IconLine} />
+              <div className={styles.lineTitle}>เข้าสู่ระบบด้วย Line</div>
+            </div>
+            <div className={styles.appleBtn + ' ' + styles.btn} variant="dark">
+              <Image src={IconApple} />
+              <div className={styles.appleTitle}>เข้าสู่ระบบด้วย Apple</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,11 +1,20 @@
-import Link from "next/link"
-import { Button } from "react-bootstrap"
+import { useEffect } from "react"
 import styles from './home.module.css'
+import { useRouter } from "next/router"
 
 export default function Home({ user }) {
+
+  useEffect(() => {
+    if (!user) {
+      router.replace('/login')
+    }
+  }, [user])
+
+  const router = useRouter()
+
   return (
     <div className={styles.container}>
-      <Button href={user ? '/initconsulting' : '/login'} variant="outline-primary">บริการให้คำปรึกษาเบื้องต้น</Button>
+      <div className={styles.nameTitle}>ยินดีต้อนรับสู่บัญชีของคุณ, {user ? user.displayName : ''}</div>
     </div>
   )
 }
