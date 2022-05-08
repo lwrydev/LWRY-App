@@ -2,8 +2,9 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  background: #F5F5F5 0% 0% no-repeat padding-box;
+  background: #F8F8F8 0% 0% no-repeat padding-box;
   flex-wrap: wrap;
+  margin-top: 15px;
 }
 
 .item {

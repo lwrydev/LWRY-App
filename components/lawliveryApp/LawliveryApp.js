@@ -12,7 +12,7 @@ export default function LawliveryApp() {
   return (
     <div>
       <div className='row'>
-        <Image src={IconLawliveryApp} />
+        <Image src={IconLawliveryApp} height='80' width='320' />
       </div>
       <div>
         <Image src={IconGooglePlay} />

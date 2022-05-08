@@ -11,14 +11,12 @@ import IconLock from '../../assets/logo/lock.svg'
 import { Button, Form } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
 import { useRouter } from "next/router"
-import { useWindowSize } from 'usehooks-ts'
 import LawliveryApp from '../../components/lawliveryApp/LawliveryApp'
 
 const auth = getAuth()
 
 export default function pw({ user, setUser }) {
-  const [landscape, setLandscape] = useState(false)
-  const { width, height } = useWindowSize()
+  const [onload, setOnload] = useState(false)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -36,15 +34,8 @@ export default function pw({ user, setUser }) {
     }
   }, [])
 
-  useEffect(() => {
-    if (width > height) {
-      setLandscape(true)
-    } else {
-      setLandscape(false)
-    }
-  }, [width])
-
   const submitPassword = (e) => {
+    setOnload(true)
     e.preventDefault()
     signInWithEmailAndPassword(auth, email, password).then(userData => {
       setUser(userData)
@@ -52,7 +43,9 @@ export default function pw({ user, setUser }) {
       console.log(userData);
       setSessionUser(userData)
       router.replace('/')
+      setOnload(false)
     }).catch(() => {
+      setOnload(false)
       alert('รหัสผ่านไม่ถูกต้อง')
     })
   }
@@ -73,10 +66,11 @@ export default function pw({ user, setUser }) {
   return (
     <div className={styles.content}>
       <div className='h-100 row align-items-center w-100'>
-        <div className={landscape ? "col-md-6 h-100 d-none justify-content-center align-items-center d-md-flex" : "d-none"}>
+        <div className='col-xl-2 col-lg-1 col-md-0 col-sm-0 col-0'></div>
+        <div className="col-xl-5 col-lg-6 col-md-6 col-sm-0 col-0 h-100 d-none justify-content-center align-items-center d-md-flex">
           <LawliveryApp />
         </div>
-        <div className={landscape ? "col-md-6" : "d-flex justify-content-center align-items-center w-100"}>
+        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 d-flex justify-content-center align-items-center">
           <div className={styles.loginBlock}>
             <div className={styles.loginTitle}>กรอกรหัสผ่านของคุณ</div>
             <div className='d-flex align-items-center'>
@@ -106,7 +100,10 @@ export default function pw({ user, setUser }) {
                   className={styles.nextButton}
                   type='submit'
                 >
-                  ถัดไป
+                  {!onload ?
+                    <div>ถัดไป</div> :
+                    <div class={styles.onload + " spinner-border text-light"} role="status"></div>
+                  }
                 </Button>
               </div>
             </Form>
@@ -116,6 +113,7 @@ export default function pw({ user, setUser }) {
             </div>
           </div>
         </div>
+        <div className='col-xl-2 col-lg-2 col-md-0 col-sm-0 col-0'></div>
       </div>
     </div>
   )

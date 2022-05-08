@@ -2,7 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 94vh;
+  min-height: 94vh;
+  padding: 0 30px;
 }
 
 .loginBlock {
@@ -72,6 +73,11 @@
   background: #0A66E2 0% 0% no-repeat padding-box;
   border-radius: 13px;
   opacity: 1;
+}
+
+.onload {
+  width: 23px;
+  height: 23px;
 }
 
 .line {

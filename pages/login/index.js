@@ -15,7 +15,6 @@ import Link from 'next/link'
 import LawliveryApp from '../../components/lawliveryApp/LawliveryApp'
 
 export default function Login({ user }) {
-
   const [email, setEmail] = useState('')
 
   const router = useRouter()
@@ -37,11 +36,11 @@ export default function Login({ user }) {
   return (
     <div className={styles.content}>
       <div className='h-100 row align-items-center w-100'>
-        <div className='col-xl-2 col-lg-1 col-md-0 col-sm-0 col-0'></div>
-        <div className="col-xl-5 col-lg-6 col-md-6 col-sm-0 col-0 h-100 d-none justify-content-center align-items-center d-md-flex">
+        <div className='col-xl-2 col-lg-1 d-md-none col-sm-1 col-1'></div>
+        <div className="col-xl-5 col-lg-6 col-md-6 d-sm-none d-md-flex col-0 h-100 justify-content-center align-items-center d-none">
           <LawliveryApp />
         </div>
-        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 d-flex justify-content-center align-items-center">
+        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-10 col-10 d-flex justify-content-center align-items-center">
           <div className={styles.loginBlock}>
             <div className={styles.loginTitle}>เข้าสู่ระบบ</div>
             <div className='d-flex'>
@@ -94,7 +93,7 @@ export default function Login({ user }) {
             </div>
           </div>
         </div>
-        <div className='col-xl-2 col-lg-2 col-md-0 col-sm-0 col-0'></div>
+        <div className='col-xl-1 col-lg-1 d-md-none col-sm-1 col-1'></div>
       </div>
     </div>
   )
