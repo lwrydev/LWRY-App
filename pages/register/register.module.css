@@ -4,6 +4,12 @@
   justify-content: center;
   min-height: 94vh;
   padding: 0 30px;
+  background: #f8f8f8 0 0 no-repeat padding-box;
+}
+
+.onload {
+  width: 23px;
+  height: 23px;
 }
 
 @media (max-width: 500px) {

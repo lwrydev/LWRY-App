@@ -4,6 +4,7 @@
   justify-content: center;
   min-height: 94vh;
   padding: 0 30px;
+  background: #f8f8f8 0 0 no-repeat padding-box;
 }
 
 .loginBlock {

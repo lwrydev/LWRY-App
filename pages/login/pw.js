@@ -37,6 +37,8 @@ export default function pw({ user, setUser }) {
   const submitPassword = (e) => {
     setOnload(true)
     e.preventDefault()
+    console.log(email);
+    console.log(password);
     signInWithEmailAndPassword(auth, email, password).then(userData => {
       setUser(userData)
       sessionStorage.setItem('user', userData.user.uid)
@@ -102,7 +104,7 @@ export default function pw({ user, setUser }) {
                 >
                   {!onload ?
                     <div>ถัดไป</div> :
-                    <div class={styles.onload + " spinner-border text-light"} role="status"></div>
+                    <div className={styles.onload + " spinner-border text-light"} role="status"></div>
                   }
                 </Button>
               </div>

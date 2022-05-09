@@ -21,6 +21,8 @@ import { collection, getDocs, query, where } from 'firebase/firestore'
 import { firestore } from '../../config/firebase'
 
 export default function Registration() {
+  const [onload, setOnload] = useState(false)
+
   const [landscape, setLandscape] = useState(false)
   const { width, height } = useWindowSize()
 
@@ -61,6 +63,7 @@ export default function Registration() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setOnload(true)
     getDocs(query(userCol, where('email', '==', email))).then(users => {
       if (users.size == 0) {
         if (password == cfPassword) {
@@ -81,12 +84,16 @@ export default function Registration() {
               res.json().then(data => {
                 sendEmail(data)
               })
+            } else {
+              setOnload(false)
             }
           })
         } else {
           setMatch(false)
+          setOnload(false)
         }
       } else {
+        setOnload(false)
         alert('อีเมลนี้ได้ลงทะเบียนไปแล้ว')
       }
     })
@@ -106,6 +113,8 @@ export default function Registration() {
         pathname: '/register/regis_result',
         query: { email: email }
       })
+    } else {
+      setOnload(false)
     }
   }
 
@@ -257,7 +266,10 @@ export default function Registration() {
                   className={styles.createAcc}
                   type='submit'
                 >
-                  สร้างบัญชี
+                  {!onload ?
+                    <div>สร้างบัญชี</div> :
+                    <div class={styles.onload + " spinner-border text-light"} role="status"></div>
+                  }
                 </Button>
               </div>
             </Form>
