@@ -1,6 +1,10 @@
 import styles from './login.module.css'
 import Image from 'next/image'
 
+//firebase
+import '../../config/firebase'
+import { getAuth } from 'firebase/auth'
+
 //icon
 import IconEmail from '../../assets/logo/email.svg'
 import IconGoogle from '../../assets/logo/google.svg'
@@ -8,11 +12,19 @@ import IconFacebook2 from '../../assets/logo/facebook_sq.svg'
 import IconLine from '../../assets/logo/line.svg'
 import IconApple from '../../assets/logo/Icon_metro_apple.svg'
 
+import { collection, getDocs, query, where } from 'firebase/firestore'
+import { firestore } from '../../config/firebase'
+
 import { Button, Form } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
 import { useRouter } from "next/router"
 import Link from 'next/link'
 import LawliveryApp from '../../components/lawliveryApp/LawliveryApp'
+
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+const auth = getAuth()
 
 export default function Login({ user }) {
   const [email, setEmail] = useState('')
@@ -27,9 +39,19 @@ export default function Login({ user }) {
 
   const nextLogin = (e) => {
     e.preventDefault()
-    router.push({
-      pathname: '/login/pw',
-      query: { email: email }
+    getDocs(query(collection(firestore, 'users'), where('email', '==', email))).then(users => {
+      if (users.size > 0) {
+        users.docs.forEach(userRef => {
+          router.push({
+            pathname: '/login/pw',
+            query: { userRef: JSON.stringify({ email: userRef.data().email }) }
+          })
+        })
+      } else {
+        toast.error("อีเมลไม่ถูกต้อง", {
+          position: 'bottom-right'
+        })
+      }
     })
   }
 
@@ -70,6 +92,7 @@ export default function Login({ user }) {
                 </Button>
               </div>
             </Form>
+            <ToastContainer />
             <div>
               <div className={styles.line}>
                 <div className={styles.orText}>หรือ</div>

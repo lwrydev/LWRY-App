@@ -11,6 +11,10 @@ import IconLock from '../../assets/logo/lock.svg'
 import { Button, Form } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
 import { useRouter } from "next/router"
+
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 import LawliveryApp from '../../components/lawliveryApp/LawliveryApp'
 
 const auth = getAuth()
@@ -27,8 +31,8 @@ export default function pw({ user, setUser }) {
     if (user) {
       router.replace('/home')
     }
-    if (router.query.email && router.query.email.replace(' ', '')) {
-      setEmail(router.query.email)
+    if (router.query.userRef) {
+      setEmail(JSON.parse(router.query.userRef).email)
     } else {
       router.push('/login')
     }
@@ -37,18 +41,17 @@ export default function pw({ user, setUser }) {
   const submitPassword = (e) => {
     setOnload(true)
     e.preventDefault()
-    console.log(email);
-    console.log(password);
     signInWithEmailAndPassword(auth, email, password).then(userData => {
       setUser(userData)
       sessionStorage.setItem('user', userData.user.uid)
-      console.log(userData);
       setSessionUser(userData)
       router.replace('/')
       setOnload(false)
     }).catch(() => {
       setOnload(false)
-      alert('รหัสผ่านไม่ถูกต้อง')
+      toast.error("รหัสผ่านไม่ถูกต้อง", {
+        position: 'bottom-right'
+      })
     })
   }
 
@@ -109,6 +112,7 @@ export default function pw({ user, setUser }) {
                 </Button>
               </div>
             </Form>
+            <ToastContainer />
             <div className={styles.otherOptions}>
               <div className={styles.optionLink}>ตั้งรหัสผ่านของคุณใหม่</div>
               <div className={styles.optionLink}>เข้าสู่ระบบด้วยบัญชีอื่น</div>
