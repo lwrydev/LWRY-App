@@ -2,8 +2,9 @@ import styles from './login.module.css'
 import Image from 'next/image'
 
 //firebase
-import '../../config/firebase'
-import { getAuth } from 'firebase/auth'
+import { firestore } from '../../config/firebase'
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore'
 
 //icon
 import IconEmail from '../../assets/logo/email.svg'
@@ -11,9 +12,6 @@ import IconGoogle from '../../assets/logo/google.svg'
 import IconFacebook2 from '../../assets/logo/facebook_sq.svg'
 import IconLine from '../../assets/logo/line.svg'
 import IconApple from '../../assets/logo/Icon_metro_apple.svg'
-
-import { collection, getDocs, query, where } from 'firebase/firestore'
-import { firestore } from '../../config/firebase'
 
 import { Button, Form } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
@@ -25,8 +23,9 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const auth = getAuth()
+const provider = new GoogleAuthProvider()
 
-export default function Login({ user }) {
+export default function Login({ user, setUser }) {
   const [email, setEmail] = useState('')
 
   const router = useRouter()
@@ -52,6 +51,45 @@ export default function Login({ user }) {
           position: 'bottom-right'
         })
       }
+    })
+  }
+
+  const loginWithGoogle = () => {
+    signInWithPopup(auth, provider).then(result => {
+      const userData = result.user
+      getDoc(doc(firestore, 'users', userData.uid)).then(userRef => {
+        if (!userRef.data()) {
+          setDoc(doc(firestore, 'users', userData.uid), {
+            displayName: userData.displayName,
+            email: userData.email,
+            createdDate: new Date(),
+            updatedDate: new Date()
+          }).then(() => {
+            setUser(userData)
+            sessionStorage.setItem('user', userData.uid)
+            setSessionUser(userData)
+            router.replace('/')
+          })
+        } else {
+          setUser(userRef)
+          sessionStorage.setItem('user', userRef.uid)
+          setSessionUser(userRef)
+          router.replace('/')
+        }
+      })
+    })
+  }
+
+  const setSessionUser = (userData) => {
+    fetch('/api/redis/create_bykey', {
+      body: JSON.stringify({
+        key: userData.id,
+        user: userData
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
     })
   }
 
@@ -98,7 +136,7 @@ export default function Login({ user }) {
                 <div className={styles.orText}>หรือ</div>
               </div>
             </div>
-            <div className={styles.googleBtn + ' ' + styles.btn} variant="light">
+            <div className={styles.googleBtn + ' ' + styles.btn} variant="light" onClick={() => loginWithGoogle()}>
               <Image src={IconGoogle} />
               <div className={styles.googleTitle}>เข้าสู่ระบบด้วย Google</div>
             </div>

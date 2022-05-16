@@ -76,6 +76,7 @@ export default function Verified() {
             setDoc(doc(firestore, 'users', userData.user.uid), {
               firstname: user.firstname,
               lastname: user.lastname,
+              displayName: userData.user.displayName,
               email: user.email,
               createdDate: new Date(),
               updatedDate: new Date()
