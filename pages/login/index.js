@@ -32,7 +32,7 @@ export default function Login({ user, setUser }) {
 
   useEffect(() => {
     if (user) {
-      router.push('/home')
+      router.push('/')
     }
   }, [])
 

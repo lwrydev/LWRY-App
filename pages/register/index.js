@@ -17,10 +17,11 @@ import IconEmail from '../../assets/logo/email.svg'
 import IconPersonal from '../../assets/logo/personal.svg'
 import IconLock from '../../assets/logo/lock.svg'
 import { Form, Button } from 'react-bootstrap'
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore'
 import { firestore } from '../../config/firebase'
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 
-export default function Registration() {
+export default function Registration({ user, setUser }) {
   const [onload, setOnload] = useState(false)
 
   const [landscape, setLandscape] = useState(false)
@@ -37,7 +38,16 @@ export default function Registration() {
 
   const router = useRouter()
 
+  const auth = getAuth()
+  const provider = new GoogleAuthProvider()
+
   const userCol = collection(firestore, 'users')
+
+  useEffect(() => {
+    if (user) {
+      router.push('/')
+    }
+  }, [])
 
   useEffect(() => {
     if (width > height) {
@@ -118,6 +128,45 @@ export default function Registration() {
     }
   }
 
+  const signUpWithGoogle = () => {
+    signInWithPopup(auth, provider).then(result => {
+      const userData = result.user
+      getDoc(doc(firestore, 'users', userData.uid)).then(userRef => {
+        if (!userRef.data()) {
+          setDoc(doc(firestore, 'users', userData.uid), {
+            displayName: userData.displayName,
+            email: userData.email,
+            createdDate: new Date(),
+            updatedDate: new Date()
+          }).then(() => {
+            setUser(userData)
+            sessionStorage.setItem('user', userData.uid)
+            setSessionUser(userData)
+            router.replace('/')
+          })
+        } else {
+          setUser(userRef)
+          sessionStorage.setItem('user', userRef.uid)
+          setSessionUser(userRef)
+          router.replace('/')
+        }
+      })
+    })
+  }
+
+  const setSessionUser = (userData) => {
+    fetch('/api/redis/create_bykey', {
+      body: JSON.stringify({
+        key: userData.id,
+        user: userData
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    })
+  }
+
   return (
     <div className={styles.content}>
       <div className='h-100 row align-items-center w-100'>
@@ -135,7 +184,7 @@ export default function Registration() {
             </div>
             <div className={styles.createTitle}>สร้างบัญชีด้วยบัญชีโซเชียล</div>
             <div className={styles.createGrp}>
-              <div className={styles.createIcon}>
+              <div className={styles.createIcon} onClick={() => signUpWithGoogle()}>
                 <Image src={IconGoogle} width='50' />
               </div>
               <div className={styles.createIcon}>
