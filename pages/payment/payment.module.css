@@ -1,0 +1,36 @@
+.content {
+  padding: 80px 20px 16px 20px;
+  background: #F5F5F5 0% 0% no-repeat padding-box;
+  min-height: 90vh;
+}
+
+.paymentBox {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 15px;
+  padding: 60px 20px;
+  min-height: 78vh;
+}
+
+.paymentTitle {
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.paymentBtn {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  height: 36px;
+  background: #0A66E2 0% 0% no-repeat padding-box;
+  border-radius: 13px;
+  opacity: 1;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 35px;
+}

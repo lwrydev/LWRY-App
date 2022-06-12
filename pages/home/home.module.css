@@ -1,19 +1,287 @@
 .container {
-  padding: 120px 3% 50px 10%;
+  padding: 80px 20px 16px 20px;
   background: #F5F5F5 0% 0% no-repeat padding-box;
-  min-height: 100vh;
 }
 
 .nameTitle {
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 500;
   letter-spacing: 0px;
   color: #434343;
   opacity: 1;
+  padding: 2% 3%;
+}
+
+.serviceBox {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 15px;
+  padding: 20px 0;
+}
+
+.serviceTitle {
+  font-size: 30px;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0px;
+  color: #434343;
+  padding: 20px 0 20px 0;
+}
+
+.serviceDetail {
+  font-size: 16px;
+  font-weight: 300;
+  text-align: center;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+}
+
+.serviceItem {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 25px;
+  margin: 40px 10px 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.serviceItem:hover {
+  background: #F9F9F9;
+  border-radius: 12px;
+}
+
+.serviceItemTitle {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0px;
+  color: #406EAC;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.serviceItemDetail {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  text-align: center;
+}
+
+.btn {
+  height: 36px;
+  background: #0A66E2 0% 0% no-repeat padding-box;
+  border-radius: 13px;
+  opacity: 1;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 25px;
+}
+
+.btn2 {
+  height: 32px;
+  background: #0A66E2 0% 0% no-repeat padding-box;
+  border-radius: 13px;
+  opacity: 1;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 36px;
 }
 
 @media (max-width: 500px) {
   .nameTitle {
     font-size: 26px;
   }
+}
+
+.account {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 280px;
+  margin-left: 20px;
+}
+
+.profilePic {
+  background: #15355F 0% 0% no-repeat padding-box;
+  width: 70px !important;
+  height: 70px !important;
+  border-radius: 35px;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+
+.displayName {
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0px;
+  color: #434343;
+  padding: 10px 0 4px 0;
+}
+
+.editBtn {
+  font-size: 14px;
+  font-weight: 300;
+  text-align: center;
+  letter-spacing: 0px;
+  color: #406EAC;
+  cursor: pointer;
+  margin-bottom: 14px;
+}
+
+.line {
+  border: 1px solid #E0E0E0;
+}
+
+.profileDetail {
+  padding-bottom: 10px;
+}
+
+.emailTxt {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #434343;
+  margin-top: 10px;
+}
+
+.editBtnDetail {
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0px;
+  color: #406EAC;
+  cursor: pointer;
+}
+
+.menu {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  padding: 6px 20px 20px 20px;
+  margin-top: 16px;
+  max-width: 280px;
+  margin-left: 20px;
+}
+
+.menuTitle {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  margin-top: 14px;
+}
+
+.subMenuGrp {
+  margin-left: 20px;
+}
+
+.subMenu {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  cursor: pointer;
+  margin: 4px 0;
+}
+
+.caseList {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 15px;
+  padding: 20px 30px;
+}
+
+.caselistTitle {
+  letter-spacing: 0px;
+  color: #434343;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.caseBox {
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 18px;
+}
+
+.caseBox:hover {
+  background: #F9F9F9;
+}
+
+.menuCaseTitle {
+  letter-spacing: 0px;
+  color: #434343;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.caseSubTitle {
+  letter-spacing: 0px;
+  color: #9B9B9B;
+  font-size: 14px;
+  font-weight: 400;
+  margin-right: 6px;
+}
+
+.caseNo {
+  letter-spacing: 0px;
+  color: #406EAC;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.caseTypeText {
+  letter-spacing: 0px;
+  color: #434343;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 6px;
+}
+
+.caseStatusText {
+  letter-spacing: 0px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.caseLawyerText {
+  letter-spacing: 0px;
+  color: #406EAC;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.caseDetailsText {
+  letter-spacing: 0px;
+  color: #434343;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 6px;
+  margin-bottom: 8px;
+}
+
+.casePriceText {
+  letter-spacing: 0px;
+  color: #406EAC;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 6px 0 6px;
+}
+
+.paymentHistory {
+  letter-spacing: 0px;
+  color: #406EAC;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.mr16 {
+  margin-right: 16px;
 }

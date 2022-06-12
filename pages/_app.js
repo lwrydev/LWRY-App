@@ -21,6 +21,7 @@ export default function _app({ Component, pageProps }) {
   useEffect(() => {
     onAuthStateChanged(auth, userData => {
       setUser(userData)
+      console.log(userData);
       setLoading(false)
     })
   }, [user])

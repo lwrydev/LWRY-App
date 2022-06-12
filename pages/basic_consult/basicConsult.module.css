@@ -1,0 +1,186 @@
+.content {
+  padding: 80px 20px 16px 20px;
+  background: #F5F5F5 0% 0% no-repeat padding-box;
+  min-height: 90vh;
+}
+
+.termsBox {
+  margin-top: 50px;
+  padding: 40px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 15px;
+}
+
+.termsTitle {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #434343;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.termsDetail {
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+}
+
+.termsList {
+  margin-left: 50px;
+  padding: 30px 0;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background: #406EAC 0% 0% no-repeat padding-box;
+}
+
+.termItem {
+  font-size: 18px;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  margin-left: 16px;
+}
+
+.backwordBtn {
+  align-self: end;
+  padding: 0 20px;
+  color: #406EAC;
+  cursor: pointer;
+  font-weight: 300;
+}
+
+.btn {
+  height: 36px;
+  background: #0A66E2 0% 0% no-repeat padding-box;
+  border-radius: 13px;
+  opacity: 1;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 35px;
+}
+
+.consultTitle {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #434343;
+  margin-bottom: 10px;
+  height: 35px;
+}
+
+.dot2 {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background: #406EAC 0% 0% no-repeat padding-box;
+  margin-top: 13px;
+}
+
+.consultList {
+  padding: 10px 0;
+}
+
+.consultItem {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  margin-left: 16px;
+  padding: 5px 0;
+}
+
+.policyBlock {
+  display: flex;
+  margin-top: 10px;
+}
+
+.polCheck {
+  margin-right: 8px;
+}
+
+.polText {
+  font-size: 16px;
+  letter-spacing: 0px;
+  opacity: 1;
+  color: #6E6E6E;
+  margin-right: 5px;
+}
+
+.polTextLink {
+  font-size: 16px;
+  letter-spacing: 0px;
+  opacity: 1;
+  color: #406EAC;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.problemTitle {
+  letter-spacing: 0px;
+  color: #434343;
+  font-weight: 500;
+  font-size: 18px;
+  padding: 5px 0;
+}
+
+.questionDetails {
+  color: #434343;
+  font-weight: 300;
+}
+
+.uploadFile {
+  margin: 10px 0 30px 0;
+  width: 80px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  text-align: center;
+  padding: 15px 10px;
+  color: #6E6E6E;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.uploadFile:hover {
+  cursor: pointer;
+  background: #FAFAFA 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+}
+
+.questionText {
+  color: #434343 !important;
+  font-weight: 400 !important;
+}
+
+.closeQuestion {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: -12px;
+  margin-right: -6px;
+}
+
+.addQuestion {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.addQuestionBtn {
+  width: max-content;
+  letter-spacing: 0px;
+  color: #406EAC;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.addQuestionBtn:hover {
+  cursor: pointer;
+  font-weight: 400;
+}

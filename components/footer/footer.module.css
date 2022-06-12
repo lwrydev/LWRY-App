@@ -1,10 +1,13 @@
 .content {
-  display: flex;
-  justify-content: center;
-  width: 100%;
   background: #F8F8F8 0% 0% no-repeat padding-box;
-  flex-wrap: wrap;
-  padding-top: 15px;
+  width: 100% !important;
+  padding: 0 20px;
+}
+
+.contentAcc {
+  background: #F8F8F8 0% 0% no-repeat padding-box;
+  width: 100% !important;
+  margin-top: 16px;
 }
 
 .item {
@@ -16,4 +19,101 @@
   color: #434343;
   opacity: 1;
   margin: 0 10px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.account {
+  height: 100%;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  padding: 40px 20px;
+  margin-right: 6px;
+}
+
+.profilePic {
+  background: #15355F 0% 0% no-repeat padding-box;
+  width: 70px !important;
+  height: 70px !important;
+  border-radius: 35px;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+
+.displayName {
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0px;
+  color: #434343;
+  padding: 10px 0 4px 0;
+}
+
+.editBtn {
+  font-size: 14px;
+  font-weight: 300;
+  text-align: center;
+  letter-spacing: 0px;
+  color: #406EAC;
+  cursor: pointer;
+}
+
+.profileDetail {
+  padding-bottom: 10px;
+}
+
+.emailTxt {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #434343;
+}
+
+.editBtnDetail {
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0px;
+  color: #406EAC;
+  cursor: pointer;
+}
+
+.menu {
+  height: 100%;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  padding: 30px;
+  margin-left: 6px;
+}
+
+.menuTitle {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  margin-bottom: 8px;
+}
+
+.subMenuGrp {
+  margin-left: 20px;
+}
+
+.subMenu {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  cursor: pointer;
+  margin: 4px 0;
+}
+
+.lwry {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 30px 0 10px 0;
 }

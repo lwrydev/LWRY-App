@@ -14,7 +14,8 @@ export default function NavBar({ user }) {
 
   return (
     <Navbar expand="lg" className={styles.content}>
-      <Container className={styles.maxWidth}>
+      <div className="col-1"></div>
+      <Container className={styles.maxWidth + ' col-10'}>
         <Navbar.Brand><Image src={Logo} width='200' height='36' /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -24,7 +25,7 @@ export default function NavBar({ user }) {
               onClick={() => setSelectMenu('menu1')}
             >
               <Nav.Link>
-                รับคำปรึกษา
+                ภาพรวม
               </Nav.Link>
             </div>
             <div
@@ -32,7 +33,7 @@ export default function NavBar({ user }) {
               onClick={() => setSelectMenu('menu2')}
             >
               <Nav.Link>
-                เอกสาร
+                บัญชีและความปลอดภัย
               </Nav.Link>
             </div>
             <div
@@ -40,7 +41,7 @@ export default function NavBar({ user }) {
               onClick={() => setSelectMenu('menu3')}
             >
               <Nav.Link>
-                ว่าจ้างทนาย
+                ราคาและการชำระเงิน
               </Nav.Link>
             </div>
             <div
@@ -48,7 +49,7 @@ export default function NavBar({ user }) {
               onClick={() => setSelectMenu('menu4')}
             >
               <Nav.Link>
-                ราคา
+                เว็บไซต์หลัก
               </Nav.Link>
             </div>
           </Nav>
@@ -56,8 +57,7 @@ export default function NavBar({ user }) {
             <Nav.Item>
               <div onClick={() => setShowAccount(true)}>
                 <Nav.Link>
-                  <div className={styles.profileImg}></div>
-                  <div className={styles.userBtn}>{user.email}</div>
+                  <div className={styles.profileImg}>{user ? user.displayName[0] + user.displayName.slice(-1) : ''}</div>
                 </Nav.Link>
               </div>
               {showAccount ?
@@ -69,6 +69,7 @@ export default function NavBar({ user }) {
           </Nav>
         </Navbar.Collapse>
       </Container>
+      <div className="col-1"></div>
     </Navbar>
   )
 }
