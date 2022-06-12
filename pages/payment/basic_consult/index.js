@@ -1,7 +1,7 @@
 import { Button } from 'react-bootstrap'
-import styles from './payment.module.css'
+import styles from '../payment.module.css'
 
-export default function payment({ user }) {
+export default function basicConsult() {
   return (
     <div className={styles.content}>
       <div className='row'>
