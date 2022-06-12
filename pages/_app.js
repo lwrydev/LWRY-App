@@ -18,10 +18,15 @@ export default function _app({ Component, pageProps }) {
 
   const router = useRouter()
 
+  useEffect(()=> {
+    if (router.pathname == '/') {
+      router.push('/home/caselist')
+    }
+  }, [router])
+
   useEffect(() => {
     onAuthStateChanged(auth, userData => {
       setUser(userData)
-      console.log(userData);
       setLoading(false)
     })
   }, [user])

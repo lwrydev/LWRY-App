@@ -3,6 +3,7 @@ import { Navbar, Container, Nav } from "react-bootstrap"
 
 import styles from './navbar.module.css'
 import Image from 'next/image'
+import { useRouter } from "next/router"
 
 import AccountMenu from "./accountMenu/AccountMenu"
 
@@ -12,11 +13,20 @@ export default function NavBar({ user }) {
   const [selectMenu, setSelectMenu] = useState('menu1')
   const [showAccount, setShowAccount] = useState(false)
 
+  const router = useRouter()
+
   return (
     <Navbar expand="lg" className={styles.content}>
       <div className="col-1"></div>
       <Container className={styles.maxWidth + ' col-10'}>
-        <Navbar.Brand><Image src={Logo} width='200' height='36' /></Navbar.Brand>
+        <Navbar.Brand>
+          <Image
+            src={Logo}
+            width='200'
+            height='36'
+            onClick={() => router.push('/')}
+          />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto h-100">

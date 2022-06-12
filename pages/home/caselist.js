@@ -130,7 +130,7 @@ export default function caselist({ user }) {
               <Button
                 className={styles.btn2}
               >
-                <div onClick={() => console.log('test')}>เพิ่มบริการ</div>
+                <div onClick={() => router.push('/home')}>เพิ่มบริการ</div>
               </Button>
             </div>
             {cases.map((cs, index) => {

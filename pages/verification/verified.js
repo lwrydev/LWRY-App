@@ -79,7 +79,8 @@ export default function Verified() {
               displayName: userData.user.displayName,
               email: user.email,
               createdDate: new Date(),
-              updatedDate: new Date()
+              updatedDate: new Date(),
+              role: 'User'
             })
             updateProfile(userData.user, { displayName: user.firstname + ' ' + user.lastname }).then(() => {
               signOut(auth)
