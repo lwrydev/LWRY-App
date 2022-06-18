@@ -4,13 +4,17 @@ import Image from 'next/image'
 
 import { useRouter } from "next/router"
 
+import { firestore } from '../../config/firebase'
+import { deleteDoc, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
+
 //icon
 import IconFacebookCircle from '../../assets/logo/facebook_circle.svg'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export default function create() {
+export default function create({ user }) {
   const [termsChecked, setTermsChecked] = useState(false)
   const [conditionChecked, setConditionChecked] = useState(false)
+  const [details, setDetails] = useState('')
   const [questionList, setQuestionList] = useState([{ question: '' }])
 
   const router = useRouter()
@@ -18,13 +22,36 @@ export default function create() {
   const onInputQuestion = async (e, index) => {
     let questionsRef = questionList
     questionsRef[index].question = e.target.value
-    console.log(questionsRef[index]);
     await setQuestionList(questionsRef.map(item => item))
   }
 
   const onSubmitCase = (e) => {
     e.preventDefault()
-    router.push('/payment/basic_consult')
+    let id = new Date().getTime().toString()
+    setDoc(doc(firestore, 'cases', id), {
+      owner: user.ref,
+      caseNo: 'A-' + new Date().getTime().toString(36).toUpperCase(),
+      acceptPolicy: termsChecked,
+      acceptConditions: conditionChecked,
+      details: details,
+      type: 'consult',
+      typeTH: 'คำปรึกษาเบื้องต้น',
+      status: 'Pending Payment',
+      statusTH: 'รอการชำระเงิน',
+      questions: questionList,
+      docs: [],
+      pic: [],
+      payment: {
+        status: 'Pending',
+        statusTH: 'รอการชำระเงิน',
+        channel: '',
+        number: '',
+        price: 50 * questionList.length
+      },
+      createdDate: new Date()
+    }).then(() => {
+      router.push('/home/caselist')
+    })
   }
 
   return (
@@ -107,6 +134,8 @@ export default function create() {
                         style={{ height: '100px' }}
                         required
                         className={styles.questionDetails}
+                        value={details}
+                        onInput={e => setDetails(e.target.value)}
                       />
                     </FloatingLabel>
                     <div className={styles.uploadFile}>แนบไฟล์ เพิ่มเติม</div>

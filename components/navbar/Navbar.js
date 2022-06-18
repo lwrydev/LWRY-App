@@ -9,7 +9,7 @@ import AccountMenu from "./accountMenu/AccountMenu"
 
 import Logo from '../../assets/logo/lawlivery_app.svg'
 
-export default function NavBar({ user }) {
+export default function NavBar({ user, setUser }) {
   const [selectMenu, setSelectMenu] = useState('menu1')
   const [showAccount, setShowAccount] = useState(false)
 
@@ -56,7 +56,7 @@ export default function NavBar({ user }) {
             </div>
             <div
               className={selectMenu == 'menu4' ? styles.focusMenu : styles.menu}
-              onClick={() => setSelectMenu('menu4')}
+              onClick={() => window.location.assign(process.env.NEXT_PUBLIC_ENDPOINT_PUBLIC)}
             >
               <Nav.Link>
                 เว็บไซต์หลัก
@@ -67,11 +67,11 @@ export default function NavBar({ user }) {
             <Nav.Item>
               <div onClick={() => setShowAccount(true)}>
                 <Nav.Link>
-                  <div className={styles.profileImg}>{user ? user.displayName[0] + user.displayName.slice(-1) : ''}</div>
+                  <div className={styles.profileImg}>{user ? user.data().firstname[0] + user.data().lastname[0] : ''}</div>
                 </Nav.Link>
               </div>
               {showAccount ?
-                <AccountMenu setShowAccount={setShowAccount} user={user} />
+                <AccountMenu setShowAccount={setShowAccount} user={user} setUser={setUser} />
                 :
                 <></>
               }

@@ -7,8 +7,9 @@ import '../styles/globals.css'
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
-import "../config/firebase"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
+import { doc, getDoc } from "firebase/firestore"
+import { firestore } from "../config/firebase"
 
 const auth = getAuth()
 
@@ -17,19 +18,28 @@ export default function _app({ Component, pageProps }) {
   const [loading, setLoading] = useState(true)
 
   const router = useRouter()
-
-  useEffect(()=> {
-    if (router.pathname == '/') {
+  
+  useEffect(() => {
+    if (user && router.pathname == '/') {
       router.push('/home/caselist')
     }
   }, [router])
 
   useEffect(() => {
+    setLoading(true)
     onAuthStateChanged(auth, userData => {
-      setUser(userData)
-      setLoading(false)
+      console.log('test');
+      if (userData) {
+        getDoc(doc(firestore, 'users', userData.uid)).then(userRef => {
+          setUser(userRef)
+          setLoading(false)
+        })
+      } else {
+        router.replace('/login')
+        setLoading(false)
+      }
     })
-  }, [user])
+  }, [])
 
   return (
     <>

@@ -3,7 +3,10 @@ import styles from './basicConsult.module.css'
 
 import { useRouter } from "next/router"
 
-export default function term() {
+import { firestore } from '../../config/firebase'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
+
+export default function basicConsult({ user }) {
 
   const router = useRouter()
 

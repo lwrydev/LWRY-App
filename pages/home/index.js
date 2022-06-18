@@ -4,6 +4,9 @@ import Image from 'next/image'
 
 import { useRouter } from "next/router"
 
+import { firestore } from '../../config/firebase'
+import { collection, doc, getDoc, getDocs, limit, query, where } from "firebase/firestore"
+
 import IconFeature from '../../assets/logo/icon_feature.svg'
 import { Button } from "react-bootstrap"
 
@@ -20,7 +23,7 @@ export default function Home({ user }) {
   }, [user])
 
   const initAdviceService = () => {
-    router.push('/basic_consult/terms')
+    router.push('/basic_consult')
   }
 
   return (

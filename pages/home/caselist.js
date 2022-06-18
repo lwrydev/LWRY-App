@@ -4,113 +4,59 @@ import Image from 'next/image'
 
 import { useRouter } from "next/router"
 
+import { firestore } from '../../config/firebase'
+import { collection, doc, getDoc, getDocs, limit, orderBy, query, startAfter, startAt, where } from "firebase/firestore"
+
 //icon
 import IconGoogleCircle from '../../assets/logo/google_circle.svg'
 import IconFacebookCircle from '../../assets/logo/facebook_circle.svg'
+
 import { Button } from "react-bootstrap"
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 export default function caselist({ user }) {
+  const [userRef, setUserRef] = useState(null)
   const [cases, setCases] = useState([])
+  const [moreCase, setMoreCase] = useState(true)
+  const [onload, setOnload] = useState(true)
+  const [lastCase, setLastCase] = useState(null)
 
   const router = useRouter()
 
   useEffect(() => {
-    if (!user) {
-      router.replace('/login')
+    if (user) {
+      getDocs(query(collection(firestore, 'cases'), where('owner', '==', user.ref), limit(3))).then(caseList => {
+        if (caseList.docs.length == 0) {
+          router.replace('/home')
+        } else {
+          setLastCase(caseList.docs[caseList.docs.length - 1])
+          setCases(caseList.docs.map(cs => cs))
+          setOnload(false)
+        }
+      })
     }
-  }, [user])
-
-  useEffect(() => {
-    setCases([
-      {
-        caseNo: 'A-1H969HF',
-        type: 'คำปรึกษาเบื้องต้น',
-        status: 'รอการชำระเงิน',
-        desc: 'บริการที่ช่วยให้คำแนะนำสำหรับคนที่ กำลังประสบปัญหาทางกฎหมาย',
-        questions: [
-          { question: '' },
-          { question: '' },
-          { question: '' },
-          { question: '' },
-          { question: '' }
-        ],
-        lawyer: '',
-        docs: {
-          pic: [
-            { path: '' },
-            { path: '' },
-            { path: '' },
-            { path: '' }
-          ],
-          file: [
-            { path: '' }
-          ]
-        },
-        payment: {
-          status: 'รอการชำระเงิน',
-          channel: '',
-          number: '',
-          price: 550
-        }
-      },
-      {
-        caseNo: 'A-1H96963',
-        type: 'คำปรึกษาเบื้องต้น',
-        status: 'รอตอบรับจากทนายความ',
-        desc: 'บริการที่ช่วยให้คำแนะนำสำหรับคนที่ กำลังประสบปัญหาทางกฎหมายแต่ ไม่รู้ว่าจะต้องเริ่มต้น...',
-        questions: [
-          { question: '' },
-          { question: '' },
-          { question: '' }
-        ],
-        lawyer: 'ฤทธา ทำนอง',
-        docs: {
-          pic: [
-            { path: '' },
-            { path: '' },
-            { path: '' },
-            { path: '' }
-          ],
-          file: [
-            { path: '' }
-          ]
-        },
-        payment: {
-          status: 'ชำระแล้ว',
-          channel: 'QR-CODE',
-          number: 'QRC-019345',
-          price: 150
-        }
-      },
-      {
-        caseNo: 'A-1H19300',
-        type: 'คำปรึกษาเบื้องต้น',
-        status: 'ทนายได้ให้คำตอบแล้ว',
-        desc: 'บริการที่ช่วยให้คำแนะนำสำหรับคนที่ กำลังประสบปัญหาทางกฎหมาย',
-        questions: [
-          { question: '' }
-        ],
-        lawyer: 'ฤทธา ทำนอง',
-        docs: {
-          pic: [
-            { path: '' },
-            { path: '' },
-            { path: '' },
-            { path: '' }
-          ],
-          file: [
-            { path: '' }
-          ]
-        },
-        payment: {
-          status: 'ชำระแล้ว',
-          channel: 'CREDIT-CARD',
-          number: 'QRC-019345',
-          price: 50
-        }
-      }
-    ])
   }, [])
+
+  const fetchMoreCase = () => {
+    getDocs(query(collection(firestore, 'cases'), where('owner', '==', user.ref), startAfter(lastCase), limit(3))).then(caseList => {
+      if (caseList.docs.length == 0) {
+        setMoreCase(false)
+      } else {
+        setLastCase(caseList.docs[caseList.docs.length - 1])
+        setCases(cases.concat(caseList.docs.map(cs => cs)))
+      }
+    })
+  }
+
+  const onPressPay = (id) => {
+    console.log(id);
+    router.push({
+      pathname: '/payment/basic_consult',
+      query: {
+        caseId: id
+      }
+    })
+  }
 
   return (
     <div className={styles.container}>
@@ -125,7 +71,7 @@ export default function caselist({ user }) {
         <div className="col-1"></div>
         <div className="col-7">
           <div className={styles.caseList}>
-            <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center justify-content-between mb-3">
               <div className={styles.caselistTitle}>บริการของคุณ</div>
               <Button
                 className={styles.btn2}
@@ -133,99 +79,109 @@ export default function caselist({ user }) {
                 <div onClick={() => router.push('/home')}>เพิ่มบริการ</div>
               </Button>
             </div>
-            {cases.map((cs, index) => {
-              return <div
-                key={index}
-                className={styles.caseBox}
-              >
-                <div className="row">
-                  <div className="col-4">
-                    <div className={styles.mr16}>
-                      <div className={styles.menuCaseTitle}>คดีหมายเลข</div>
-                      <div className={styles.caseNo}>{cs.caseNo}</div>
-                      <div className="d-flex">
-                        <div className={styles.caseSubTitle}>ประเภทบริการ</div>
-                        <div className={styles.caseTypeText}>{cs.type}</div>
-                      </div>
-                      <div className="d-flex">
-                        <div className={styles.caseSubTitle}>สถานะ</div>
-                        <div className={styles.caseStatusText} style={cs.status == 'รอการชำระเงิน' ? { color: '#D89015' } : { color: '#406EAC' }}>{cs.status}</div>
-                      </div>
-                      <div className="d-flex">
-                        <div className={styles.caseSubTitle}>ทนายที่รับผิดชอบ</div>
-                        <div className={styles.caseLawyerText}>{cs.lawyer}</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-5">
-                    <div className={styles.mr16}>
-                      <div className={styles.menuCaseTitle}>รายละเอียด</div>
-                      <div className="d-flex">
-                        <div className={styles.caseDetailsText}>{cs.desc}</div>
-                      </div>
-                      <div className="d-flex">
-                        <div className={styles.caseSubTitle}>จำนวนคำถาม</div>
-                        <div className={styles.caseTypeText}>{cs.questions.length}</div>
-                        <div className={styles.caseTypeText}>คำถาม</div>
-                      </div>
-                      <div className="d-flex">
-                        <div className={styles.caseSubTitle}>จำนวนเอกสาร</div>
-                        <div className={styles.caseTypeText}>{cs.docs.pic.length}</div>
-                        <div className={styles.caseTypeText}>รูปภาพ,</div>
-                        <div className={styles.caseTypeText}>{cs.docs.file.length}</div>
-                        <div className={styles.caseTypeText}>เอกสาร</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-3">
-                    <div className={styles.mr16}>
-                      <div className={styles.menuCaseTitle}>การชำระเงิน</div>
-                      <div className="d-flex">
-                        <div className={styles.caseSubTitle}>สถานะ</div>
-                        <div className={styles.caseTypeText}>{cs.payment.status}</div>
-                      </div>
-                      <div className="d-flex">
-                        <div className={styles.caseSubTitle}>ช่องทาง</div>
-                        <div className={styles.caseTypeText}>{cs.payment.channel}</div>
-                      </div>
-                      <div className="d-flex">
-                        <div className={styles.caseSubTitle}>หมายเลข</div>
-                        <div className={styles.caseTypeText}>{cs.payment.number}</div>
-                      </div>
-                      <div className="d-flex align-items-center">
-                        <div className={styles.caseSubTitle}>จำนวน</div>
-                        <div className={styles.casePriceText}>{cs.payment.price}</div>
-                        <div className={styles.casePriceText}>บาท</div>
-                      </div>
-                      {cs.payment.status == 'ชำระแล้ว' ?
-                        <div className={styles.paymentHistory}>ดูประวัติการชำระเงิน</div>
-                        :
-                        <div>
-                          <Button
-                            className={styles.btn2}
-                          >
-                            <div>ชำระเงิน</div>
-                          </Button>
+            <InfiniteScroll
+              dataLength={cases.length}
+              next={() => fetchMoreCase()}
+              hasMore={moreCase}
+              loader={<h4>Loading...</h4>}
+              height={600}
+              endMessage={<></>}
+            >
+              {cases.map((cs, index) => {
+                return <div
+                  key={index}
+                  className={styles.caseBox}
+                >
+                  <div className="row">
+                    <div className="col-4">
+                      <div className={styles.mr16}>
+                        <div className={styles.menuCaseTitle}>คดีหมายเลข</div>
+                        <div className={styles.caseNo}>{cs.data().caseNo}</div>
+                        <div className="d-flex">
+                          <div className={styles.caseSubTitle}>ประเภทบริการ</div>
+                          <div className={styles.caseTypeText}>{cs.data().typeTH}</div>
                         </div>
-                      }
+                        <div className="d-flex">
+                          <div className={styles.caseSubTitle}>สถานะ</div>
+                          <div className={styles.caseStatusText} style={cs.data().status == 'Pending Payment' ? { color: '#D89015' } : { color: '#406EAC' }}>{cs.data().statusTH}</div>
+                        </div>
+                        <div className="d-flex">
+                          <div className={styles.caseSubTitle}>ทนายที่รับผิดชอบ</div>
+                          <div className={styles.caseLawyerText}>{cs.data().lawyer}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-5">
+                      <div className={styles.mr16}>
+                        <div className={styles.menuCaseTitle}>รายละเอียด</div>
+                        <div className="d-flex">
+                          <div className={styles.caseDetailsText}>{cs.data().details}</div>
+                        </div>
+                        <div className="d-flex">
+                          <div className={styles.caseSubTitle}>จำนวนคำถาม</div>
+                          <div className={styles.caseTypeText}>{cs.data().questions.length}</div>
+                          <div className={styles.caseTypeText}>คำถาม</div>
+                        </div>
+                        <div className="d-flex">
+                          <div className={styles.caseSubTitle}>จำนวนเอกสาร</div>
+                          <div className={styles.caseTypeText}>{cs.data().pic.length}</div>
+                          <div className={styles.caseTypeText}>รูปภาพ,</div>
+                          <div className={styles.caseTypeText}>{cs.data().docs.length}</div>
+                          <div className={styles.caseTypeText}>เอกสาร</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-3">
+                      <div className={styles.mr16}>
+                        <div className={styles.menuCaseTitle}>การชำระเงิน</div>
+                        <div className="d-flex">
+                          <div className={styles.caseSubTitle}>สถานะ</div>
+                          <div className={styles.caseTypeText}>{cs.data().payment.statusTH}</div>
+                        </div>
+                        <div className="d-flex">
+                          <div className={styles.caseSubTitle}>ช่องทาง</div>
+                          <div className={styles.caseTypeText}>{cs.data().payment.channel}</div>
+                        </div>
+                        <div className="d-flex">
+                          <div className={styles.caseSubTitle}>หมายเลข</div>
+                          <div className={styles.caseTypeText}>{cs.data().payment.number}</div>
+                        </div>
+                        <div className="d-flex align-items-center">
+                          <div className={styles.caseSubTitle}>จำนวน</div>
+                          <div className={styles.casePriceText}>{cs.data().payment.price}</div>
+                          <div className={styles.casePriceText}>บาท</div>
+                        </div>
+                        {cs.data().payment.status == 'paid' ?
+                          <div className={styles.paymentHistory}>ดูประวัติการชำระเงิน</div>
+                          :
+                          <div>
+                            <Button
+                              className={styles.btn2}
+                              onClick={() => onPressPay(cs.id)}
+                            >
+                              <div>ชำระเงิน</div>
+                            </Button>
+                          </div>
+                        }
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            })}
+              })}
+            </InfiniteScroll>
           </div>
         </div>
         <div className="col-3">
           <div className={styles.account}>
             <div className='row justify-content-center align-content-center'>
-              <div className={styles.profilePic}>{user ? user.displayName[0] + user.displayName.slice(-1) : ''}</div>
-              <div className={styles.displayName}>{user ? user.displayName : ''}</div>
+              <div className={styles.profilePic}>{user ? user.data().firstname[0] + user.data().lastname[0] : ''}</div>
+              <div className={styles.displayName}>{user ? user.data().displayName : ''}</div>
               <div className={styles.editBtn}>แก้ไขโปรไฟล์</div>
             </div>
             <div className={styles.line}></div>
             <div className=''>
               <div className={styles.profileDetail}>
-                <div className={styles.emailTxt}>{user ? user.email : ''}</div>
+                <div className={styles.emailTxt}>{user ? user.data().email : ''}</div>
                 <div className={styles.editBtnDetail}>เปลี่ยนอีเมล</div>
               </div>
               <div className={styles.profileDetail}>

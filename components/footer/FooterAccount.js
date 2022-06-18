@@ -16,13 +16,13 @@ export default function FooterAccount({ user }) {
               <div className={styles.account}>
                 <div className='row'>
                   <div className='col-4 row justify-content-center align-content-center'>
-                    <div className={styles.profilePic}>{user ? user.displayName[0] + user.displayName.slice(-1) : ''}</div>
-                    <div className={styles.displayName}>{user ? user.displayName : ''}</div>
+                    <div className={styles.profilePic}>{user ? user.data().firstname[0] + user.data().lastname[0] : ''}</div>
+                    <div className={styles.displayName}>{user ? user.data().displayName : ''}</div>
                     <div className={styles.editBtn}>แก้ไขโปรไฟล์</div>
                   </div>
                   <div className='col-8'>
                     <div className={styles.profileDetail}>
-                      <div className={styles.emailTxt}>{user ? user.email : ''}</div>
+                      <div className={styles.emailTxt}>{user ? user.data().email : ''}</div>
                       <div className={styles.editBtnDetail}>เปลี่ยนอีเมล</div>
                     </div>
                     <div className={styles.profileDetail}>

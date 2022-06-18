@@ -2,8 +2,9 @@ import styles from './login.module.css'
 import Image from 'next/image'
 
 //firebase
-import '../../config/firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { doc, getDoc } from 'firebase/firestore'
+import { firestore } from '../../config/firebase'
 
 //icon
 import IconLock from '../../assets/logo/lock.svg'
@@ -42,11 +43,11 @@ export default function pw({ user, setUser }) {
     setOnload(true)
     e.preventDefault()
     signInWithEmailAndPassword(auth, email, password).then(userData => {
-      setUser(userData)
-      sessionStorage.setItem('user', userData.user.uid)
-      setSessionUser(userData)
-      router.replace('/')
-      setOnload(false)
+      getDoc(doc(firestore, 'users', userData.user.uid)).then(userRef => {
+        setUser(userRef)
+        router.replace('/')
+        setOnload(false)
+      })
     }).catch(() => {
       setOnload(false)
       toast.error("รหัสผ่านไม่ถูกต้อง", {
