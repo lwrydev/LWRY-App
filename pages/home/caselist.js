@@ -25,7 +25,7 @@ export default function caselist({ user }) {
 
   useEffect(() => {
     if (user) {
-      getDocs(query(collection(firestore, 'cases'), where('owner', '==', user.ref), limit(3))).then(caseList => {
+      getDocs(query(collection(firestore, 'cases'), limit(3))).then(caseList => {
         if (caseList.docs.length == 0) {
           router.replace('/home')
         } else {
@@ -49,9 +49,8 @@ export default function caselist({ user }) {
   }
 
   const onPressPay = (id) => {
-    console.log(id);
     router.push({
-      pathname: '/payment/basic_consult',
+      pathname: '/basic_consult/payment',
       query: {
         caseId: id
       }
@@ -63,7 +62,7 @@ export default function caselist({ user }) {
       <div className="row">
         <div className="col-1"></div>
         <div className="col-10">
-          <div className={styles.nameTitle}>ยินดีต้อนรับสู่บัญชีของคุณ, {user ? user.displayName : ''}</div>
+          <div className={styles.nameTitle}>ยินดีต้อนรับสู่บัญชีของคุณ, {user ? user.data().displayName : ''}</div>
         </div>
         <div className="col-1"></div>
       </div>
@@ -151,7 +150,7 @@ export default function caselist({ user }) {
                           <div className={styles.casePriceText}>{cs.data().payment.price}</div>
                           <div className={styles.casePriceText}>บาท</div>
                         </div>
-                        {cs.data().payment.status == 'paid' ?
+                        {cs.data().payment.status == 'Paid' ?
                           <div className={styles.paymentHistory}>ดูประวัติการชำระเงิน</div>
                           :
                           <div>
@@ -174,7 +173,7 @@ export default function caselist({ user }) {
         <div className="col-3">
           <div className={styles.account}>
             <div className='row justify-content-center align-content-center'>
-              <div className={styles.profilePic}>{user ? user.data().firstname[0] + user.data().lastname[0] : ''}</div>
+              <div className={styles.profilePic}>{user ? user.data().displayName.split(' ')[0][0] + (user.data().displayName.split(' ').length > 0 ? user.data().displayName.split(' ')[1][0] : '') : ''}</div>
               <div className={styles.displayName}>{user ? user.data().displayName : ''}</div>
               <div className={styles.editBtn}>แก้ไขโปรไฟล์</div>
             </div>

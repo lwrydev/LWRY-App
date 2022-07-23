@@ -15,7 +15,7 @@ export default function Verification() {
   const router = useRouter()
 
   useEffect(() => {
-    if (router.asPath.split('?token=')[1]) {
+    if (router.asPath.split('?token=')[1].split('&utm_campaign')[0]) {
       verify()
     } else {
       router.replace('/login')
@@ -25,7 +25,7 @@ export default function Verification() {
   const verify = async () => {
     fetch('/api/token/decode', {
       body: JSON.stringify({
-        token: router.asPath.split('?token=')[1]
+        token: router.asPath.split('?token=')[1].split('&utm_campaign')[0]
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ export default function Verification() {
   const confirm = () => {
     router.replace({
       pathname: '/verification/verified',
-      query: { token: router.asPath.split('?token=')[1] }
+      query: { token: router.asPath.split('?token=')[1].split('&utm_campaign')[0] }
     })
   }
 

@@ -18,7 +18,7 @@ export default function AccountMenu({ setShowAccount, user, setUser }) {
       onMouseLeave={() => setShowAccount(false)}
     >
       <div className='d-flex align-items-center flex-column '>
-        <div className={styles.profileImg2}>{user ? user.data().firstname[0] + user.data().lastname[0] : ''}</div>
+        <div className={styles.profileImg2}>{user ? user.data().displayName.split(' ')[0][0] + (user.data().displayName.split(' ').length > 0 ? user.data().displayName.split(' ')[1][0] : '') : ''}</div>
         <div className={styles.nameProfile}>{user.data().displayName}</div>
       </div>
       <div>

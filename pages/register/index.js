@@ -35,6 +35,7 @@ export default function Registration({ user, setUser }) {
   const [pwLevel, setPwLevel] = useState(0)
   const [polCheck, setPolCheck] = useState(false)
   const [match, setMatch] = useState(true)
+  const [qaRequire, setQaRequire] = useState(false)
 
   const router = useRouter()
 
@@ -133,16 +134,18 @@ export default function Registration({ user, setUser }) {
       const userData = result.user
       getDoc(doc(firestore, 'users', userData.uid)).then(userRef => {
         if (!userRef.data()) {
+          console.log(userData);
           setDoc(doc(firestore, 'users', userData.uid), {
             displayName: userData.displayName,
             email: userData.email,
             createdDate: new Date(),
-            updatedDate: new Date()
+            updatedDate: new Date(),
+            role: 'User',
           }).then(() => {
             setUser(userData)
             sessionStorage.setItem('user', userData.uid)
             setSessionUser(userData)
-            router.replace('/')
+            //router.replace('/')
           })
         } else {
           setUser(userRef)
@@ -233,9 +236,53 @@ export default function Registration({ user, setUser }) {
               </div>
               <div className={styles.passQuality}>
                 <div>คุณภาพรหัสผ่าน</div>
-                <div className={styles.qaBox}>
+                <div
+                  className={styles.qaBox}
+                  onMouseOver={() => setQaRequire(true)}
+                  onMouseLeave={() => setQaRequire(false)}
+                >
                   <div className={styles.qaT}>?</div>
                 </div>
+                {qaRequire ?
+                  <div>
+                    <div className={styles.qaRequireBox}>
+                      <div className='row'>
+                        <div className='col-1'>
+                          <div className={styles.dotRed}></div>
+                        </div>
+                        <div className='col-11'>
+                          <div className={styles.qaRequireText}>
+                            <text className={styles.qaRequireText1}>อ่อน</text>
+                            <text className={styles.qaRequireText2}> : มีความยาวน้อยกว่า 8 หลัก มีตัวเลข 0-9 หรือตัวอักษรภาษาอังกฤษ อย่างใดอย่างหนึ่ง</text>
+                          </div>
+                        </div>
+                      </div>
+                      <div className='row'>
+                        <div className='col-1'>
+                          <div className={styles.dotYellow}></div>
+                        </div>
+                        <div className='col-11'>
+                          <div className={styles.qaRequireText}>
+                            <text className={styles.qaRequireText1}>ปานกลาง</text>
+                            <text className={styles.qaRequireText2}> : มีความยาวมากกว่า 8 หลัก มีตัวเลข 0-9 หรือตัวอักษรภาษาอังกฤษ อย่างใดอย่างหนึ่ง</text>
+                          </div>
+                        </div>
+                      </div>
+                      <div className='row'>
+                        <div className='col-1'>
+                          <div className={styles.dotGreen}></div>
+                        </div>
+                        <div className='col-11'>
+                          <div className={styles.qaRequireText}>
+                            <text className={styles.qaRequireText1}>แข็งแรง</text>
+                            <text className={styles.qaRequireText2}> : มีความยาวมากกว่า 8 หลัก มีตัวเลข 0-9 ตัวอักษรภาษาอังกฤษ ทั้งตัวพิมพ์ใหญ่ และตัวพิมพ์เล็ก รวมกัน</text>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> :
+                  <></>
+                }
               </div>
               {pwLevel == 0 ?
                 <div className='d-flex'>

@@ -31,7 +31,7 @@ export default function Home({ user }) {
       <div className="row">
         <div className="col-1"></div>
         <div className="col-10">
-          <div className={styles.nameTitle}>ยินดีต้อนรับสู่บัญชีของคุณ, {user ? user.displayName : ''}</div>
+          <div className={styles.nameTitle}>ยินดีต้อนรับสู่บัญชีของคุณ, {user ? user.data().displayName : ''}</div>
           <div className={styles.serviceBox}>
             <div className="row justify-content-center align-items-center">
               <div className={styles.serviceTitle}>เลือกใช้บริการเพื่อเริ่มต้นการใช้งานของคุณ</div>

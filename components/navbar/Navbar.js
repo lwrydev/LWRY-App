@@ -67,7 +67,7 @@ export default function NavBar({ user, setUser }) {
             <Nav.Item>
               <div onClick={() => setShowAccount(true)}>
                 <Nav.Link>
-                  <div className={styles.profileImg}>{user ? user.data().firstname[0] + user.data().lastname[0] : ''}</div>
+                  <div className={styles.profileImg}>{user ? user.data().displayName.split(' ')[0][0] + (user.data().displayName.split(' ').length > 0 ? user.data().displayName.split(' ')[1][0] : '') : ''}</div>
                 </Nav.Link>
               </div>
               {showAccount ?

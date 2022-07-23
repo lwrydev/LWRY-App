@@ -23,7 +23,13 @@ body {
   }
 }
 
-.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl,
+.container-xxl {
   padding: 0;
 }
 
@@ -47,12 +53,17 @@ body {
 
 .input-group-text {
   background: #E0E0E0 0% 0% no-repeat padding-box;
-  height: 46px;
+  height: 76px;
 }
 
-.input-group>.form-control, .input-group>.form-select {
+.input-group>.form-control,
+.input-group>.form-select {
   height: 46px;
   padding-top: 9px;
   font-weight: 300;
   color: #6E6E6E;
+}
+
+.form-floating>label {
+  padding: 0.6rem .75rem;
 }

@@ -16,7 +16,7 @@ export default function FooterAccount({ user }) {
               <div className={styles.account}>
                 <div className='row'>
                   <div className='col-4 row justify-content-center align-content-center'>
-                    <div className={styles.profilePic}>{user ? user.data().firstname[0] + user.data().lastname[0] : ''}</div>
+                    <div className={styles.profilePic}>{user ? user.data().displayName.split(' ')[0][0] + (user.data().displayName.split(' ').length > 0 ? user.data().displayName.split(' ')[1][0] : '') : ''}</div>
                     <div className={styles.displayName}>{user ? user.data().displayName : ''}</div>
                     <div className={styles.editBtn}>แก้ไขโปรไฟล์</div>
                   </div>

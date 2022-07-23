@@ -18,7 +18,7 @@ export default function _app({ Component, pageProps }) {
   const [loading, setLoading] = useState(true)
 
   const router = useRouter()
-  
+
   useEffect(() => {
     if (user && router.pathname == '/') {
       router.push('/home/caselist')
@@ -28,14 +28,16 @@ export default function _app({ Component, pageProps }) {
   useEffect(() => {
     setLoading(true)
     onAuthStateChanged(auth, userData => {
-      console.log('test');
       if (userData) {
         getDoc(doc(firestore, 'users', userData.uid)).then(userRef => {
           setUser(userRef)
+          console.log(userRef.data());
           setLoading(false)
         })
       } else {
-        router.replace('/login')
+        if (!router.pathname.includes('/verification')) {
+          router.replace('/login')
+        }
         setLoading(false)
       }
     })

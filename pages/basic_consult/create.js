@@ -5,11 +5,17 @@ import Image from 'next/image'
 import { useRouter } from "next/router"
 
 import { firestore } from '../../config/firebase'
-import { deleteDoc, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 
 //icon
-import IconFacebookCircle from '../../assets/logo/facebook_circle.svg'
-import { useEffect, useState } from 'react'
+import IconClose from '../../assets/logo/close.svg'
+import IconBook from '../../assets/logo/book.svg'
+import IconEdit from '../../assets/logo/edit.svg'
+import IconMoneyCheck from '../../assets/logo/money_check.svg'
+import IconCorrect from '../../assets/logo/correct.svg'
+import IconUpload from '../../assets/logo/upload.svg'
+
+import { useState } from 'react'
 
 export default function create({ user }) {
   const [termsChecked, setTermsChecked] = useState(false)
@@ -50,12 +56,46 @@ export default function create({ user }) {
       },
       createdDate: new Date()
     }).then(() => {
-      router.push('/home/caselist')
+      router.push({
+        pathname: '/basic_consult/payment',
+        query: {
+          caseId: id
+        }
+      })
     })
   }
 
   return (
     <div className={styles.content}>
+      <div className='row'>
+        <div className='col-2'></div>
+        <div className='col-8'>
+          <div className='row'>
+            <div className='d-flex align-items-center justify-content-center'>
+              <div className={styles.progressBoxActive}>
+                <Image src={IconBook} />
+                <div className={styles.progressTxtActive}>ข้อตกลงการใช้บริการ</div>
+              </div>
+              <div className={styles.progressLineActive}></div>
+              <div className={styles.progressBoxActive}>
+                <Image src={IconEdit} />
+                <div className={styles.progressTxtActive}>กรอกข้อมูลเพื่อรับคำแนะนำเบื้องต้น</div>
+              </div>
+              <div className={styles.progressLineInActive}></div>
+              <div className={styles.progressBoxInActive}>
+                <Image src={IconMoneyCheck} />
+                <div className={styles.progressTxtInActive}>ชำระค่าบริการ</div>
+              </div>
+              <div className={styles.progressLineInActive}></div>
+              <div className={styles.progressBoxInActive}>
+                <Image src={IconCorrect} />
+                <div className={styles.progressTxtInActive}>เสร็จสิ้น</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='col-2'></div>
+      </div>
       <div className="row">
         <div className="col-1"></div>
         <div className="col-10">
@@ -138,16 +178,19 @@ export default function create({ user }) {
                         onInput={e => setDetails(e.target.value)}
                       />
                     </FloatingLabel>
-                    <div className={styles.uploadFile}>แนบไฟล์ เพิ่มเติม</div>
+                    <div className={styles.uploadFile}>
+                      <Image src={IconUpload} />
+                      <div>แนบไฟล์ เพิ่มเติม</div>
+                    </div>
                     <div className={styles.problemTitle}>คำถามที่ต้องการคำแนะนำเบื้องต้น</div>
                     {questionList.map((question, index) => {
                       return <div key={index}>
                         {index != 0 || questionList.length > 1 ?
                           <div className={styles.closeQuestion}>
                             <Image
-                              src={IconFacebookCircle}
-                              height='20'
-                              width='20'
+                              src={IconClose}
+                              height='30'
+                              width='30'
                               style={{ cursor: 'pointer' }}
                               onClick={() => setQuestionList(questionList.length > 1 ? questionList.slice(0, index).concat(questionList.slice(index + 1)) : questionList)}
                             />
@@ -158,6 +201,7 @@ export default function create({ user }) {
                           <InputGroup.Text id="basic-addon1">คำถามที่ {index + 1}</InputGroup.Text>
                           <Form.Control
                             className={styles.questionText}
+                            style={{ height: '76px' }}
                             placeholder="คำถามที่ต้องการปรึกษา..."
                             as="textarea"
                             aria-label="question"
