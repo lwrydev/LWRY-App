@@ -35,7 +35,7 @@ export default function create({ user }) {
     e.preventDefault()
     let id = new Date().getTime().toString()
     setDoc(doc(firestore, 'cases', id), {
-      owner: user.ref,
+      owner: user.id,
       caseNo: 'A-' + new Date().getTime().toString(36).toUpperCase(),
       acceptPolicy: termsChecked,
       acceptConditions: conditionChecked,
@@ -54,7 +54,8 @@ export default function create({ user }) {
         number: '',
         price: 50 * questionList.length
       },
-      createdDate: new Date()
+      createdDate: new Date(),
+      changedDate: new Date()
     }).then(() => {
       router.push({
         pathname: '/basic_consult/payment',

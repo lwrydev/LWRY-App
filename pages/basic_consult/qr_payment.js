@@ -39,7 +39,8 @@ export default function QrPayment() {
         statusTH: 'ชำระแล้ว'
       },
       status: 'Waiting Lawer',
-      statusTH: 'รอตอบรับจากทนายความ'
+      statusTH: 'รอตอบรับจากทนายความ',
+      changedDate: new Date()
     }).then(() => {
       router.replace({
         pathname: '/basic_consult/payment_success',

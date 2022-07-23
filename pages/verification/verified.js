@@ -79,7 +79,7 @@ export default function Verified() {
               displayName: user.firstname + ' ' + user.lastname,
               email: user.email,
               createdDate: new Date(),
-              updatedDate: new Date(),
+              changedDate: new Date(),
               role: 'User'
             })
             updateProfile(userData.user, { displayName: user.firstname + ' ' + user.lastname }).then(() => {

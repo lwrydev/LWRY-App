@@ -33,7 +33,8 @@ export default function basicConsult() {
         channel: caseRef.data().payment.channel,
         number: caseRef.data().payment.number,
         price: caseRef.data().payment.price
-      }
+      },
+      changedDate: new Date()
     }).then(() => {
       router.replace('/home/caselist')
     })

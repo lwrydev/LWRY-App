@@ -63,7 +63,7 @@ export default function Login({ user, setUser }) {
             displayName: userData.displayName,
             email: userData.email,
             createdDate: new Date(),
-            updatedDate: new Date()
+            changedDate: new Date()
           }).then(() => {
             setUser(userData)
             sessionStorage.setItem('user', userData.uid)

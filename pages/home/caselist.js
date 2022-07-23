@@ -25,7 +25,7 @@ export default function caselist({ user }) {
 
   useEffect(() => {
     if (user) {
-      getDocs(query(collection(firestore, 'cases'), limit(3))).then(caseList => {
+      getDocs(query(collection(firestore, 'cases'), where('owner', '==', user.id), limit(3))).then(caseList => {
         if (caseList.docs.length == 0) {
           router.replace('/home')
         } else {
@@ -38,7 +38,7 @@ export default function caselist({ user }) {
   }, [])
 
   const fetchMoreCase = () => {
-    getDocs(query(collection(firestore, 'cases'), where('owner', '==', user.ref), startAfter(lastCase), limit(3))).then(caseList => {
+    getDocs(query(collection(firestore, 'cases'), where('owner', '==', user.id), startAfter(lastCase), limit(3))).then(caseList => {
       if (caseList.docs.length == 0) {
         setMoreCase(false)
       } else {

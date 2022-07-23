@@ -81,7 +81,7 @@ export default function Payment({ user }) {
         case: caseRef.ref,
         createdDate: new Date(),
         changedDate: new Date(),
-        owner: user.ref,
+        owner: user.id,
         price: totalAfterDiscount,
         paymentType: paymentType,
         status: 'pending'
