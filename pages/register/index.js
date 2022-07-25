@@ -21,6 +21,9 @@ import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase
 import { firestore } from '../../config/firebase'
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 export default function Registration({ user, setUser }) {
   const [onload, setOnload] = useState(false)
 
@@ -100,18 +103,22 @@ export default function Registration({ user, setUser }) {
             }
           })
         } else {
-          setMatch(false)
           setOnload(false)
+          toast.error("รหัสผ่านไม่ตรงกัน", {
+            position: 'bottom-right'
+          })
         }
       } else {
         setOnload(false)
-        alert('อีเมลนี้ได้ลงทะเบียนไปแล้ว')
+        toast.error("อีเมลนี้ได้ลงทะเบียนไปแล้ว", {
+          position: 'bottom-right'
+        })
       }
     })
   }
 
   const sendEmail = async (req) => {
-    const res = await fetch('/api/email/send', {
+    const res = await fetch('/api/email/verification', {
       body: JSON.stringify(req),
       headers: {
         'Content-Type': 'application/json',
@@ -368,6 +375,7 @@ export default function Registration({ user, setUser }) {
                   }
                 </Button>
               </div>
+              <ToastContainer />
             </Form>
           </div>
         </div>

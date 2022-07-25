@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 94vh;
+  min-height: 91vh;
   padding: 0 30px;
   background: #f8f8f8 0 0 no-repeat padding-box;
 }
@@ -210,12 +210,15 @@
 }
 
 .profileImg {
-  width: 40px;
-  height: 40px;
-  background: var(--primary) 0% 0% no-repeat padding-box;
   background: #15355F 0% 0% no-repeat padding-box;
-  opacity: 1;
-  border-radius: 20px;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 35px;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
 }
 
 .accBlock {

@@ -1,4 +1,4 @@
-import styles from './basicConsult.module.css'
+import styles from './payment.module.css'
 import Image from 'next/image'
 
 import { useRouter } from "next/router"
@@ -32,7 +32,7 @@ export default function QrPayment() {
   const onPaid = () => {
     updateDoc(caseRef.ref, {
       payment: {
-        channel: 'QR-CODE',
+        channel: 'QR-Code',
         number: '',
         price: caseRef.data().payment.price,
         status: 'Paid',

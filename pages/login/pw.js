@@ -25,6 +25,7 @@ export default function pw({ user, setUser }) {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [userRef, setUserRef] = useState(null)
 
   const router = useRouter()
 
@@ -34,8 +35,9 @@ export default function pw({ user, setUser }) {
     }
     if (router.query.userRef) {
       setEmail(JSON.parse(router.query.userRef).email)
+      setUserRef(JSON.parse(router.query.userRef))
     } else {
-      router.push('/login')
+      //router.push('/login')
     }
   }, [])
 
@@ -69,6 +71,13 @@ export default function pw({ user, setUser }) {
     })
   }
 
+  const onPressResetPassword = () => {
+    router.push({
+      pathname: '/reset_password',
+      query: { email: email }
+    })
+  }
+
   return (
     <div className={styles.content}>
       <div className='h-100 row align-items-center w-100'>
@@ -80,7 +89,7 @@ export default function pw({ user, setUser }) {
           <div className={styles.loginBlock}>
             <div className={styles.loginTitle}>กรอกรหัสผ่านของคุณ</div>
             <div className='d-flex align-items-center'>
-              <div className={styles.profileImg}></div>
+              <div className={styles.profileImg}>{userRef ? userRef.displayName.split(' ')[0][0] + (userRef.displayName.split(' ').length > 0 ? userRef.displayName.split(' ')[1][0] : '') : ''}</div>
               <div className={styles.accBlock}>
                 <div className={styles.accText}>บัญชีผู้ใช้</div>
                 <div className={styles.emailText}>{email}</div>
@@ -115,8 +124,8 @@ export default function pw({ user, setUser }) {
             </Form>
             <ToastContainer />
             <div className={styles.otherOptions}>
-              <div className={styles.optionLink}>ตั้งรหัสผ่านของคุณใหม่</div>
-              <div className={styles.optionLink}>เข้าสู่ระบบด้วยบัญชีอื่น</div>
+              <div className={styles.optionLink} onClick={() => onPressResetPassword()}>ตั้งรหัสผ่านของคุณใหม่</div>
+              <div className={styles.optionLink} onClick={() => router.replace('/login')}>เข้าสู่ระบบด้วยบัญชีอื่น</div>
             </div>
           </div>
         </div>

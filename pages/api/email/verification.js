@@ -18,7 +18,7 @@ export default async function send(req, res) {
         "Body": [
           {
             "ContentType": "HTML",
-            "Content": '<p style="max-width: 420px;">สวัสดี, คุณ ' + req.body.firstname + '<br><br>คุณได้ทำการลงทะเบียนเพื่อใช้บริการเกี่ยวกับการรับปรึกษาทางกฎหมาย ของ lawlivery เมื่อวันจันทร์ที่ 2 พฤษภาคม 2565 เวลา 14:09 น.<br>กรุณกดปุ่ม "ยืนยัน" ด้านล่างภายใน 24 ชั่วโมง เพื่อทำการยืนยัน email ของท่าน</p><br><br>' + '<div style="display: flex;justify-content: space-around;"><a style="background: #0A66E2;border-radius: 13px;padding: 10px 60px;text-align: center;color: #FFFFFF;text-decoration: none;font-size: 16px;" href="' + process.env.ENDPOINT + '/verification/?token=' + token + '" target="_blank"' + '>ยืนยัน</a></div><br><br><p>regards, Lawlivery</p>',
+            "Content": '<p style="max-width: 420px;">สวัสดี, คุณ ' + req.body.firstname + '<br><br>คุณได้ทำการลงทะเบียนเพื่อใช้บริการเกี่ยวกับการรับปรึกษาทางกฎหมาย ของ lawlivery เมื่อ' + new Date().toLocaleDateString('th-TH', {year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'}) + ' เวลา ' + new Date().getHours() + ':' + new Date().getMinutes() + ' น.<br>กรุณกดปุ่ม "ยืนยัน" ด้านล่างภายใน 24 ชั่วโมง เพื่อทำการยืนยัน email ของท่าน</p><br><br>' + '<div style="display: flex;justify-content: space-around;"><a style="background: #0A66E2;border-radius: 13px;padding: 10px 60px;text-align: center;color: #FFFFFF;text-decoration: none;font-size: 16px;" href="' + process.env.ENDPOINT + '/verification/?token=' + token + '" target="_blank"' + '>ยืนยัน</a></div><br><br><p>regards, Lawlivery</p>',
             "Charset": "string"
           }
         ],

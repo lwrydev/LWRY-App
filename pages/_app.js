@@ -35,7 +35,7 @@ export default function _app({ Component, pageProps }) {
           setLoading(false)
         })
       } else {
-        if (!router.pathname.includes('/verification')) {
+        if (!(router.pathname.includes('/verification') || router.pathname.includes('/register'))) {
           router.replace('/login')
         }
         setLoading(false)

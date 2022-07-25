@@ -1,4 +1,4 @@
-import styles from './basicConsult.module.css'
+import styles from './payment.module.css'
 import Image from 'next/image'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -14,6 +14,10 @@ import IconPaymentCreditCard from '../../assets/logo/payment_credit_card.svg'
 import IconBanking from '../../assets/logo/banking.svg'
 import IconCreditCard from '../../assets/logo/credit_card.svg'
 import IconQRCode from '../../assets/logo/qrcode.svg'
+import IconKbank from '../../assets/logo/kbank.svg'
+import IconSCB from '../../assets/logo/scb.svg'
+import IconKT from '../../assets/logo/krungthai.svg'
+import IconKMA from '../../assets/logo/kma.svg'
 
 import { useEffect, useState } from 'react'
 
@@ -26,6 +30,7 @@ export default function Payment({ user }) {
   const [caseRef, setCase] = useState(null)
   const [selectPayment, setSelectPayment] = useState(false)
   const [paymentType, setPaymentType] = useState('')
+  const [paymentPage, setPaymentPage] = useState('')
 
   const [phone, setPhone] = useState('')
   const [address1, setAddress1] = useState('')
@@ -61,6 +66,13 @@ export default function Payment({ user }) {
   const selectedPaymentType = (pType) => {
     setSelectPayment(false)
     setPaymentType(pType)
+    if (pType == 'P01') {
+      setPaymentPage('account_transfer')
+    } else if (pType == 'P02') {
+      setPaymentPage('creditcard_payment')
+    } else if (pType == 'P03') {
+      setPaymentPage('qr_payment')
+    }
   }
 
   const onInputCoupon = () => {
@@ -87,7 +99,7 @@ export default function Payment({ user }) {
         status: 'pending'
       }).then(() => {
         router.push({
-          pathname: '/basic_consult/qr_payment',
+          pathname: '/payment/' + paymentPage,
           query: { case: caseRef.id }
         })
       })
@@ -195,6 +207,20 @@ export default function Payment({ user }) {
                             <div className='col-10'>
                               <div className={styles.paymentItemTitle}>โอนเงินผ่านธนาคาร</div>
                               <div className={styles.paymentItemDetail}>สามารถทำการชำระค่าบริการตามรายละเอียดเลขที่บัญชีธนาคาร ด้วยตู้ ATM หรือ Mobile Banking</div>
+                              <div className='d-flex'>
+                                <div className={styles.iconBank}>
+                                  <Image src={IconKbank} width='30' />
+                                </div>
+                                <div className={styles.iconBank}>
+                                  <Image src={IconSCB} width='30' />
+                                </div>
+                                <div className={styles.iconBank}>
+                                  <Image src={IconKT} width='30' />
+                                </div>
+                                <div className={styles.iconBank}>
+                                  <Image src={IconKMA} width='30' />
+                                </div>
+                              </div>
                             </div>
                           </div> :
                           paymentType == 'P02' ?

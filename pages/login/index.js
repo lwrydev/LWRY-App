@@ -43,7 +43,7 @@ export default function Login({ user, setUser }) {
         users.docs.forEach(userRef => {
           router.push({
             pathname: '/login/pw',
-            query: { userRef: JSON.stringify({ email: userRef.data().email }) }
+            query: { userRef: JSON.stringify(userRef.data()) }
           })
         })
       } else {

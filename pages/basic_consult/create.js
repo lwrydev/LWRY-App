@@ -58,7 +58,7 @@ export default function create({ user }) {
       changedDate: new Date()
     }).then(() => {
       router.push({
-        pathname: '/basic_consult/payment',
+        pathname: '/payment',
         query: {
           caseId: id
         }
