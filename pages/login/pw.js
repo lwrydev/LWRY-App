@@ -72,9 +72,31 @@ export default function pw({ user, setUser }) {
   }
 
   const onPressResetPassword = () => {
-    router.push({
-      pathname: '/reset_password',
-      query: { email: email }
+    const code = ('00000' + Math.floor(Math.random() * 999999)).slice(-6)
+    fetch('/api/email/reset_password', {
+      body: JSON.stringify({
+        ...userRef,
+        code: code
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    }).then(() => {
+      fetch('/api/redis/create_bykey', {
+        body: JSON.stringify({
+          key: email,
+          value: code
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      })
+      router.push({
+        pathname: '/reset_password',
+        query: { email: email }
+      })
     })
   }
 
