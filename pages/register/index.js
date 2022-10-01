@@ -96,7 +96,7 @@ export default function Registration({ user, setUser }) {
           }).then(res => {
             if (res.status == 200) {
               res.json().then(data => {
-                sendEmail(data)
+                sendEmail({...data, date: new Date().toLocaleDateString('th-TH', {year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'}) + ' เวลา ' + new Date().getHours() + ':' + ('0' + new Date().getMinutes()).slice(-2)})
               })
             } else {
               setOnload(false)
@@ -259,8 +259,7 @@ export default function Registration({ user, setUser }) {
                         </div>
                         <div className='col-11'>
                           <div className={styles.qaRequireText}>
-                            <text className={styles.qaRequireText1}>อ่อน</text>
-                            <text className={styles.qaRequireText2}> : มีความยาวน้อยกว่า 8 หลัก มีตัวเลข 0-9 หรือตัวอักษรภาษาอังกฤษ อย่างใดอย่างหนึ่ง</text>
+                            <div className={styles.qaRequireText2}><label className={styles.qaRequireText1}>อ่อน</label> : มีความยาวน้อยกว่า 8 หลัก มีตัวเลข 0-9 หรือตัวอักษรภาษาอังกฤษ อย่างใดอย่างหนึ่ง</div>
                           </div>
                         </div>
                       </div>
@@ -270,8 +269,7 @@ export default function Registration({ user, setUser }) {
                         </div>
                         <div className='col-11'>
                           <div className={styles.qaRequireText}>
-                            <text className={styles.qaRequireText1}>ปานกลาง</text>
-                            <text className={styles.qaRequireText2}> : มีความยาวมากกว่า 8 หลัก มีตัวเลข 0-9 หรือตัวอักษรภาษาอังกฤษ อย่างใดอย่างหนึ่ง</text>
+                            <div className={styles.qaRequireText2}><label className={styles.qaRequireText1}>ปานกลาง</label> : มีความยาวมากกว่า 8 หลัก มีตัวเลข 0-9 หรือตัวอักษรภาษาอังกฤษ อย่างใดอย่างหนึ่ง</div>
                           </div>
                         </div>
                       </div>
@@ -281,8 +279,7 @@ export default function Registration({ user, setUser }) {
                         </div>
                         <div className='col-11'>
                           <div className={styles.qaRequireText}>
-                            <text className={styles.qaRequireText1}>แข็งแรง</text>
-                            <text className={styles.qaRequireText2}> : มีความยาวมากกว่า 8 หลัก มีตัวเลข 0-9 ตัวอักษรภาษาอังกฤษ ทั้งตัวพิมพ์ใหญ่ และตัวพิมพ์เล็ก รวมกัน</text>
+                            <div className={styles.qaRequireText2}><label className={styles.qaRequireText1}>แข็งแรง</label> : มีความยาวมากกว่า 8 หลัก มีตัวเลข 0-9 ตัวอักษรภาษาอังกฤษ ทั้งตัวพิมพ์ใหญ่ และตัวพิมพ์เล็ก รวมกัน</div>
                           </div>
                         </div>
                       </div>

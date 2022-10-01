@@ -48,10 +48,10 @@ export default function Payment({ user }) {
     getDoc(doc(firestore, 'cases', router.asPath.split('?caseId=')[1])).then(caseData => {
       if (caseData.data() && caseData.data().payment.status == 'Pending') {
         setCase(caseData)
-        setPrice(caseData.data().payment.price)
-        setVat(caseData.data().payment.price * 0.07)
-        setTotal(caseData.data().payment.price + (caseData.data().payment.price * 0.07))
-        setTotalAfterDiscount((caseData.data().payment.price + (caseData.data().payment.price * 0.07)) - discountPrice)
+        setPrice(caseData.data().payment.price * 100 / 107)
+        setVat(caseData.data().payment.price - (caseData.data().payment.price * 100 / 107))
+        setTotal(caseData.data().payment.price)
+        setTotalAfterDiscount(caseData.data().payment.price - discountPrice)
       } else {
         router.replace('/home/caselist')
       }

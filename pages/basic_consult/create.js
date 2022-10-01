@@ -1,6 +1,7 @@
 import { Button, FloatingLabel, Form, InputGroup } from 'react-bootstrap'
 import styles from './basicConsult.module.css'
 import Image from 'next/image'
+import Resizer from "react-image-file-resizer"
 
 import { useRouter } from "next/router"
 
@@ -15,15 +16,29 @@ import IconMoneyCheck from '../../assets/logo/money_check.svg'
 import IconCorrect from '../../assets/logo/correct.svg'
 import IconUpload from '../../assets/logo/upload.svg'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 export default function create({ user }) {
   const [termsChecked, setTermsChecked] = useState(false)
   const [conditionChecked, setConditionChecked] = useState(false)
   const [details, setDetails] = useState('')
+  const [files, setFiles] = useState([])
   const [questionList, setQuestionList] = useState([{ question: '' }])
 
   const router = useRouter()
+  const refFile = useRef()
+
+  const onUploadFile = () => {
+    refFile.current.click()
+  }
+
+  const uploadFile = (e) => {
+    setFiles(files.concat(...e.target.files))
+  }
+
+  const removeFile = (index) => {
+    setFiles(files.length > 0 ? files.slice(0, index).concat(files.slice(index + 1)) : [])
+  }
 
   const onInputQuestion = async (e, index) => {
     let questionsRef = questionList
@@ -179,10 +194,32 @@ export default function create({ user }) {
                         onInput={e => setDetails(e.target.value)}
                       />
                     </FloatingLabel>
-                    <div className={styles.uploadFile}>
-                      <Image src={IconUpload} />
-                      <div>แนบไฟล์ เพิ่มเติม</div>
+                    <div className='d-flex'>
+                      {files.map((file, index) => {
+                        return <div
+                          key={index}
+                          className={styles.uploadFile}
+                          onClick={() => onUploadFile()}
+                        >
+                          <Image src={IconUpload} />
+                          <div>{file.name}</div>
+                        </div>
+                      })}
+                      <div
+                        className={styles.uploadFile}
+                        onClick={() => onUploadFile()}
+                      >
+                        <Image src={IconUpload} />
+                        <div>แนบไฟล์ เพิ่มเติม</div>
+                      </div>
                     </div>
+                    <input
+                      ref={refFile}
+                      type="file"
+                      multiple
+                      style={{ display: 'none' }}
+                      onChange={e => uploadFile(e)}
+                    />
                     <div className={styles.problemTitle}>คำถามที่ต้องการคำแนะนำเบื้องต้น</div>
                     {questionList.map((question, index) => {
                       return <div key={index}>

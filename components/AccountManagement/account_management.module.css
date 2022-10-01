@@ -1,0 +1,92 @@
+.informationBox {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  padding: 20px 30px;
+  margin-bottom: 16px;
+}
+
+.titleMenu {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0px;
+  color: #434343;
+}
+
+.detailsMenu {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  padding: 16px 0;
+}
+
+.AccountInformationBox {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 16px;
+  margin: 0 20px;
+}
+
+.itemBox {
+  padding: 16px;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.lastItemBox {
+  padding: 16px;
+}
+
+.titleSubInformation {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #9B9B9B;
+}
+
+.titleEdit {
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  cursor: pointer;
+}
+
+.valueInformation {
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #434343;
+}
+
+.profilePic {
+  width: 60px;
+  height: 60px;
+  background: #15355F 0% 0% no-repeat padding-box;
+  border-radius: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+  font-size: 30px;
+}
+
+.noted {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0px;
+  color: #C0C0C0;
+  padding: 20px 30px;
+}
+
+.removeSession {
+  font-size: 14px;
+  letter-spacing: 0px;
+  color: #0A66E2;
+  border: 1px solid #0A66E2;
+  border-radius: 12px;
+  width: fit-content;
+  padding: 6px 16px;
+  margin: 30px 0 0 10px;
+  background: transparent;
+}
