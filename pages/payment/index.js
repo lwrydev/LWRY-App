@@ -22,7 +22,7 @@ import IconKMA from '../../assets/logo/kma.svg'
 import { useEffect, useState } from 'react'
 
 import { firestore } from '../../config/firebase'
-import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore'
 import { Button, FloatingLabel, Form } from 'react-bootstrap'
 
 
@@ -46,6 +46,7 @@ export default function Payment({ user }) {
   const [coupon, setCoupon] = useState('')
   const [discountPrice, setDiscountPrice] = useState(0)
   const [totalAfterDiscount, setTotalAfterDiscount] = useState(0)
+  const [couponRef, SetCouponRef] = useState(null)
 
   const router = useRouter()
 
@@ -53,10 +54,10 @@ export default function Payment({ user }) {
     getDoc(doc(firestore, 'cases', router.asPath.split('?caseId=')[1])).then(caseData => {
       if (caseData.data() && caseData.data().payment.status == 'Pending') {
         setCase(caseData)
-        setPrice(caseData.data().payment.price)
-        setVat(caseData.data().payment.price * 0.07)
-        setTotal(caseData.data().payment.price + (caseData.data().payment.price * 0.07))
-        setTotalAfterDiscount((caseData.data().payment.price + (caseData.data().payment.price * 0.07)) - discountPrice)
+        setPrice(caseData.data().payment.price * 100 / 107)
+        setVat(caseData.data().payment.price - (caseData.data().payment.price * 100 / 107))
+        setTotal(caseData.data().payment.price)
+        setTotalAfterDiscount(caseData.data().payment.price - discountPrice)
       } else {
         router.replace('/home/caselist')
       }
@@ -76,11 +77,12 @@ export default function Payment({ user }) {
   }
 
   const onInputCoupon = () => {
-    getDocs(query(collection(user.ref, 'coupon'), where('code', '==', coupon))).then(dataList => {
+    getDocs(query(collection(user.ref, 'coupon'), where('code', '==', coupon), where('used', '==', false))).then(dataList => {
       if (dataList.docs.length > 0) {
         dataList.forEach(cp => {
+          SetCouponRef(cp.ref)
           setDiscountPrice(cp.data().price)
-          setTotalAfterDiscount(caseRef.data().payment.price + (caseRef.data().payment.price * 0.07) - cp.data().price)
+          setTotalAfterDiscount(caseRef.data().payment.price - cp.data().price)
         })
       }
     })
@@ -98,6 +100,9 @@ export default function Payment({ user }) {
         paymentType: paymentType,
         status: 'pending'
       }).then(() => {
+        updateDoc(couponRef, {
+          used: true
+        })
         router.push({
           pathname: '/payment/' + paymentPage,
           query: { case: caseRef.id }
@@ -440,7 +445,7 @@ export default function Payment({ user }) {
                           className={styles.inputCoupon}
                           placeholder='รหัสส่วนลด'
                           value={coupon}
-                          onChange={e => setCoupon(e.target.value)}
+                          onChange={e => setCoupon(e.target.value.toUpperCase())}
                           type='text'
                         />
                         <Button

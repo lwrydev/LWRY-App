@@ -1,0 +1,377 @@
+.container {
+  padding: 80px 20px 16px 20px;
+  background: #F5F5F5 0% 0% no-repeat padding-box;
+}
+
+.chatBox {
+  height: 630px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 8px;
+  padding: 20px 0 20px 20px;
+}
+
+.lawerBox {
+  height: 580px;
+  background: #F5F5F5 0% 0% no-repeat padding-box;
+  border-radius: 6px;
+  padding: 20px 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.lawerPic {
+  background: #15355F 0% 0% no-repeat padding-box;
+  width: 86px !important;
+  height: 86px !important;
+  border-radius: 100px;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 46px;
+}
+
+.lawerName {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0px;
+  color: #434343;
+  margin-top: 10px;
+}
+
+.caseNo {
+  letter-spacing: 0px;
+  color: #406EAC;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.lawerTitle {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #9B9B9B;
+}
+
+.lawTitle {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #9B9B9B;
+}
+
+.lawTypeName {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #406EAC;
+}
+
+.lawDesc {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #434343;
+}
+
+.space {
+  width: 100%;
+  height: 5px;
+}
+
+.lawStatusActive {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #406EAC;
+}
+
+.dotSeqActive {
+  width: 13px;
+  height: 13px;
+  border-radius: 20px;
+  background: #406EAC;
+  margin: 4px 14px 0 0;
+  z-index: 2;
+}
+
+.lineSeqActive {
+  width: 1px;
+  height: 24px;
+  background: #406EAC;
+  border-left: 1px solid #406EAC;
+  margin: -4px 0 -4px 6px;
+  z-index: 1;
+}
+
+.lawStatusInactive {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #CCCCCC;
+}
+
+.dotSeqInactive {
+  width: 13px;
+  height: 13px;
+  border-radius: 20px;
+  background: #CCCCCC;
+  margin: 4px 14px 0 0;
+  z-index: 2;
+}
+
+.lineSeqInactive {
+  width: 1px;
+  height: 24px;
+  background: #CCCCCC;
+  border-left: 1px solid #CCCCCC;
+  margin: -4px 0 -4px 6px;
+  z-index: 1;
+}
+
+.btnGrp {
+  align-items: flex-end;
+  white-space: nowrap;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnAdd {
+  height: 28px;
+  min-width: 120px;
+  font-size: 14px;
+  background: transparent;
+  border: 1px solid #0A66E2;
+  border-radius: 13px;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  color: #0A66E2;
+  display: flex;
+  justify-content: center;
+}
+
+.btnFinish {
+  height: 28px;
+  font-size: 14px;
+  min-width: 100px;
+  background: #0A66E2 0% 0% no-repeat padding-box;
+  border-radius: 13px;
+  opacity: 1;
+  margin-left: 14px;
+  display: flex;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.chatGrp {
+  height: 580px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.chatInputBox {
+  width: 100%;
+  height: 50px;
+  padding: 5px 20px 5px 0;
+  display: flex;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+}
+
+.messageBox {
+  overflow-y: scroll;
+  padding: 20px 0 5px 20px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.messageClient {
+  width: fit-content;
+  max-width: 65%;
+  padding: 10px;
+  background: #F5F5F5 0% 0% no-repeat padding-box;
+  border-radius: 14px;
+  margin: 5px 20px 5px 0;
+  color: #434343;
+  font-size: 16px;
+  font-weight: 400;
+  align-self: flex-end;
+}
+
+.messageLawer {
+  width: fit-content;
+  max-width: 65%;
+  padding: 10px;
+  background: #F5F5F5 0% 0% no-repeat padding-box;
+  border-radius: 14px;
+  margin: 5px 0;
+  color: #434343;
+  font-size: 16px;
+  font-weight: 400;
+  align-self: flex-start;
+}
+
+.messageCS {
+  width: fit-content;
+  max-width: 380px;
+  padding: 20px 0 10px 0;
+  background: #F5F5F5 0% 0% no-repeat padding-box;
+  border-radius: 14px;
+  margin: 5px 20px 5px 0;
+  color: #434343;
+  font-size: 16px;
+  font-weight: 400;
+  align-self: flex-end;
+}
+
+.descCS {
+  padding: 0 20px;
+}
+
+.lineCS {
+  width: 100%;
+  height: 1px;
+  border-top: 1px solid #E0E0E0;
+  margin: 6px 0 2px 0;
+}
+
+.statusCS {
+  font-size: 16px;
+  font-weight: 300;
+  text-align: center;
+  letter-spacing: 0px;
+  color: #9B9B9B;
+}
+
+.sendDate {
+  font-size: 13px;
+  font-weight: 300;
+  text-align: center;
+  letter-spacing: 0px;
+  color: #9B9B9B;
+  display: flex;
+  align-items: flex-end;
+  margin: 14px 10px;
+}
+
+.lawerMsgPic {
+  width: 40px;
+  height: 40px;
+  background: #15355F 0% 0% no-repeat padding-box;
+  border-radius: 45px;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  margin-right: 10px;
+  margin-top: 6px;
+}
+
+.attachFile {
+  height: 100%;
+  width: 100px;
+  margin-left: 20px;
+  display: flex;
+}
+
+.attachFileItem {
+  height: 40px;
+  width: 40px;
+  margin: 0 5px;
+  background: #15355F;
+}
+
+.inputMessage {
+  height: 40px;
+  width: inherit;
+  background: #F5F5F5 0% 0% no-repeat padding-box;
+  border-radius: 25px;
+  border: 1px solid #F5F5F5;
+  padding: 0 14px;
+}
+
+.addQuestionBox {
+  background: #F5F5F5 0% 0% no-repeat padding-box;
+  padding: 20px;
+  margin: 10px 20px 0 20px;
+  border-radius: 10px;
+}
+
+.addQuestionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0px;
+  color: #434343;
+}
+
+.questionItem {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #434343;
+  margin: 10px 0 0 0;
+}
+
+.inputQuestion {
+  height: 40px;
+  width: -webkit-fill-available;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 6px;
+  border: 1px solid #FFFFFF;
+  padding: 0 14px;
+}
+
+.priceBox {
+  padding: 0 30px;
+}
+
+.addQuestion {
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0px;
+  color: #9B9B9B;
+  text-align: end;
+  margin-top: 5px;
+}
+
+.closeQuestion {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  justify-content: flex-end;
+  margin: -14px -12px -18px 0;
+}
+
+.addQuestion:hover {
+  cursor: pointer;
+  color: #434343;
+  width: fit-content;
+}
+
+.countQuestion {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #434343;
+  margin-top: 2px;
+}
+
+.priceText {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #434343;
+  margin-top: 10px;
+}
+
+.btnGrpQuestion {
+  align-items: flex-end;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

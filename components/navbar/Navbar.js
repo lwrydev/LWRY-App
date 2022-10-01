@@ -15,6 +15,16 @@ export default function NavBar({ user, setUser }) {
 
   const router = useRouter()
 
+  const goHomePage = () => {
+    setSelectMenu('menu1')
+    router.push('/')
+  }
+
+  const goAccountPage = () => {
+    setSelectMenu('menu2')
+    router.push('/account_security')
+  }
+
   return (
     <Navbar expand="lg" className={styles.content}>
       <div className="col-1"></div>
@@ -24,7 +34,7 @@ export default function NavBar({ user, setUser }) {
             src={Logo}
             width='200'
             height='36'
-            onClick={() => router.push('/')}
+            onClick={() => goHomePage()}
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -32,7 +42,7 @@ export default function NavBar({ user, setUser }) {
           <Nav className="me-auto h-100">
             <div
               className={selectMenu == 'menu1' ? styles.focusMenu : styles.menu}
-              onClick={() => setSelectMenu('menu1')}
+              onClick={() => goHomePage()}
             >
               <Nav.Link>
                 ภาพรวม
@@ -40,7 +50,7 @@ export default function NavBar({ user, setUser }) {
             </div>
             <div
               className={selectMenu == 'menu2' ? styles.focusMenu : styles.menu}
-              onClick={() => setSelectMenu('menu2')}
+              onClick={() => goAccountPage()}
             >
               <Nav.Link>
                 บัญชีและความปลอดภัย

@@ -20,7 +20,7 @@ export default function _app({ Component, pageProps }) {
   const router = useRouter()
 
   useEffect(() => {
-    if (user && router.pathname == '/') {
+    if (router.pathname == '/') {
       router.push('/home/caselist')
     }
   }, [router])
