@@ -100,9 +100,11 @@ export default function Payment({ user }) {
         paymentType: paymentType,
         status: 'pending'
       }).then(() => {
-        updateDoc(couponRef, {
-          used: true
-        })
+        if (couponRef) {
+          updateDoc(couponRef, {
+            used: true
+          })
+        }
         router.push({
           pathname: '/payment/' + paymentPage,
           query: { case: caseRef.id }

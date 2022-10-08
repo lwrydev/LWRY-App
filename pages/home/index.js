@@ -17,6 +17,7 @@ export default function Home({ user }) {
   const router = useRouter()
 
   useEffect(() => {
+    console.log(user);
     if (!user) {
       router.replace('/login')
     }

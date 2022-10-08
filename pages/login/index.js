@@ -63,18 +63,21 @@ export default function Login({ user, setUser }) {
             displayName: userData.displayName,
             email: userData.email,
             createdDate: new Date(),
-            changedDate: new Date()
+            changedDate: new Date(),
+            firstname: "",
+            lastname: "",
+            role: 'User'
           }).then(() => {
-            setUser(userData)
+            //setUser(userData)
             sessionStorage.setItem('user', userData.uid)
             setSessionUser(userData)
-            router.replace('/')
+            router.reload()
           })
         } else {
-          setUser(userRef)
+          //setUser(userRef)
           sessionStorage.setItem('user', userRef.uid)
           setSessionUser(userRef)
-          router.replace('/')
+          router.reload()
         }
       })
     })

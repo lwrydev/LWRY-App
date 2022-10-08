@@ -147,7 +147,9 @@ export default function Registration({ user, setUser }) {
             email: userData.email,
             createdDate: new Date(),
             changedDate: new Date(),
-            role: 'User',
+            firstname: "",
+            lastname: "",
+            role: 'User'
           }).then(() => {
             setUser(userData)
             sessionStorage.setItem('user', userData.uid)
