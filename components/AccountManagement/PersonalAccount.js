@@ -10,14 +10,21 @@ const auth = getAuth()
 export default function PersonalAccount({ user, setUser }) {
   const [userRef, setUserRef] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [pf, setPf] = useState("")
 
   useEffect(() => {
     onAuthStateChanged(auth, userData => {
       if (userData) {
-        console.log(userData);
         setUserRef(userData)
       }
     })
+    if (user) {
+      if (user.data().displayName.split(" ").length > 1) {
+        setPf(user.data().displayName.split(" ")[0][0] + user.data().displayName.split(" ")[1][0])
+      } else {
+        setPf(user.data().displayName.split(" ")[0][0])
+      }
+    }
   }, [user])
 
   useEffect(() => {
@@ -39,7 +46,7 @@ export default function PersonalAccount({ user, setUser }) {
                     <div className={styles.titleSubInformation}>รูปโปรไฟล์</div>
                   </div>
                   <div className='col-4 d-flex align-items-center'>
-                    <div className={styles.profilePic}>{user.data().firstname[0] + user.data().lastname[0]}</div>
+                    <div className={styles.profilePic}>{pf}</div>
                   </div>
                   <div className='col-4 d-flex row align-items-center'>
                     <div className='row'>
@@ -59,7 +66,7 @@ export default function PersonalAccount({ user, setUser }) {
                     <div className={styles.titleSubInformation}>ชื่อและนามสกุล</div>
                   </div>
                   <div className='col-4'>
-                    <div className={styles.valueInformation}>{user.data().firstname + ' ' + user.data().lastname}</div>
+                    <div className={styles.valueInformation}>{user.data()?.firstname + ' ' + user.data()?.lastname}</div>
                   </div>
                   <div className='col-4'>
                     <div className='row'>

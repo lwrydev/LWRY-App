@@ -31,6 +31,7 @@ export default function _app({ Component, pageProps }) {
       if (userData) {
         getDoc(doc(firestore, 'users', userData.uid)).then(userRef => {
           setUser(userRef)
+          console.log(userData);
           console.log(userRef.data());
           setLoading(false)
         })
