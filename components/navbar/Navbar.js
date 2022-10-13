@@ -42,6 +42,11 @@ export default function NavBar({ user, setUser }) {
     router.push('/account_security')
   }
 
+  const goPaymentDetailsPage = () => {
+    setSelectMenu('menu3')
+    router.push('/payment_details')
+  }
+
   return (
     <Navbar expand="lg" className={styles.content}>
       <div className="col-1"></div>
@@ -75,7 +80,7 @@ export default function NavBar({ user, setUser }) {
             </div>
             <div
               className={selectMenu == 'menu3' ? styles.focusMenu : styles.menu}
-              onClick={() => setSelectMenu('menu3')}
+              onClick={() => goPaymentDetailsPage()}
             >
               <Nav.Link>
                 ราคาและการชำระเงิน

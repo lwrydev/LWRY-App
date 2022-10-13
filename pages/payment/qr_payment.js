@@ -16,7 +16,7 @@ import IconQrCodeEx from '../../assets/logo/qrcode_ex.svg'
 
 export default function QrPayment() {
   const [caseRef, setCase] = useState(null)
-
+  const [timeCount, settimeCount] = useState(900)
   const router = useRouter()
 
   useEffect(() => {
@@ -28,6 +28,14 @@ export default function QrPayment() {
       }
     })
   }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      settimeCount(timeCount => timeCount - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  
 
   const onPaid = () => {
     updateDoc(caseRef.ref, {
@@ -83,14 +91,14 @@ export default function QrPayment() {
       <div className='row'>
         <div className='col-3'></div>
         <div className='col-6'>
-          <div className={styles.qrPaymentContent} onClick={() => onPaid()}>
+          <div className={styles.qrPaymentContent} >
             <div className={styles.qrTitle}>ชำระค่าบริการหมายเลข {caseRef ? caseRef.data().caseNo : ''}</div>
             <div className='d-flex justify-content-center'>
               <Image src={IconQrCodeEx} height='450' />
             </div>
             <div className='d-flex mt-4 mb-4 justify-content-center'>
               <div className={styles.countTimeText}>ชำระเงินภายใน</div>
-              <div className={styles.countTimeNumber}>14:38</div>
+              <div className={styles.countTimeNumber}>{Math.floor(timeCount/60)+':'+("0" + timeCount%60).slice(-2)}</div>
               <div className={styles.countTimeText}>นาที</div>
             </div>
             <div className='d-flex'>
