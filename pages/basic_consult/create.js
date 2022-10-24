@@ -7,6 +7,7 @@ import { useRouter } from "next/router"
 
 import { firestore } from '../../config/firebase'
 import { doc, setDoc } from 'firebase/firestore'
+import { getStorage, ref, uploadBytes } from "firebase/storage"
 
 //icon
 import IconClose from '../../assets/logo/close.svg'
@@ -15,8 +16,15 @@ import IconEdit from '../../assets/logo/edit.svg'
 import IconMoneyCheck from '../../assets/logo/money_check.svg'
 import IconCorrect from '../../assets/logo/correct.svg'
 import IconUpload from '../../assets/logo/upload.svg'
+import IconJPG from '../../assets/logo/jpg.svg'
+import IconPDF from '../../assets/logo/pdf.svg'
+
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { useRef, useState } from 'react'
+
+const storage = getStorage();
 
 export default function create({ user }) {
   const [termsChecked, setTermsChecked] = useState(false)
@@ -32,8 +40,18 @@ export default function create({ user }) {
     refFile.current.click()
   }
 
-  const uploadFile = (e) => {
-    setFiles(files.concat(...e.target.files))
+  const uploadFile = async (e) => {
+    let filesRef = []
+    Array.from(e.target.files).forEach(file => {
+      if (file.size <= 2000000) {
+        filesRef.push(file)
+      } else {
+        toast.error("ขนาดไฟล์ต้องไม่เกิน 2MB", {
+          position: 'bottom-right'
+        })
+      }
+    })
+    await setFiles(files.concat(...filesRef))
   }
 
   const removeFile = (index) => {
@@ -49,6 +67,11 @@ export default function create({ user }) {
   const onSubmitCase = (e) => {
     e.preventDefault()
     let id = new Date().getTime().toString()
+    let docs = files.map(file => ({
+      name: file.name,
+      path: '/' + id + '/' + file.name,
+      data: file
+    }))
     setDoc(doc(firestore, 'cases', id), {
       owner: user.id,
       caseNo: 'A-' + new Date().getTime().toString(36).toUpperCase(),
@@ -60,8 +83,16 @@ export default function create({ user }) {
       status: 'Pending Payment',
       statusTH: 'รอการชำระเงิน',
       questions: questionList,
-      docs: [],
-      pic: [],
+      docs: docs.filter(doc => doc.data.type == "application/pdf").map(doc => ({
+        name: doc.name,
+        path: doc.path,
+        type: doc.data.type
+      })),
+      pic: docs.filter(doc => doc.data.type != "application/pdf").map(doc => ({
+        name: doc.name,
+        path: doc.path,
+        type: doc.data.type
+      })),
       payment: {
         status: 'Pending',
         statusTH: 'รอการชำระเงิน',
@@ -72,6 +103,11 @@ export default function create({ user }) {
       createdDate: new Date(),
       changedDate: new Date()
     }).then(() => {
+      docs.forEach(doc => {
+        console.log(doc);
+        const storageRef = ref(storage, doc.path)
+        uploadBytes(storageRef, doc.data)
+      })
       router.push({
         pathname: '/payment',
         query: {
@@ -196,25 +232,41 @@ export default function create({ user }) {
                     </FloatingLabel>
                     <div className='d-flex'>
                       {files.map((file, index) => {
-                        return <div
-                          key={index}
+                        return <div key={index}>
+                          <div className={styles.closeQuestion}>
+                            <Image
+                              src={IconClose}
+                              height='30'
+                              width='30'
+                              style={{ cursor: 'pointer' }}
+                              onClick={() => setFiles(files.slice(0, index).concat(files.slice(index + 1)))}
+                            />
+                          </div>
+                          <div
+                            className={styles.uploadFile}
+                            style={{ cursor: "default" }}
+                          >
+                            {file.type == 'application/pdf' ?
+                              <Image src={IconPDF} /> :
+                              <Image src={IconJPG} />}
+                            <div>{file.name.length <= 17 ? file.name : file.name.substring(0, 13) + "..." + (file.type == 'application/pdf' ? "PDF" : "JPG")}</div>
+                          </div>
+                        </div>
+                      })}
+                      <div>
+                        <div className={styles.closeQuestion} style={{ width: "30px", height: "30px" }}></div>
+                        <div
                           className={styles.uploadFile}
                           onClick={() => onUploadFile()}
                         >
                           <Image src={IconUpload} />
-                          <div>{file.name}</div>
+                          <div>แนบไฟล์ เพิ่มเติม</div>
                         </div>
-                      })}
-                      <div
-                        className={styles.uploadFile}
-                        onClick={() => onUploadFile()}
-                      >
-                        <Image src={IconUpload} />
-                        <div>แนบไฟล์ เพิ่มเติม</div>
                       </div>
                     </div>
                     <input
                       ref={refFile}
+                      accept="image/*,application/pdf"
                       type="file"
                       multiple
                       style={{ display: 'none' }}
@@ -278,6 +330,7 @@ export default function create({ user }) {
               </div>
             </div>
           </Form>
+          <ToastContainer />
         </div>
         <div className="col-1"></div>
       </div>

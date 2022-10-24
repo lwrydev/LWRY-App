@@ -4,10 +4,14 @@ import '../../../config/firebase'
 import { getAuth, signOut } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 
+import { useRouter } from "next/router"
+
 const auth = getAuth()
 
 export default function AccountMenu({ setShowAccount, user, setUser }) {
   const [pf, setPf] = useState("")
+
+  const router = useRouter()
 
   useEffect(() => {
     if (user) {
@@ -20,7 +24,9 @@ export default function AccountMenu({ setShowAccount, user, setUser }) {
   }, [user])
 
   const logOut = () => {
-    signOut(auth)
+    signOut(auth).then(() => {
+      
+    })
     setUser(null)
   }
 

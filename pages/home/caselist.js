@@ -45,7 +45,7 @@ export default function caselist({ user }) {
   }, [])
 
   const fetchMoreCase = () => {
-    if (user.role == 'User') {
+    if (user.data().role == 'User') {
       getDocs(query(collection(firestore, 'cases'), where('owner', '==', user.id), orderBy('changedDate', 'desc'), startAfter(lastCase), limit(3))).then(caseList => {
         if (caseList.docs.length == 0) {
           setMoreCase(false)

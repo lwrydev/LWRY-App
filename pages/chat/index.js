@@ -9,9 +9,14 @@ import { useEffect, useState } from 'react'
 
 import { firestore } from '../../config/firebase'
 import { addDoc, collection, doc, getDoc, getDocs, limit, onSnapshot, orderBy, query, setDoc, updateDoc } from 'firebase/firestore'
+import { getDownloadURL, getStorage, ref } from "firebase/storage"
 
 //icon
 import IconClose from '../../assets/logo/close.svg'
+import IconJPG from '../../assets/logo/jpg.svg'
+import IconPDF from '../../assets/logo/pdf.svg'
+
+const storage = getStorage()
 
 export default function Chat({ user }) {
   const [caseRef, setCaseRef] = useState(null)
@@ -27,22 +32,24 @@ export default function Chat({ user }) {
   const router = useRouter()
 
   useEffect(() => {
-    getDoc(doc(firestore, 'cases', router.asPath.split('?caseId=')[1])).then(caseData => {
-      if (caseData.data()) {
-        if (caseData.data().lawer) {
-          setCaseRef(caseData)
-          setLawerName(caseData.data().lawer.displayName)
-          if (user.data().role == 'User') {
-            setLawerPic(caseData.data().lawer.displayName ? caseData.data().lawer.displayName.split(' ')[0][0] + (caseData.data().lawer.displayName.split(' ').length > 0 ? caseData.data().lawer.displayName.split(' ')[1][0] : '') : '')
+    if (user) {
+      getDoc(doc(firestore, 'cases', router.asPath.split('?caseId=')[1])).then(caseData => {
+        if (caseData.data()) {
+          if (caseData.data().lawer) {
+            setCaseRef(caseData)
+            setLawerName(caseData.data().lawer.displayName)
+            if (user.data().role == 'User') {
+              setLawerPic(caseData.data().lawer.displayName ? caseData.data().lawer.displayName.split(' ')[0][0] + (caseData.data().lawer.displayName.split(' ').length > 0 ? caseData.data().lawer.displayName.split(' ')[1][0] : '') : '')
+            }
+            retrieveMessages(caseData)
+          } else {
+            updateLawer(caseData)
           }
-          retrieveMessages(caseData)
         } else {
-          updateLawer(caseData)
+          router.replace('/home/caselist')
         }
-      } else {
-        router.replace('/home/caselist')
-      }
-    })
+      })
+    }
   }, [])
 
   useEffect(() => {
@@ -71,20 +78,49 @@ export default function Chat({ user }) {
   }
 
   const updateLawer = (caseData) => {
-    updateDoc(caseData.ref, {
-      lawerID: "41Rhzm7oPaUle3vnIWORTrIYNga2",
+    addDoc(collection(firestore, 'chats'), {
+      case: caseData.id,
+      client: {
+        clientID: user.id,
+        displayName: user.data().displayName
+      },
+      lawerID: "FcNzp3MMvbfxRNrvPRuFDPLJI4A3",
       lawer: {
         displayName: "Lawer T01"
-      },
-      status: "Lawer Accept",
-      statusTH: "ทนายรับคำถามเรียบร้อยแล้ว"
-    }).then(() => {
-      getDoc(doc(firestore, 'cases', router.asPath.split('?caseId=')[1])).then(caseData2 => {
-        setCaseRef(caseData2)
-        setLawerName(caseData2.data().lawer.displayName)
-        setLawerPic(caseData2.data().lawer.displayName ? caseData2.data().lawer.displayName.split(' ')[0][0] + (caseData2.data().lawer.displayName.split(' ').length > 0 ? caseData2.data().lawer.displayName.split(' ')[1][0] : '') : '')
-        retrieveMessages(caseData2)
+      }
+    }).then(chatRef => {
+      console.log(chatRef);
+      addDoc(collection(chatRef, 'messages'), {
+        type: 'cs',
+        seq: 1,
+        desc: caseData.data().details,
+        paymentStatus: 'Paid',
+        sender: user.id,
+        sendDate: new Date()
       })
+      updateDoc(caseData.ref, {
+        lawerID: "FcNzp3MMvbfxRNrvPRuFDPLJI4A3",
+        lawer: {
+          displayName: "Lawer T01"
+        },
+        status: "Lawer Accept",
+        statusTH: "ทนายรับคำถามเรียบร้อยแล้ว",
+        chat: chatRef.id
+      }).then(() => {
+        getDoc(doc(firestore, 'cases', router.asPath.split('?caseId=')[1])).then(caseData2 => {
+          setCaseRef(caseData2)
+          setLawerName(caseData2.data().lawer.displayName)
+          setLawerPic(caseData2.data().lawer.displayName ? caseData2.data().lawer.displayName.split(' ')[0][0] + (caseData2.data().lawer.displayName.split(' ').length > 0 ? caseData2.data().lawer.displayName.split(' ')[1][0] : '') : '')
+          retrieveMessages(caseData2)
+        })
+      })
+    })
+  }
+
+  const downloadFile = (path, name) => {
+    const pathReference = ref(storage, path)
+    getDownloadURL(pathReference).then(url => {
+      window.open(url)
     })
   }
 
@@ -103,6 +139,10 @@ export default function Chat({ user }) {
     setQuestionList([{ question: '' }])
   }
 
+  const submitAddQuestion = () => {
+
+  }
+
   const sendMessage = (e) => {
     e.preventDefault()
     if (inputMessage.replace(/\s/g, '').length) {
@@ -110,7 +150,7 @@ export default function Chat({ user }) {
         desc: inputMessage,
         sendDate: new Date(),
         sender: user.id,
-        seq: messages ? messages[0].seq + 1 : 1,
+        seq: messages.length > 0 ? messages[0].seq + 1 : 1,
         type: user.data().role == 'User' ? "client" : "lawer"
       }).then(() => {
         setInputMessage('')
@@ -328,10 +368,39 @@ export default function Chat({ user }) {
                                 month: 'short',
                                 day: 'numeric',
                                 hour: '2-digit',
-                                minute: '2-digit'
+                                minute: '2-digit',
+                                second: '2-digit'
                               })}</div>
                               <div className={styles.messageCS}>
                                 <div className={styles.descCS}>{ms.desc}</div>
+                                <div className={styles.files}>
+                                  {caseRef.data().docs ? caseRef.data().docs.map((doc, index) => {
+                                    return <div key={index}>
+                                      <div
+                                        className={styles.uploadFile}
+                                        onClick={() => downloadFile(doc.path, doc.name)}
+                                      >
+                                        {doc.type == 'application/pdf' ?
+                                          <Image src={IconPDF} /> :
+                                          <Image src={IconJPG} />}
+                                        <div>{doc.name.length <= 17 ? doc.name : doc.name.substring(0, 13) + "..." + (doc.type == 'application/pdf' ? "PDF" : "JPG")}</div>
+                                      </div>
+                                    </div>
+                                  }) : <></>}
+                                  {caseRef.data().pic ? caseRef.data().pic.map((doc, index) => {
+                                    return <div key={index}>
+                                      <div
+                                        className={styles.uploadFile}
+                                        onClick={() => downloadFile(doc.path)}
+                                      >
+                                        {doc.type == 'application/pdf' ?
+                                          <Image src={IconPDF} /> :
+                                          <Image src={IconJPG} />}
+                                        <div>{doc.name.length <= 17 ? doc.name : doc.name.substring(0, 13) + "..." + (doc.type == 'application/pdf' ? "PDF" : "JPG")}</div>
+                                      </div>
+                                    </div>
+                                  }) : <></>}
+                                </div>
                                 <div className={styles.lineCS}></div>
                                 <div className={styles.statusCS}>ชำระเงินเรียบร้อยแล้ว</div>
                               </div>
@@ -342,7 +411,8 @@ export default function Chat({ user }) {
                                   month: 'short',
                                   day: 'numeric',
                                   hour: '2-digit',
-                                  minute: '2-digit'
+                                  minute: '2-digit',
+                                  second: '2-digit'
                                 })}</div>
                                 <div className={styles.messageClient}>{ms.desc}</div>
                               </div> :
@@ -354,7 +424,8 @@ export default function Chat({ user }) {
                                   month: 'short',
                                   day: 'numeric',
                                   hour: '2-digit',
-                                  minute: '2-digit'
+                                  minute: '2-digit',
+                                  second: '2-digit'
                                 })}</div>
                               </div>
                           }
