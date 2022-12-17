@@ -267,7 +267,7 @@ export default function Chat({ user }) {
                     <div className={styles.space}></div>
                     <div className='row w-100'>
                       <div className='col-3'>
-                        <div className={styles.lawTitle}>สถานะคดี</div>
+                        <div className={styles.lawTitle + ' position-absolute'}>สถานะคดี</div>
                       </div>
                       <div className='d-flex col-9'>
                         <div className={styles.dotSeqActive}></div>
