@@ -29,12 +29,21 @@ export default function _app({ Component, pageProps }) {
     setLoading(true)
     onAuthStateChanged(auth, userData => {
       if (userData) {
-        getDoc(doc(firestore, 'users', userData.uid)).then(userRef => {
-          setUser(userRef)
-          console.log(userData);
-          console.log(userRef.data());
-          setLoading(false)
-        })
+        if (!localStorage.getItem("session") || (new Date().getTime() - new Date(localStorage.getItem("session")).getTime()) < 7200000) {
+          localStorage.removeItem("session")
+          localStorage.setItem("session", new Date())
+          getDoc(doc(firestore, 'users', userData.uid)).then(userRef => {
+            setUser(userRef)
+            console.log(userData);
+            console.log(userRef.data());
+            setLoading(false)
+          })
+        } else {
+          localStorage.removeItem("session")
+          auth.signOut().then(() => {
+            router.replace('/login')
+          })
+        }
       } else {
         if (!(router.pathname.includes('/verification') || router.pathname.includes('/register'))) {
           router.replace('/login')
