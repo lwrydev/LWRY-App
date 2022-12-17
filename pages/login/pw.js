@@ -44,8 +44,8 @@ export default function pw({ user, setUser }) {
   const submitPassword = (e) => {
     setOnload(true)
     e.preventDefault()
-    signInWithEmailAndPassword(auth, email, password).then(userData => {
-      getDoc(doc(firestore, 'users', userData.user.uid)).then(userRef => {
+    signInWithEmailAndPassword(auth, email, password).then(async userData => {
+      await getDoc(doc(firestore, 'users', userData.user.uid)).then(userRef => {
         setUser(userRef)
         router.replace('/')
         setOnload(false)
