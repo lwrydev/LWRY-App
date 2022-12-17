@@ -228,8 +228,8 @@ export default function Chat({ user }) {
   }
 
   const fileSize = (size) => {
-      let i = Math.floor(Math.log(size) / Math.log(1024));
-      return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+    let i = Math.floor(Math.log(size) / Math.log(1024));
+    return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
   }
 
   return (
@@ -240,9 +240,11 @@ export default function Chat({ user }) {
           <div className='col-10'>
             <div className={styles.chatBox}>
               <div className='row'>
-                <div className='col-3'>
+                <div className='col-4 col-xl-3'>
                   <div className={styles.lawerBox}>
-                    <div className={styles.lawerPic}>{lawerPic}</div>
+                    <div>
+                      <div className={styles.lawerPic}>{lawerPic}</div>
+                    </div>
                     <div className={styles.lawerName}>ทนาย {lawerName}</div>
                     <div className={styles.lawerTitle}>ผู้รับผิดชอบหมายเลขคดี</div>
                     <div className={styles.caseNo}>{caseRef.data().caseNo}</div>
@@ -342,7 +344,7 @@ export default function Chat({ user }) {
                     </div>
                   </div>
                 </div>
-                <div className='col-9'>
+                <div className='col-8 col-xl-9'>
                   <div className={styles.chatGrp}>
                     {addQuestion ?
                       <div className={styles.addQuestionBox}>

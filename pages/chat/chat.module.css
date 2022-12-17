@@ -4,14 +4,14 @@
 }
 
 .chatBox {
-  height: 630px;
+  height: max-content;
   background: #FFFFFF 0% 0% no-repeat padding-box;
   border-radius: 8px;
   padding: 20px 0 20px 20px;
 }
 
 .lawerBox {
-  height: 580px;
+  height: 600px;
   background: #F5F5F5 0% 0% no-repeat padding-box;
   border-radius: 6px;
   padding: 20px 10px;
@@ -86,6 +86,8 @@
   font-weight: 400;
   letter-spacing: 0px;
   color: #406EAC;
+  position: absolute;
+  margin-left: 20px;
 }
 
 .dotSeqActive {
@@ -111,6 +113,8 @@
   font-weight: 400;
   letter-spacing: 0px;
   color: #CCCCCC;
+  position: absolute;
+  margin-left: 20px;
 }
 
 .dotSeqInactive {
@@ -168,7 +172,7 @@
 }
 
 .chatGrp {
-  height: 580px;
+  height: 600px;
   display: flex;
   flex-direction: column-reverse;
 }
