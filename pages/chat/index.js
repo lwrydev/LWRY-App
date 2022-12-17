@@ -5,16 +5,22 @@ import { Button, Form } from 'react-bootstrap'
 import { useRouter } from "next/router"
 
 import FooterAccount from "../../components/footer/FooterAccount"
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { firestore } from '../../config/firebase'
 import { addDoc, collection, doc, getDoc, getDocs, limit, onSnapshot, orderBy, query, setDoc, updateDoc } from 'firebase/firestore'
-import { getDownloadURL, getStorage, ref } from "firebase/storage"
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 
 //icon
 import IconClose from '../../assets/logo/close.svg'
 import IconJPG from '../../assets/logo/jpg.svg'
 import IconPDF from '../../assets/logo/pdf.svg'
+import FileChat from '../../assets/logo/file_chat.svg'
+import ImageChat from '../../assets/logo/image_chat.svg'
+import SentMessage from '../../assets/logo/sent_message.svg'
+
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const storage = getStorage()
 
@@ -30,6 +36,9 @@ export default function Chat({ user }) {
   const [price, setPrice] = useState(0)
 
   const router = useRouter()
+
+  const refFile = useRef()
+  const refImage = useRef()
 
   useEffect(() => {
     if (user) {
@@ -89,7 +98,6 @@ export default function Chat({ user }) {
         displayName: "Lawer T01"
       }
     }).then(chatRef => {
-      console.log(chatRef);
       addDoc(collection(chatRef, 'messages'), {
         type: 'cs',
         seq: 1,
@@ -118,6 +126,9 @@ export default function Chat({ user }) {
   }
 
   const downloadFile = (path, name) => {
+    if (!path) {
+      return
+    }
     const pathReference = ref(storage, path)
     getDownloadURL(pathReference).then(url => {
       window.open(url)
@@ -158,6 +169,67 @@ export default function Chat({ user }) {
     } else {
       setInputMessage('')
     }
+  }
+
+  const onUploadFile = () => {
+    refFile.current.click()
+  }
+
+  const onUploadImage = () => {
+    refImage.current.click()
+  }
+
+  const uploadFile = async (e) => {
+    Array.from(e.target.files).forEach(file => {
+      if (file.size <= 2000000) {
+        let fileName = new Date().getTime().toString()
+        const storageRef = ref(storage, '/' + caseRef.id + '/' + fileName,)
+        uploadBytes(storageRef, file)
+        addDoc(collection(chatRef.ref, 'messages'), {
+          doc: {
+            path: '/' + caseRef.id + '/' + fileName,
+            name: file.name,
+            size: file.size,
+            type: "PDF",
+            createdDate: new Date(),
+            expireDate: new Date(new Date().getTime() + 10 * 60 * 60 * 24 * 1000)
+          },
+          typeMessage: "docs",
+          sendDate: new Date(),
+          sender: user.id,
+          seq: messages.length > 0 ? messages[0].seq + 1 : 1,
+          type: user.data().role == 'User' ? "client" : "lawer"
+        })
+      } else {
+        toast.error("ขนาดไฟล์ต้องไม่เกิน 2MB", {
+          position: 'bottom-right'
+        })
+      }
+    })
+    await resetFile(e)
+  }
+
+  const uploadImage = async (e) => {
+    Array.from(e.target.files).forEach(file => {
+      if (file.size <= 2000000) {
+
+      } else {
+        toast.error("ขนาดไฟล์ต้องไม่เกิน 2MB", {
+          position: 'bottom-right'
+        })
+      }
+    })
+    await resetFile(e)
+  }
+
+  const resetFile = (e) => {
+    e.target.type = "text"
+    e.target.type = "file"
+  }
+
+  const fileSize = (size) => {
+      let i = Math.floor(Math.log(size) / Math.log(1024));
+      return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
   }
 
   return (
@@ -341,8 +413,34 @@ export default function Chat({ user }) {
                     }
                     <div className={styles.chatInputBox}>
                       <div className={styles.attachFile}>
-                        <div className={styles.attachFileItem}></div>
-                        <div className={styles.attachFileItem}></div>
+                        <div
+                          className={styles.attachFileItem}
+                          onClick={() => onUploadFile()}
+                        >
+                          <Image src={FileChat} width={30} />
+                        </div>
+                        <input
+                          ref={refFile}
+                          accept="application/pdf"
+                          type="file"
+                          multiple
+                          style={{ display: 'none' }}
+                          onChange={e => uploadFile(e)}
+                        />
+                        <div
+                          className={styles.attachFileItem}
+                          onClick={() => onUploadImage()}
+                        >
+                          <Image src={ImageChat} width={30} />
+                        </div>
+                        <input
+                          ref={refImage}
+                          accept="image/*"
+                          type="file"
+                          multiple
+                          style={{ display: 'none' }}
+                          onChange={e => uploadImage(e)}
+                        />
                       </div>
                       <Form
                         className='w-100'
@@ -356,6 +454,14 @@ export default function Chat({ user }) {
                           onChange={e => setInputMessage(e.target.value)}
                         />
                       </Form>
+                      <div className={styles.sentBtn}>
+                        <Button
+                          className={styles.iconSentBtn}
+                          onClick={e => sendMessage(e)}
+                        >
+                          <Image src={SentMessage} width={34} />
+                        </Button>
+                      </div>
                     </div>
                     <div className={styles.messageBox}>
                       {messages.map((ms, index) => {
@@ -414,7 +520,35 @@ export default function Chat({ user }) {
                                   minute: '2-digit',
                                   second: '2-digit'
                                 })}</div>
-                                <div className={styles.messageClient}>{ms.desc}</div>
+                                {ms.typeMessage == "docs" ?
+                                  <div className={styles.messageClient}>
+                                    <div className={styles.messageDocs}>
+                                      <div
+                                        className={styles.uploadFile}
+                                        onClick={() => downloadFile(ms.doc.path)}
+                                      >
+                                        <Image src={IconPDF} width={50} height={60} />
+                                      </div>
+                                      <div className={styles.docsDesc}>
+                                        <div>{ms.doc.name.length <= 17 ? ms.doc.name : ms.doc.name.substring(0, 13) + "..." + (ms.doc.type == 'application/pdf' ? "PDF" : "JPG")}</div>
+                                        <div>ขนาดไฟล์ : {fileSize(ms.doc.size)}</div>
+                                        <div>สร้างเมื่อ : {ms.doc.createdDate.toDate().toLocaleDateString('th-TH', {
+                                          year: 'numeric',
+                                          month: 'short',
+                                          day: 'numeric'
+                                        })}</div>
+                                        <div>หมดอายุ : {ms.doc.expireDate.toDate().toLocaleDateString('th-TH', {
+                                          year: 'numeric',
+                                          month: 'short',
+                                          day: 'numeric'
+                                        })}</div>
+                                      </div>
+                                    </div>
+                                  </div> :
+                                  ms.typeMessage == "pics" ?
+                                    <div className={styles.messageClient}>{ms.desc}</div> :
+                                    <div className={styles.messageClient}>{ms.desc}</div>
+                                }
                               </div> :
                               <div className='d-flex'>
                                 <div className={styles.lawerMsgPic}>{lawerPic}</div>
@@ -438,6 +572,7 @@ export default function Chat({ user }) {
             </div>
           </div>
           <div className='col-1'></div>
+          <ToastContainer />
         </div> :
         <></>
       }

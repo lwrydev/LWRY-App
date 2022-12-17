@@ -279,19 +279,33 @@
 }
 
 .attachFileItem {
-  height: 40px;
-  width: 40px;
   margin: 0 5px;
-  background: #15355F;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .inputMessage {
-  height: 40px;
+  height: 36px;
   width: inherit;
   background: #F5F5F5 0% 0% no-repeat padding-box;
   border-radius: 25px;
   border: 1px solid #F5F5F5;
   padding: 0 14px;
+}
+
+.sentBtn {
+  display: flex;
+  align-items: center;
+}
+
+.iconSentBtn {
+  background: #0A66E2;
+  border-radius: 16px;
+  margin-left: -20px;
+  width: 50px;
+  height: 27px;
+  display: flex;
 }
 
 .addQuestionBox {
@@ -383,7 +397,7 @@
 }
 
 .uploadFile {
-  width: 110px;
+  width: 90px;
   background: #FFFFFF 0% 0% no-repeat padding-box;
   border: 1px solid #E0E0E0;
   border-radius: 8px;
@@ -398,4 +412,17 @@
 .uploadFile:hover {
   cursor: pointer;
   background: #FAFAFA 0% 0% no-repeat padding-box;
+}
+
+.docsDesc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.messageDocs {
+  display: flex;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.4;
 }
