@@ -2,8 +2,13 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import styles from './account_management.module.css'
+import Image from 'next/image'
 
 import '../../config/firebase'
+import { Button, FloatingLabel, Form, Modal } from 'react-bootstrap'
+
+//icon
+import IconUpload from '../../assets/logo/upload.svg'
 
 const auth = getAuth()
 
@@ -11,6 +16,14 @@ export default function PersonalAccount({ user, setUser }) {
   const [userRef, setUserRef] = useState(null)
   const [loading, setLoading] = useState(true)
   const [pf, setPf] = useState("")
+
+  //edit pic
+  const [editPic, setEditPic] = useState(false)
+
+  //edit name
+  const [editName, setEditName] = useState(false)
+  const [firstname, setFirstname] = useState("")
+  const [lastname, setLastname] = useState("")
 
   useEffect(() => {
     onAuthStateChanged(auth, userData => {
@@ -24,6 +37,8 @@ export default function PersonalAccount({ user, setUser }) {
       } else {
         setPf(user.data().displayName.split(" ")[0][0])
       }
+      setFirstname(user.data().firstname)
+      setLastname(user.data().lastname)
     }
   }, [user])
 
@@ -54,7 +69,12 @@ export default function PersonalAccount({ user, setUser }) {
                         <div className={styles.titleEdit}>ลบ</div>
                       </div>
                       <div className='col-6'>
-                        <div className={styles.titleEdit}>แก้ไข</div>
+                        <div
+                          className={styles.titleEdit}
+                          onClick={() => setEditPic(true)}
+                        >
+                          แก้ไข
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -72,7 +92,12 @@ export default function PersonalAccount({ user, setUser }) {
                     <div className='row'>
                       <div className='col-6'></div>
                       <div className='col-6'>
-                        <div className={styles.titleEdit}>แก้ไข</div>
+                        <div
+                          className={styles.titleEdit}
+                          onClick={() => setEditName(true)}
+                        >
+                          แก้ไข
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -216,6 +241,93 @@ export default function PersonalAccount({ user, setUser }) {
         </> :
         <></>
       }
+      <Modal
+        show={editPic}
+        onHide={() => setEditPic(false)}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+        </Modal.Header>
+        <Modal.Body>
+          <div className={styles.titleChangeProfile}>รูปโปรไฟล์</div>
+          <div className={styles.descChangeProfile}>รูปภาพช่วยให้ผู้อื่นจดจำคุณได้และช่วยให้คุณทราบว่ากำลังลงชื่อเข้าใช้ บัญชีของตนเองอยู่</div>
+          <div className='d-flex justify-content-center'>
+            <div className={styles.changePic}></div>
+          </div>
+          <div className='d-flex justify-content-center'>
+            <div className={styles.setDefaultPic}>ใช้ภาพเริ่มต้นของระบบ</div>
+          </div>
+          <div className={styles.grpBtn}>
+            <div className='col-7'>
+              <div className={styles.btnUploadPic}>
+                <Image src={IconUpload} width={24} />
+                <div>อัปโหลดรูปภาพโปรไฟล์ใหม่</div>
+              </div>
+            </div>
+            <div className='col-5'>
+              <div className={styles.btnUploadPic}>
+                <Image src={IconUpload} width={24} />
+                <div>นำออก</div>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        show={editName}
+        onHide={() => setEditName(false)}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+        </Modal.Header>
+        <Modal.Body>
+          <div className={styles.titleChangeProfile}>ชื่อและนามสกุล</div>
+          <div className={styles.descChangeProfile}>ชื่อและนามสกุลช่วยให้ผู้อื่นจดจำคุณได้และช่วยให้คุณทราบว่ากำลัง ลงชื่อเข้าใช้บัญชีของตนเองอยู่</div>
+          <div className={styles.inputBox}>
+            <FloatingLabel controlId="floatingTextarea2" label="ชื่อ" style={{ fontWeight: 300, color: '#CCCCCC' }}>
+              <Form.Control
+                as={'input'}
+                placeholder="Leave a comment here"
+                style={{ height: '46px' }}
+                className={styles.input}
+                value={firstname}
+                onChange={e => setFirstname(e.target.value)}
+              />
+            </FloatingLabel>
+          </div>
+          <div className={styles.inputBox}>
+            <FloatingLabel controlId="floatingTextarea2" label="นามสกุล" style={{ fontWeight: 300, color: '#CCCCCC' }}>
+              <Form.Control
+                as={'input'}
+                placeholder="Leave a comment here"
+                style={{ height: '46px' }}
+                className={styles.input}
+                value={lastname}
+                onChange={e => setLastname(e.target.value)}
+              />
+            </FloatingLabel>
+          </div>
+          <div className='d-flex justify-content-end mt-3'>
+            <div
+              className={styles.backwordBtn}
+              onClick={() => {
+                setEditName(false)
+                setFirstname(user.data().firstname)
+                setLastname(user.data().lastname)
+              }}
+            >
+              ยกเลิก
+            </div>
+            <Button
+              className={styles.btn}
+            >
+              <div>บันทึก</div>
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   )
 }

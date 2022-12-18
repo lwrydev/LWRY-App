@@ -202,14 +202,15 @@
 }
 
 .caseBox {
-  border: 2px solid #E0E0E0;
+  border: 1px solid #E0E0E0;
   border-radius: 10px;
   padding: 20px;
-  margin-top: 18px;
+  margin: 18px 4px 0 4px;
 }
 
 .caseBox:hover {
-  background: #F9F9F9;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 8px #00000029;
   cursor: default;
 }
 
