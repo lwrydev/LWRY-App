@@ -96,26 +96,26 @@ body {
 
 .modal {
   display: flex !important;
-  align-items: center;
+  align-items: center !important;
 }
 
 .modal-header {
-  border-bottom: 0px;
-  padding-bottom: 0;
+  border-bottom: 0px !important;
+  padding-bottom: 0 !important;
 }
 
 .modal-backdrop.show {
-  opacity: .7;
-  background: #E0E0E0;
+  opacity: .7 !important;
+  background: #E0E0E0 !important;
 }
 
 .modal-content {
-  background: #FFFFFF 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border: 1px solid #E0E0E0;
-  border-radius: 12px;
+  background: #FFFFFF 0% 0% no-repeat padding-box !important;
+  box-shadow: 0px 3px 6px #00000029 !important;
+  border: 1px solid #E0E0E0 !important;
+  border-radius: 12px !important;
 }
 
 .modal-body {
-  padding: 0rem 2rem 1rem 2rem;
+  padding: 0rem 2rem 1rem 2rem !important;
 }
