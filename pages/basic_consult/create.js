@@ -1,7 +1,6 @@
 import { Button, FloatingLabel, Form, InputGroup } from 'react-bootstrap'
 import styles from './basicConsult.module.css'
 import Image from 'next/image'
-import Resizer from "react-image-file-resizer"
 
 import { useRouter } from "next/router"
 

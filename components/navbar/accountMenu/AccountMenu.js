@@ -42,6 +42,10 @@ export default function AccountMenu({ setShowAccount, user, setUser }) {
       <div>
         <div
           className={styles.accountListMenu}
+          onClick={() => {
+            router.push("/account_security")
+            setShowAccount(false)
+          }}
         >
           จัดการบัญชี
         </div>
@@ -51,7 +55,7 @@ export default function AccountMenu({ setShowAccount, user, setUser }) {
           ประวัติการชำระเงิน
         </div>
         <div
-          className={styles.accountListMenu}
+          className={styles.logoutText}
           onClick={() => logOut()}
         >
           ออกจากระบบ

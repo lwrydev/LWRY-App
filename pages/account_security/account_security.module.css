@@ -27,6 +27,13 @@
   padding: 8px;
   margin: 2px;
   cursor: default;
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.accountMenuLabelActive > div {
+  margin-left: 8px;
 }
 
 .accountMenuLabelInactive {
@@ -37,6 +44,13 @@
   padding: 8px;
   margin: 2px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.accountMenuLabelInactive > div {
+  margin-left: 8px;
 }
 
 .informationBox {

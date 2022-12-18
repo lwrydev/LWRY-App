@@ -1,6 +1,8 @@
 import styles from './footer.module.css'
 import Image from 'next/image'
 
+import { useRouter } from "next/router"
+
 //icon
 import IconGoogleCircle from '../../assets/logo/google_circle.svg'
 import IconFacebookCircle from '../../assets/logo/facebook_circle.svg'
@@ -8,6 +10,8 @@ import { useEffect, useState } from 'react'
 
 export default function FooterAccount({ user }) {
   const [pf, setPf] = useState("")
+
+  const router = useRouter()
 
   useEffect(() => {
     if (user) {
@@ -36,7 +40,12 @@ export default function FooterAccount({ user }) {
                   <div className='col-8'>
                     <div className={styles.profileDetail}>
                       <div className={styles.emailTxt}>{user ? user.data().email : ''}</div>
-                      <div className={styles.editBtnDetail}>เปลี่ยนอีเมล</div>
+                      <div
+                        className={styles.editBtnDetail}
+                        onClick={() => router.push("/account_security")}
+                      >
+                        เปลี่ยนอีเมล
+                      </div>
                     </div>
                     <div className={styles.profileDetail}>
                       <div className={styles.emailTxt}>แก้ไขรหัสผ่านล่าสุดเมื่อ 1 เดือนที่แล้ว</div>
