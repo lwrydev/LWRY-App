@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from 'react'
 
 import { firestore } from '../../config/firebase'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore'
 
 //icon
 import IconBook from '../../assets/logo/book.svg'
@@ -42,9 +42,18 @@ export default function QrPayment() {
       statusTH: 'รอตอบรับจากทนายความ',
       changedDate: new Date()
     }).then(() => {
-      router.replace({
-        pathname: '/payment/payment_success',
-        query: { case: caseRef.id }
+      addDoc(collection(firestore, 'payment_logs'), {
+        case: caseRef.id,
+        channel: 'QR-CODE',
+        number: '',
+        price: caseRef.data().payment.price,
+        createdDate: new Date(),
+        changedDate: new Date()
+      }).then(() => {
+        router.replace({
+          pathname: '/payment/payment_success',
+          query: { case: caseRef.id }
+        })
       })
     })
   }

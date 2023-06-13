@@ -403,6 +403,7 @@ export default function Chat({ user }) {
                                 </Button>
                                 <Button
                                   className={styles.btnFinish}
+                                  
                                 >
                                   <div>ชำระเงิน</div>
                                 </Button>

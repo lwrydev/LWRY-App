@@ -97,13 +97,13 @@ export default function create({ user }) {
         statusTH: 'รอการชำระเงิน',
         channel: '',
         number: '',
-        price: 50 * questionList.length
+        price: 50 * questionList.length,
+        totalPrice: 50 * questionList.length
       },
       createdDate: new Date(),
       changedDate: new Date()
     }).then(() => {
       docs.forEach(doc => {
-        console.log(doc);
         const storageRef = ref(storage, doc.path)
         uploadBytes(storageRef, doc.data)
       })

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import styles from './payment.module.css'
 import Image from 'next/image'
 
@@ -21,6 +21,12 @@ export default function ProofPayment({ user }) {
   const [caseDropdownList, setCaseDropdownList] = useState([])
 
   const router = useRouter()
+
+  const refFile = useRef()
+
+  const onUploadFile = () => {
+    refFile.current.click()
+  }
 
   useEffect(() => {
     getDoc(doc(firestore, 'cases', router.asPath.split('?caseId=')[1])).then(caseData => {
@@ -47,6 +53,10 @@ export default function ProofPayment({ user }) {
     })
   }
 
+  const uploadFile = async (e) => {
+    
+  }
+
   return (
     <div className={styles.container}>
       <div className="row">
@@ -63,8 +73,19 @@ export default function ProofPayment({ user }) {
             <div className={styles.proofPaymentTitle}>โอนเงินผ่านธนาคาร</div>
             <div className={styles.proofPaymentTitle2}>รายละเอียดการชำระเงิน</div>
             <div className="row">
+              <input
+                ref={refFile}
+                accept="image/*,application/pdf"
+                type="file"
+                multiple
+                style={{ display: 'none' }}
+                onChange={e => uploadFile(e)}
+              />
               <div className="col-6">
-                <div className={styles.attachFileBox}>
+                <div
+                  className={styles.attachFileBox}
+                  onClick={() => onUploadFile()}
+                >
                   <Image src={IconUpload} />
                   <div className={styles.attachFileText}>แนบไฟล์หลักฐานการชำระเงิน</div>
                 </div>
