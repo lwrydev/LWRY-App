@@ -36,7 +36,8 @@ export default function AccountMenu({ setShowAccount, setSelectMenu,  user, setU
       onMouseLeave={() => setShowAccount(false)}
     >
       <div className='d-flex align-items-center flex-column '>
-        <div className={styles.profileImg2}>{pf}</div>
+        {/* <div className={styles.profileImg2}>{pf}</div> */}
+        <img className={styles.profileImg2} src={auth.currentUser.photoURL} width={40} height={40} />
         <div className={styles.nameProfile}>{user.data().displayName}</div>
       </div>
       <div>

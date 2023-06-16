@@ -8,23 +8,15 @@ import { useRouter } from "next/router"
 import AccountMenu from "./accountMenu/AccountMenu"
 
 import Logo from '../../assets/logo/lawlivery_app.svg'
+import { getAuth } from "firebase/auth"
+
+const auth = getAuth()
 
 export default function NavBar({ user, setUser }) {
   const [selectMenu, setSelectMenu] = useState('menu1')
   const [showAccount, setShowAccount] = useState(false)
-  const [pf, setPf] = useState("")
 
   const router = useRouter()
-
-  useEffect(() => {
-    if (user) {
-      if (user.data().displayName.split(" ").length > 1) {
-        setPf(user.data().displayName.split(" ")[0][0] + user.data().displayName.split(" ")[1][0])
-      } else {
-        setPf(user.data().displayName.split(" ")[0][0])
-      }
-    }
-  }, [user])
 
   useEffect(() => {
     if (router.pathname.includes('/account_security')) {
@@ -94,7 +86,8 @@ export default function NavBar({ user, setUser }) {
             <Nav.Item>
               <div onClick={() => setShowAccount(true)}>
                 <Nav.Link>
-                  <div className={styles.profileImg}>{pf}</div>
+                  {/* <div className={styles.profileImg}>{pf}</div> */}
+                  <img className={styles.profileImg} src={auth.currentUser.photoURL} width={28} height={28} />
                 </Nav.Link>
               </div>
               {showAccount ?

@@ -2,15 +2,15 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import styles from './account_management.module.css'
-import Image from 'next/image'
 
 import '../../config/firebase'
-import { Button, FloatingLabel, Form, Modal } from 'react-bootstrap'
 
 //icon
-import IconUpload from '../../assets/logo/upload.svg'
 import ChangeProfileName from './Modals/ChangeProfileNameModal'
 import ChangeDisplayNameModal from './Modals/ChangeDisplayNameModal'
+import ChangeBackupEmailModal from './Modals/ChangeBackupEmailModal'
+import ChangePhoneNumberModal from './Modals/ChangePhoneNumberModal'
+import ChangeImageProfileModal from './Modals/ChangeImageProfileModal'
 
 const auth = getAuth()
 
@@ -19,12 +19,12 @@ export default function PersonalAccount({ user, setUser }) {
   const [loading, setLoading] = useState(true)
   const [pf, setPf] = useState("")
 
-  //edit pic
-  const [editPic, setEditPic] = useState(false)
-
   //edit modals
   const [editName, setEditName] = useState(false)
   const [editDisplayName, setEditDisplayName] = useState(false)
+  const [editBackupEmail, setEditBackupEmail] = useState(false)
+  const [editPhoneNumber, setEditPhoneNumber] = useState(false)
+  const [editImageProfile, setEditImageProfile] = useState(false)
 
   useEffect(() => {
     onAuthStateChanged(auth, userData => {
@@ -62,7 +62,8 @@ export default function PersonalAccount({ user, setUser }) {
                     <div className={styles.titleSubInformation}>รูปโปรไฟล์</div>
                   </div>
                   <div className='col-4 d-flex align-items-center'>
-                    <div className={styles.profilePic}>{pf}</div>
+                    {/* <div className={styles.profilePic}>{pf}</div> */}
+                    <img className={styles.profilePic} src={userRef.photoURL} width={60} height={60} />
                   </div>
                   <div className='col-4 d-flex row align-items-center'>
                     <div className='row'>
@@ -72,7 +73,7 @@ export default function PersonalAccount({ user, setUser }) {
                       <div className='col-6'>
                         <div
                           className={styles.titleEdit}
-                          onClick={() => setEditPic(true)}
+                          onClick={() => setEditImageProfile(true)}
                         >
                           แก้ไข
                         </div>
@@ -181,7 +182,35 @@ export default function PersonalAccount({ user, setUser }) {
                     <div className='row'>
                       <div className='col-6'></div>
                       <div className='col-6'>
-                        <div className={styles.titleEdit}>{user.data().backupEmail ? 'แก้ไข' : 'เพิ่มข้อมูล'}</div>
+                        <div
+                          className={styles.titleEdit}
+                          onClick={() => setEditBackupEmail(true)}
+                        >
+                          {user.data().backupEmail ? 'แก้ไข' : 'เพิ่มข้อมูล'}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.itemBox}>
+                <div className='row'>
+                  <div className='col-4'>
+                    <div className={styles.titleSubInformation}>เบอร์โทรศัพท์</div>
+                  </div>
+                  <div className='col-4'>
+                    <div className={styles.valueInformation}>{user.data().phoneNumber ? user.data().phoneNumber : '-'}</div>
+                  </div>
+                  <div className='col-4'>
+                    <div className='row'>
+                      <div className='col-6'></div>
+                      <div className='col-6'>
+                        <div
+                          className={styles.titleEdit}
+                          onClick={() => setEditPhoneNumber(true)}
+                        >
+                          {user.data().phoneNumber ? 'แก้ไข' : 'เพิ่มข้อมูล'}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -247,41 +276,11 @@ export default function PersonalAccount({ user, setUser }) {
         </> :
         <></>
       }
-      <Modal
-        show={editPic}
-        onHide={() => setEditPic(false)}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-        </Modal.Header>
-        <Modal.Body>
-          <div className={styles.titleChangeProfile}>รูปโปรไฟล์</div>
-          <div className={styles.descChangeProfile}>รูปภาพช่วยให้ผู้อื่นจดจำคุณได้และช่วยให้คุณทราบว่ากำลังลงชื่อเข้าใช้ บัญชีของตนเองอยู่</div>
-          <div className='d-flex justify-content-center'>
-            <div className={styles.changePic}></div>
-          </div>
-          <div className='d-flex justify-content-center'>
-            <div className={styles.setDefaultPic}>ใช้ภาพเริ่มต้นของระบบ</div>
-          </div>
-          <div className={styles.grpBtn}>
-            <div className='col-7'>
-              <div className={styles.btnUploadPic}>
-                <Image src={IconUpload} width={24} />
-                <div>อัปโหลดรูปภาพโปรไฟล์ใหม่</div>
-              </div>
-            </div>
-            <div className='col-5'>
-              <div className={styles.btnUploadPic}>
-                <Image src={IconUpload} width={24} />
-                <div>นำออก</div>
-              </div>
-            </div>
-          </div>
-        </Modal.Body>
-      </Modal>
+      <ChangeImageProfileModal user={user} setUser={setUser} showModal={editImageProfile} setShowModal={setEditImageProfile} />
       <ChangeProfileName user={user} setUser={setUser} showModal={editName} setShowModal={setEditName} />
       <ChangeDisplayNameModal user={user} setUser={setUser} showModal={editDisplayName} setShowModal={setEditDisplayName} />
+      <ChangeBackupEmailModal user={user} setUser={setUser} showModal={editBackupEmail} setShowModal={setEditBackupEmail} />
+      <ChangePhoneNumberModal user={user} setUser={setUser} showModal={editPhoneNumber} setShowModal={setEditPhoneNumber} />
     </div>
   )
 }

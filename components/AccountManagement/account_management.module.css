@@ -104,6 +104,13 @@
   margin: 5px 0;
 }
 
+.currentChangeProfile {
+  color: #434343;
+  font-size: 16px;
+  font-weight: 300;
+  margin: 5px 0;
+}
+
 .changePic {
   width: 140px;
   height: 140px;

@@ -4,26 +4,19 @@ import Image from 'next/image'
 //icon
 import IconGoogleCircle from '../../../assets/logo/google_circle.svg'
 import IconFacebookCircle from '../../../assets/logo/facebook_circle.svg'
-import { useEffect, useState } from 'react'
+import { getAuth } from 'firebase/auth'
+
+const auth = getAuth()
 
 export default function AccountMenu2({ user }) {
-  const [pf, setPf] = useState("")
-
-  useEffect(() => {
-    if (user) {
-      if (user.data().displayName.split(" ").length > 1) {
-        setPf(user.data().displayName.split(" ")[0][0] + user.data().displayName.split(" ")[1][0])
-      } else {
-        setPf(user.data().displayName.split(" ")[0][0])
-      }
-    }
-  }, [user])
 
   return (
     <div>
       <div className={styles.account}>
         <div className='row justify-content-center align-content-center'>
-          <div className={styles.profilePic}>{pf}</div>
+          {/* <div className={styles.profilePic}>{pf}</div> */}
+          <img className={styles.profilePic} src={auth.currentUser.photoURL} width={70} height={70} />
+
           <div className={styles.displayName}>{user ? user.data().displayName : ''}</div>
           <div className={styles.editBtn}>แก้ไขโปรไฟล์</div>
         </div>
