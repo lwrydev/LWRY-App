@@ -29,6 +29,7 @@
     "crypto": "^1.0.1",
     "dotenv": "^16.0.0",
     "elasticemail": "^0.2.0",
+    "file-saver": "^2.0.5",
     "firebase": "^9.6.10",
     "ioredis": "^5.0.4",
     "jquery": "^3.6.0",

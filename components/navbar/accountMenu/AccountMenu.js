@@ -8,7 +8,7 @@ import { useRouter } from "next/router"
 
 const auth = getAuth()
 
-export default function AccountMenu({ setShowAccount, user, setUser }) {
+export default function AccountMenu({ setShowAccount, setSelectMenu,  user, setUser }) {
   const [pf, setPf] = useState("")
 
   const router = useRouter()
@@ -44,6 +44,7 @@ export default function AccountMenu({ setShowAccount, user, setUser }) {
           className={styles.accountListMenu}
           onClick={() => {
             router.push("/account_security")
+            setSelectMenu('menu2')
             setShowAccount(false)
           }}
         >

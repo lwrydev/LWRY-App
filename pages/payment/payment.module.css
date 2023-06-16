@@ -514,3 +514,7 @@
   padding: 5px 0;
   cursor: pointer;
 }
+
+.image-display {
+  width: 90%;
+}

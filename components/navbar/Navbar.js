@@ -98,7 +98,7 @@ export default function NavBar({ user, setUser }) {
                 </Nav.Link>
               </div>
               {showAccount ?
-                <AccountMenu setShowAccount={setShowAccount} user={user} setUser={setUser} />
+                <AccountMenu setShowAccount={setShowAccount} setSelectMenu={setSelectMenu} user={user} setUser={setUser} />
                 :
                 <></>
               }

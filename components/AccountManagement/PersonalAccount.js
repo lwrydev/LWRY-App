@@ -9,6 +9,8 @@ import { Button, FloatingLabel, Form, Modal } from 'react-bootstrap'
 
 //icon
 import IconUpload from '../../assets/logo/upload.svg'
+import ChangeProfileName from './Modals/ChangeProfileNameModal'
+import ChangeDisplayNameModal from './Modals/ChangeDisplayNameModal'
 
 const auth = getAuth()
 
@@ -20,10 +22,9 @@ export default function PersonalAccount({ user, setUser }) {
   //edit pic
   const [editPic, setEditPic] = useState(false)
 
-  //edit name
+  //edit modals
   const [editName, setEditName] = useState(false)
-  const [firstname, setFirstname] = useState("")
-  const [lastname, setLastname] = useState("")
+  const [editDisplayName, setEditDisplayName] = useState(false)
 
   useEffect(() => {
     onAuthStateChanged(auth, userData => {
@@ -37,8 +38,8 @@ export default function PersonalAccount({ user, setUser }) {
       } else {
         setPf(user.data().displayName.split(" ")[0][0])
       }
-      setFirstname(user.data().firstname)
-      setLastname(user.data().lastname)
+      // setFirstname(user.data().firstname)
+      // setLastname(user.data().lastname)
     }
   }, [user])
 
@@ -115,7 +116,12 @@ export default function PersonalAccount({ user, setUser }) {
                     <div className='row'>
                       <div className='col-6'></div>
                       <div className='col-6'>
-                        <div className={styles.titleEdit}>{user.data().displayName ? 'แก้ไข' : 'เพิ่มข้อมูล'}</div>
+                        <div
+                          className={styles.titleEdit}
+                          onClick={() => setEditDisplayName(true)}
+                        >
+                          {user.data().displayName ? 'แก้ไข' : 'เพิ่มข้อมูล'}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -274,60 +280,8 @@ export default function PersonalAccount({ user, setUser }) {
           </div>
         </Modal.Body>
       </Modal>
-      <Modal
-        show={editName}
-        onHide={() => setEditName(false)}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-        </Modal.Header>
-        <Modal.Body>
-          <div className={styles.titleChangeProfile}>ชื่อและนามสกุล</div>
-          <div className={styles.descChangeProfile}>ชื่อและนามสกุลช่วยให้ผู้อื่นจดจำคุณได้และช่วยให้คุณทราบว่ากำลัง ลงชื่อเข้าใช้บัญชีของตนเองอยู่</div>
-          <div className={styles.inputBox}>
-            <FloatingLabel controlId="floatingTextarea2" label="ชื่อ" style={{ fontWeight: 300, color: '#CCCCCC' }}>
-              <Form.Control
-                as={'input'}
-                placeholder="Leave a comment here"
-                style={{ height: '46px' }}
-                className={styles.input}
-                value={firstname}
-                onChange={e => setFirstname(e.target.value)}
-              />
-            </FloatingLabel>
-          </div>
-          <div className={styles.inputBox}>
-            <FloatingLabel controlId="floatingTextarea2" label="นามสกุล" style={{ fontWeight: 300, color: '#CCCCCC' }}>
-              <Form.Control
-                as={'input'}
-                placeholder="Leave a comment here"
-                style={{ height: '46px' }}
-                className={styles.input}
-                value={lastname}
-                onChange={e => setLastname(e.target.value)}
-              />
-            </FloatingLabel>
-          </div>
-          <div className='d-flex justify-content-end mt-3'>
-            <div
-              className={styles.backwordBtn}
-              onClick={() => {
-                setEditName(false)
-                setFirstname(user.data().firstname)
-                setLastname(user.data().lastname)
-              }}
-            >
-              ยกเลิก
-            </div>
-            <Button
-              className={styles.btn}
-            >
-              <div>บันทึก</div>
-            </Button>
-          </div>
-        </Modal.Body>
-      </Modal>
+      <ChangeProfileName user={user} setUser={setUser} showModal={editName} setShowModal={setEditName} />
+      <ChangeDisplayNameModal user={user} setUser={setUser} showModal={editDisplayName} setShowModal={setEditDisplayName} />
     </div>
   )
 }

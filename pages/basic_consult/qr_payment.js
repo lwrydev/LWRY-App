@@ -42,7 +42,7 @@ export default function QrPayment() {
       statusTH: 'รอตอบรับจากทนายความ',
       changedDate: new Date()
     }).then(() => {
-      addDoc(collection(firestore, 'payment_logs'), {
+      addDoc(collection(firestore, 'payments_history'), {
         case: caseRef.id,
         channel: 'QR-CODE',
         number: '',

@@ -77,19 +77,32 @@ export default function Payment({ user, caseType }) {
   const onSubmitPayment = (e) => {
     e.preventDefault()
     if (paymentType != '') {
-      setDoc(doc(collection(firestore, 'orders')), {
+      setDoc(doc(collection(firestore, 'payments_history')), {
         case: caseRef.id,
         createdDate: new Date(),
         changedDate: new Date(),
         owner: user.id,
         price: totalAfterDiscount,
-        paymentType: paymentType,
-        status: 'pending'
+        channel: paymentType === 'P01' ? 'Bank Transfer' : paymentType === 'P02' ? 'Credit Card' : 'QR Code',
+        channelTH: paymentType === 'P01' ? 'โอนผ่านบัญชีธนาคาร' : paymentType === 'P02' ? 'บัตรเครดิต' : 'คิวอาร์โค้ด',
+        status: 'Pending'
       }).then(() => {
-        router.push({
-          pathname: '/basic_consult/qr_payment',
-          query: { case: caseRef.id }
-        })
+        if (paymentType === 'P01') {
+          router.push({
+            pathname: '/payment/account_transfer',
+            query: { case: caseRef.id }
+          })
+        } else if (paymentType === 'P02') {
+          router.push({
+            pathname: '/payment/qr_payment',
+            query: { case: caseRef.id }
+          })
+        } else {
+          router.push({
+            pathname: '/payment/qr_payment',
+            query: { case: caseRef.id }
+          })
+        }
       })
     } else {
       toast.info("กรุณาเลือกวิธีการชำระเงิน", {

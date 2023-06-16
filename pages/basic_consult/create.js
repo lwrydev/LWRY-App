@@ -77,7 +77,7 @@ export default function create({ user }) {
       acceptPolicy: termsChecked,
       acceptConditions: conditionChecked,
       details: details,
-      type: 'consult',
+      type: 'Basic Consult',
       typeTH: 'คำปรึกษาเบื้องต้น',
       status: 'Pending Payment',
       statusTH: 'รอการชำระเงิน',
@@ -87,7 +87,7 @@ export default function create({ user }) {
         path: doc.path,
         type: doc.data.type
       })),
-      pic: docs.filter(doc => doc.data.type != "application/pdf").map(doc => ({
+      pics: docs.filter(doc => doc.data.type != "application/pdf").map(doc => ({
         name: doc.name,
         path: doc.path,
         type: doc.data.type
@@ -96,6 +96,7 @@ export default function create({ user }) {
         status: 'Pending',
         statusTH: 'รอการชำระเงิน',
         channel: '',
+        channelTH: '',
         number: '',
         price: 50 * questionList.length,
         totalPrice: 50 * questionList.length
