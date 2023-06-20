@@ -116,7 +116,10 @@ export default function Payment({ user, caseType }) {
     <div className={styles.content}>
       {caseRef ?
         <>
-          <BasicConsultProcessBar />
+          {caseRef.data().type === 'Basic Consult' ?
+            <BasicConsultProcessBar /> :
+            <></>
+          }
           <div className="row">
             <div className="col-1"></div>
             <div className="col-10">

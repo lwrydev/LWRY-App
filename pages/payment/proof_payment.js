@@ -89,7 +89,7 @@ export default function ProofPayment({ user }) {
       paymentHistory: hisRef.id,
       pic: {
         name: file.name,
-        path: '/' + caseRef.id + '/' + file.name,
+        path: '/' + caseRef.id + '/' + new Date().getTime().toString(36).toUpperCase() + file.name,
         type: file.type
       },
       owner: user.id

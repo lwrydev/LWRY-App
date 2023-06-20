@@ -77,6 +77,7 @@ export default function Chat({ user }) {
       onSnapshot(query(collection(chatData.ref, 'messages'), orderBy('seq', 'desc'), limit(1)), (data) => {
         data.docChanges().forEach(dc => {
           if (dc.type === "added") {
+            console.log(dc);
             setNewMessage([dc.doc.data()])
           }
         })
@@ -94,7 +95,9 @@ export default function Chat({ user }) {
   }
 
   useEffect(() => {
-    if (newMessage && messages.includes(newMessage)) {
+    if (newMessage.length > 0 && !messages.includes(newMessage)) {
+      console.log(messages);
+      console.log(newMessage);
       setMessages(newMessage.concat(messages))
     }
   }, [newMessage])
@@ -209,7 +212,7 @@ export default function Chat({ user }) {
   const uploadFile = async (e) => {
     Array.from(e.target.files).forEach(file => {
       if (file.size <= 2000000) {
-        let fileName = new Date().getTime().toString()
+        let fileName = new Date().getTime().toString() + file.name
         const storageRef = ref(storage, '/' + caseRef.id + '/' + fileName,)
         uploadBytes(storageRef, file)
         addDoc(collection(chatRef.ref, 'messages'), {
@@ -239,7 +242,7 @@ export default function Chat({ user }) {
   const uploadImage = async (e) => {
     Array.from(e.target.files).forEach(file => {
       if (file.size <= 2000000) {
-        let fileName = new Date().getTime().toString()
+        let fileName = new Date().getTime().toString() + file.name
         const storageRef = ref(storage, '/' + caseRef.id + '/' + fileName,)
         uploadBytes(storageRef, file)
         addDoc(collection(chatRef.ref, 'messages'), {

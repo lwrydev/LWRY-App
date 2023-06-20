@@ -44,7 +44,10 @@ export default function AccountTransfer({ user }) {
 
   return (
     <div className={styles.content}>
-      <BasicConsultProcessBar />
+      {caseRef.data().type === 'Basic Consult' ?
+        <BasicConsultProcessBar /> :
+        <></>
+      }
       <div className='row'>
         <div className='col-3'></div>
         <div className='col-6'>
