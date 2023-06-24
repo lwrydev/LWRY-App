@@ -1,0 +1,71 @@
+.informationContent {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  padding: 20px 30px;
+  margin-bottom: 16px;
+}
+
+.titleMenu {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0px;
+  color: #434343;
+}
+
+.detailsMenu {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  padding: 16px 0;
+}
+
+.informationBox {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E0E0E0;
+  border-radius: 16px;
+  margin: 15px 20px;
+}
+
+.banner {
+  background: #F5F5F5 0% 0% no-repeat padding-box;
+  border-radius: 8px;
+  width: auto;
+  height: 140px;
+  margin: 20px;
+}
+
+.bannerTitle {
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #434343;
+  margin-top: 20px;
+}
+
+.bannerDetails {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0px;
+  color: #9B9B9B;
+  margin: 0px 20px 10px 0px;
+}
+
+.boxHeader {
+  display: flex;
+  padding: 6px;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.boxHeaderText {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #6E6E6E;
+  text-align: center;
+}
+
+.boxBody {
+  display: flex;
+  padding: 6px;
+}

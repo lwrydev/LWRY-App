@@ -77,7 +77,6 @@ export default function Chat({ user }) {
       onSnapshot(query(collection(chatData.ref, 'messages'), orderBy('seq', 'desc'), limit(1)), (data) => {
         data.docChanges().forEach(dc => {
           if (dc.type === "added") {
-            console.log(dc);
             setNewMessage([dc.doc.data()])
           }
         })
@@ -95,9 +94,7 @@ export default function Chat({ user }) {
   }
 
   useEffect(() => {
-    if (newMessage.length > 0 && !messages.includes(newMessage)) {
-      console.log(messages);
-      console.log(newMessage);
+    if (newMessage.length > 0 && !messages.find(ms => ms.seq === newMessage[0].seq)) {
       setMessages(newMessage.concat(messages))
     }
   }, [newMessage])

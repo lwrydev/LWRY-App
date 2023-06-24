@@ -80,6 +80,7 @@ export default function Payment({ user, caseType }) {
     if (paymentType != '') {
       setDoc(doc(collection(firestore, 'payments_history')), {
         case: caseRef.id,
+        caseNo: caseRef.data().caseNo,
         createdDate: new Date(),
         changedDate: new Date(),
         owner: user.id,

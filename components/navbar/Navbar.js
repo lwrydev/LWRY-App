@@ -21,6 +21,8 @@ export default function NavBar({ user, setUser }) {
   useEffect(() => {
     if (router.pathname.includes('/account_security')) {
       setSelectMenu('menu2')
+    } else if (router.pathname.includes('/pricing_payment')) {
+      setSelectMenu('menu3')
     }
   }, [])
 
@@ -32,6 +34,11 @@ export default function NavBar({ user, setUser }) {
   const goAccountPage = () => {
     setSelectMenu('menu2')
     router.push('/account_security')
+  }
+
+  const goPricingPage = () => {
+    setSelectMenu('menu3')
+    router.push('/pricing_payment')
   }
 
   return (
@@ -67,7 +74,7 @@ export default function NavBar({ user, setUser }) {
             </div>
             <div
               className={selectMenu == 'menu3' ? styles.focusMenu : styles.menu}
-              onClick={() => setSelectMenu('menu3')}
+              onClick={() => goPricingPage()}
             >
               <Nav.Link>
                 ราคาและการชำระเงิน

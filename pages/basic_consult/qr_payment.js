@@ -44,6 +44,7 @@ export default function QrPayment() {
     }).then(() => {
       addDoc(collection(firestore, 'payments_history'), {
         case: caseRef.id,
+        caseNo: caseRef.data().caseNo,
         channel: 'QR-CODE',
         number: '',
         price: caseRef.data().payment.price,
