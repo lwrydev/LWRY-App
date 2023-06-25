@@ -13,12 +13,12 @@ export default function SecurityAccount({ user, setUser }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    onAuthStateChanged(auth, userData => {
-      if (userData) {
-        console.log(userData);
-        setUserRef(userData)
-      }
-    })
+    // onAuthStateChanged(auth, userData => {
+    //   if (userData) {
+    //     setUserRef(userData)
+    //   }
+    // })
+    setUserRef(user)
   }, [user])
 
   useEffect(() => {

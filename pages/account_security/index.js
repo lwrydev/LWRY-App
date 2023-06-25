@@ -15,7 +15,7 @@ import IconUserShieldInactive from '../../assets/logo/user_shield_inactive.svg'
 import IconSub20 from '../../assets/logo/subtraction20.svg'
 import IconSub20Inactive from '../../assets/logo/subtraction20_inactive.svg'
 
-export default function AccountAndSecurity({ user, setUser }) {
+export default function AccountAndInformation({ user, setUser }) {
   const [selectedMenu, setSelectedMenu] = useState("Menu1")
 
   return (

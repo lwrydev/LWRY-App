@@ -10,6 +10,7 @@ import { useEffect, useState } from "react"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { doc, getDoc } from "firebase/firestore"
 import { firestore } from "../config/firebase"
+import { getCurrentUser } from "../utility/user"
 
 const auth = getAuth()
 
@@ -29,21 +30,11 @@ export default function _app({ Component, pageProps }) {
     setLoading(true)
     onAuthStateChanged(auth, userData => {
       if (userData) {
-        if (!localStorage.getItem("session") || (new Date().getTime() - new Date(localStorage.getItem("session")).getTime()) < 7200000) {
-          localStorage.removeItem("session")
-          localStorage.setItem("session", new Date())
-          getDoc(doc(firestore, 'users', userData.uid)).then(userRef => {
-            setUser(userRef)
-            console.log(userData);
-            console.log(userRef.data());
-            setLoading(false)
-          })
-        } else {
-          localStorage.removeItem("session")
-          auth.signOut().then(() => {
-            router.replace('/login')
-          })
-        }
+        getCurrentUser().then(userRef => {
+          setUser(userRef)
+          console.log(userData);
+          setLoading(false)
+        })
       } else {
         if (!(router.pathname.includes('/verification') || router.pathname.includes('/register'))) {
           router.replace('/login')

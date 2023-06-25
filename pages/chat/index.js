@@ -8,8 +8,9 @@ import FooterAccount from "../../components/footer/FooterAccount"
 import { useEffect, useRef, useState } from 'react'
 
 import { firestore } from '../../config/firebase'
-import { addDoc, collection, doc, getDoc, getDocs, limit, onSnapshot, orderBy, query, setDoc, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, getDoc, getDocs, limit, onSnapshot, orderBy, query, startAfter, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 //icon
 import IconClose from '../../assets/logo/close.svg'
@@ -21,6 +22,7 @@ import SentMessage from '../../assets/logo/sent_message.svg'
 
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { saveAs } from 'file-saver'
 
 const storage = getStorage()
 
@@ -34,6 +36,9 @@ export default function Chat({ user }) {
   const [addQuestion, setAddQuestion] = useState(false)
   const [questionList, setQuestionList] = useState([{ question: '' }])
   const [price, setPrice] = useState(0)
+  const [lastMessage, setLastMessage] = useState(null)
+  const [moreMessages, setMoreMessages] = useState(true)
+  const [newMessage, setNewMessage] = useState([])
 
   const router = useRouter()
 
@@ -62,27 +67,46 @@ export default function Chat({ user }) {
   }, [])
 
   useEffect(() => {
-    if (chatRef) {
-      const SubscribeRetrieveMessage = onSnapshot(query(collection(chatRef.ref, 'messages'), orderBy('seq', 'desc'), limit(20)), (data) => {
-        setMessages(data.docs.map(ms => ms.data()))
-      })
-      return () => SubscribeRetrieveMessage()
-    }
-  }, [chatRef])
-
-  useEffect(() => {
     setPrice(questionList.length * 50)
   }, [questionList])
 
   const retrieveMessages = (caseData) => {
     getDoc(doc(firestore, 'chats', caseData.data().chat)).then(chatData => {
+
+      //Hook messages
+      onSnapshot(query(collection(chatData.ref, 'messages'), orderBy('seq', 'desc'), limit(1)), (data) => {
+        data.docChanges().forEach(dc => {
+          if (dc.type === "added") {
+            setNewMessage([dc.doc.data()])
+          }
+        })
+      })
+
       getDocs(query(collection(chatData.ref, 'messages'), orderBy('seq', 'desc'), limit(20))).then(msList => {
+        setLastMessage(msList.docs[msList.docs.length - 1])
         setMessages(msList.docs.map(ms => ms.data()))
         setChatRef(chatData)
         if (user.data().role == 'Lawer') {
           setLawerPic(chatData.data().client.displayName ? chatData.data().client.displayName.split(' ')[0][0] + (chatData.data().client.displayName.split(' ').length > 0 ? chatData.data().client.displayName.split(' ')[1][0] : '') : '')
         }
       })
+    })
+  }
+
+  useEffect(() => {
+    if (newMessage.length > 0 && !messages.find(ms => ms.seq === newMessage[0].seq)) {
+      setMessages(newMessage.concat(messages))
+    }
+  }, [newMessage])
+
+  const fetchMoreMessages = () => {
+    getDocs(query(collection(chatRef.ref, 'messages'), orderBy('seq', 'desc'), startAfter(lastMessage), limit(20))).then(msList => {
+      if (msList.docs.length == 0) {
+        setMoreMessages(false)
+      } else {
+        setLastMessage(msList.docs[msList.docs.length - 1])
+        setMessages(messages.concat(msList.docs.map(ms => ms.data())))
+      }
     })
   }
 
@@ -125,13 +149,17 @@ export default function Chat({ user }) {
     })
   }
 
-  const downloadFile = (path, name) => {
-    if (!path) {
+  const downloadFile = (doc) => {
+    if (!doc.path) {
       return
     }
-    const pathReference = ref(storage, path)
+
+    console.log(doc.path);
+
+    const pathReference = ref(storage, doc.path)
     getDownloadURL(pathReference).then(url => {
-      window.open(url)
+      // window.open(url)
+      saveAs(url, doc.name)
     })
   }
 
@@ -182,7 +210,7 @@ export default function Chat({ user }) {
   const uploadFile = async (e) => {
     Array.from(e.target.files).forEach(file => {
       if (file.size <= 2000000) {
-        let fileName = new Date().getTime().toString()
+        let fileName = new Date().getTime().toString() + file.name
         const storageRef = ref(storage, '/' + caseRef.id + '/' + fileName,)
         uploadBytes(storageRef, file)
         addDoc(collection(chatRef.ref, 'messages'), {
@@ -190,7 +218,7 @@ export default function Chat({ user }) {
             path: '/' + caseRef.id + '/' + fileName,
             name: file.name,
             size: file.size,
-            type: "PDF",
+            type: file.type,
             createdDate: new Date(),
             expireDate: new Date(new Date().getTime() + 10 * 60 * 60 * 24 * 1000)
           },
@@ -212,7 +240,24 @@ export default function Chat({ user }) {
   const uploadImage = async (e) => {
     Array.from(e.target.files).forEach(file => {
       if (file.size <= 2000000) {
-
+        let fileName = new Date().getTime().toString() + file.name
+        const storageRef = ref(storage, '/' + caseRef.id + '/' + fileName,)
+        uploadBytes(storageRef, file)
+        addDoc(collection(chatRef.ref, 'messages'), {
+          doc: {
+            path: '/' + caseRef.id + '/' + fileName,
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            createdDate: new Date(),
+            expireDate: new Date(new Date().getTime() + 10 * 60 * 60 * 24 * 1000)
+          },
+          typeMessage: "docs",
+          sendDate: new Date(),
+          sender: user.id,
+          seq: messages.length > 0 ? messages[0].seq + 1 : 1,
+          type: user.data().role == 'User' ? "client" : "lawer"
+        })
       } else {
         toast.error("ขนาดไฟล์ต้องไม่เกิน 2MB", {
           position: 'bottom-right'
@@ -403,6 +448,7 @@ export default function Chat({ user }) {
                                 </Button>
                                 <Button
                                   className={styles.btnFinish}
+
                                 >
                                   <div>ชำระเงิน</div>
                                 </Button>
@@ -465,7 +511,17 @@ export default function Chat({ user }) {
                         </Button>
                       </div>
                     </div>
-                    <div className={styles.messageBox}>
+                    {/* <div className={styles.messageBox}> */}
+                    <InfiniteScroll
+                      dataLength={messages.length}
+                      next={() => fetchMoreMessages()}
+                      hasMore={moreMessages}
+                      loader={<h4>Loading...</h4>}
+                      height={560}
+                      endMessage={<></>}
+                      inverse
+                      className={styles.messageBox}
+                    >
                       {messages.map((ms, index) => {
                         return <div key={index}>
 
@@ -486,7 +542,7 @@ export default function Chat({ user }) {
                                     return <div key={index}>
                                       <div
                                         className={styles.uploadFile}
-                                        onClick={() => downloadFile(doc.path, doc.name)}
+                                        onClick={() => downloadFile(doc)}
                                       >
                                         {doc.type == 'application/pdf' ?
                                           <Image src={IconPDF} /> :
@@ -495,16 +551,16 @@ export default function Chat({ user }) {
                                       </div>
                                     </div>
                                   }) : <></>}
-                                  {caseRef.data().pic ? caseRef.data().pic.map((doc, index) => {
+                                  {caseRef.data().pics ? caseRef.data().pics.map((pic, index) => {
                                     return <div key={index}>
                                       <div
                                         className={styles.uploadFile}
-                                        onClick={() => downloadFile(doc.path)}
+                                        onClick={() => downloadFile(pic)}
                                       >
-                                        {doc.type == 'application/pdf' ?
+                                        {pic.type == 'application/pdf' ?
                                           <Image src={IconPDF} /> :
                                           <Image src={IconJPG} />}
-                                        <div>{doc.name.length <= 17 ? doc.name : doc.name.substring(0, 13) + "..." + (doc.type == 'application/pdf' ? "PDF" : "JPG")}</div>
+                                        <div>{pic.name.length <= 17 ? pic.name : pic.name.substring(0, 13) + "..." + (pic.type == 'application/pdf' ? "PDF" : "JPG")}</div>
                                       </div>
                                     </div>
                                   }) : <></>}
@@ -527,9 +583,11 @@ export default function Chat({ user }) {
                                     <div className={styles.messageDocs}>
                                       <div
                                         className={styles.uploadFile}
-                                        onClick={() => downloadFile(ms.doc.path)}
+                                        onClick={() => downloadFile(ms.doc)}
                                       >
-                                        <Image src={IconPDF} width={50} height={60} />
+                                        {ms.doc.type == 'application/pdf' ?
+                                          <Image src={IconPDF} /> :
+                                          <Image src={IconJPG} />}
                                       </div>
                                       <div className={styles.docsDesc}>
                                         <div>{ms.doc.name.length <= 17 ? ms.doc.name : ms.doc.name.substring(0, 13) + "..." + (ms.doc.type == 'application/pdf' ? "PDF" : "JPG")}</div>
@@ -567,7 +625,8 @@ export default function Chat({ user }) {
                           }
                         </div>
                       })}
-                    </div>
+                    </InfiniteScroll>
+                    {/* </div> */}
                   </div>
                 </div>
               </div>

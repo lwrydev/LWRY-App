@@ -71,7 +71,7 @@
   font-size: 30px;
 }
 
-.noted {
+.note {
   font-size: 16px;
   font-weight: 300;
   letter-spacing: 0px;
@@ -99,6 +99,13 @@
 
 .descChangeProfile {
   color: #9B9B9B;
+  font-size: 16px;
+  font-weight: 300;
+  margin: 5px 0;
+}
+
+.currentChangeProfile {
+  color: #434343;
   font-size: 16px;
   font-weight: 300;
   margin: 5px 0;

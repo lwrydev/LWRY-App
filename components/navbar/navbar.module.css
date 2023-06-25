@@ -35,25 +35,19 @@
 .profileImg {
   width: 28px;
   height: 28px;
-  background: var(--primary) 0% 0% no-repeat padding-box;
-  background: #15355F 0% 0% no-repeat padding-box;
   opacity: 1;
   border-radius: 14px;
   color: #FFF;
   text-align: center;
-  padding: 2px;
 }
 
 .profileImg2 {
   width: 40px;
   height: 40px;
-  background: var(--primary) 0% 0% no-repeat padding-box;
-  background: #15355F 0% 0% no-repeat padding-box;
   opacity: 1;
   border-radius: 20px;
   color: #FFF;
   text-align: center;
-  padding: 5px;
   font-size: 20px;
 }
 

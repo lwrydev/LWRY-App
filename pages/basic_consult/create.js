@@ -43,7 +43,15 @@ export default function create({ user }) {
     let filesRef = []
     Array.from(e.target.files).forEach(file => {
       if (file.size <= 2000000) {
-        filesRef.push(file)
+        filesRef.push({
+          lastModified: file.lastModified,
+          lastModifiedDate: file.lastModifiedDate,
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          file: file,
+          name2: new Date().getTime().toString() + file.name
+        })
       } else {
         toast.error("ขนาดไฟล์ต้องไม่เกิน 2MB", {
           position: 'bottom-right'
@@ -68,8 +76,8 @@ export default function create({ user }) {
     let id = new Date().getTime().toString()
     let docs = files.map(file => ({
       name: file.name,
-      path: '/' + id + '/' + file.name,
-      data: file
+      path: '/' + id + '/' + file.name2,
+      data: file.file
     }))
     setDoc(doc(firestore, 'cases', id), {
       owner: user.id,
@@ -77,7 +85,7 @@ export default function create({ user }) {
       acceptPolicy: termsChecked,
       acceptConditions: conditionChecked,
       details: details,
-      type: 'consult',
+      type: 'Basic Consult',
       typeTH: 'คำปรึกษาเบื้องต้น',
       status: 'Pending Payment',
       statusTH: 'รอการชำระเงิน',
@@ -87,7 +95,7 @@ export default function create({ user }) {
         path: doc.path,
         type: doc.data.type
       })),
-      pic: docs.filter(doc => doc.data.type != "application/pdf").map(doc => ({
+      pics: docs.filter(doc => doc.data.type != "application/pdf").map(doc => ({
         name: doc.name,
         path: doc.path,
         type: doc.data.type
@@ -96,14 +104,15 @@ export default function create({ user }) {
         status: 'Pending',
         statusTH: 'รอการชำระเงิน',
         channel: '',
+        channelTH: '',
         number: '',
-        price: 50 * questionList.length
+        price: 50 * questionList.length,
+        totalPrice: 50 * questionList.length
       },
       createdDate: new Date(),
       changedDate: new Date()
     }).then(() => {
       docs.forEach(doc => {
-        console.log(doc);
         const storageRef = ref(storage, doc.path)
         uploadBytes(storageRef, doc.data)
       })

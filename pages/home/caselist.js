@@ -155,7 +155,7 @@ export default function caselist({ user }) {
                             </div>
                             <div className="d-flex">
                               <div className={styles.caseSubTitle}>จำนวนเอกสาร</div>
-                              <div className={styles.caseTypeText}>{cs.data().pic.length}</div>
+                              <div className={styles.caseTypeText}>{cs.data().pics.length}</div>
                               <div className={styles.caseTypeText}>รูปภาพ,</div>
                               <div className={styles.caseTypeText}>{cs.data().docs.length}</div>
                               <div className={styles.caseTypeText}>เอกสาร</div>
