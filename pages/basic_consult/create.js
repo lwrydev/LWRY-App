@@ -49,7 +49,8 @@ export default function create({ user }) {
           name: file.name,
           size: file.size,
           type: file.type,
-          name2: new Date().getTime().toString(36).toUpperCase() + file.name
+          file: file,
+          name2: new Date().getTime().toString() + file.name
         })
       } else {
         toast.error("ขนาดไฟล์ต้องไม่เกิน 2MB", {
@@ -76,7 +77,7 @@ export default function create({ user }) {
     let docs = files.map(file => ({
       name: file.name,
       path: '/' + id + '/' + file.name2,
-      data: file
+      data: file.file
     }))
     setDoc(doc(firestore, 'cases', id), {
       owner: user.id,
@@ -112,7 +113,6 @@ export default function create({ user }) {
       changedDate: new Date()
     }).then(() => {
       docs.forEach(doc => {
-      console.log(doc);
         const storageRef = ref(storage, doc.path)
         uploadBytes(storageRef, doc.data)
       })

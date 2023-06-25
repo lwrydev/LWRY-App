@@ -34,8 +34,8 @@ export default function ChangeImageProfileModal({ user, setUser, showModal, setS
 
   const uploadImage = async (e) => {
     if (e.target.files) {
-      let fileName = new Date().getTime().toString()
-      const storageRef = ref(storage, '/' + user.id + '/' + fileName,)
+      let fileName = new Date().getTime().toString() + e.target.files[0].name
+      const storageRef = ref(storage, '/' + user.id + '/' + fileName)
       await uploadBytes(storageRef, e.target.files[0]).then(res => {
         getDownloadURL(ref(storage, '/' + user.id + '/' + fileName,)).then(url => {
           updateProfile(auth.currentUser, {

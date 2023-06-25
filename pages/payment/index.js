@@ -85,8 +85,8 @@ export default function Payment({ user, caseType }) {
         changedDate: new Date(),
         owner: user.id,
         price: totalAfterDiscount,
-        channel: paymentType === 'P01' ? 'Bank Transfer' : paymentType === 'P02' ? 'Credit Card' : 'QR Code',
-        channelTH: paymentType === 'P01' ? 'โอนผ่านบัญชีธนาคาร' : paymentType === 'P02' ? 'บัตรเครดิต' : 'คิวอาร์โค้ด',
+        channel: paymentType === 'P01' ? 'Bank Transfer' : paymentType === 'P02' ? 'Credit Card' : 'PromptPay',
+        channelTH: paymentType === 'P01' ? 'โอนผ่านบัญชีธนาคาร' : paymentType === 'P02' ? 'บัตรเครดิต' : 'พร้อมเพย์',
         status: 'Pending'
       }).then(() => {
         if (paymentType === 'P01') {

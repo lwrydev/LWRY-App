@@ -85,19 +85,20 @@ export default function ProofPayment({ user }) {
 
   const onSubmit = (e) => {
     e.preventDefault()
+    const filename = new Date().getTime().toString() + file.name
     addDoc(collection(firestore, 'payments_verify'), {
       paymentHistory: hisRef.id,
       pic: {
         name: file.name,
-        path: '/' + caseRef.id + '/' + new Date().getTime().toString(36).toUpperCase() + file.name,
+        path: '/' + caseRef.id + '/' + filename,
         type: file.type
       },
       owner: user.id
     }).then(() => {
       updateDoc(caseRef.ref, {
         payment: {
-          channel: 'Bank Transfer',
-          channelTH: 'โอนผ่านบัญชีธนาคาร',
+          channel: 'PromptPay',
+          channelTH: 'พร้อมเพย์',
           number: '',
           price: caseRef.data().payment.price,
           status: 'Paid',
@@ -108,9 +109,9 @@ export default function ProofPayment({ user }) {
         changedDate: new Date()
       })
       updateDoc(hisRef.ref, {
-        channel: 'Bank Transfer',
-        channel: 'โอนผ่านบัญชีธนาคาร',
-        number: '',
+        channel: 'PromptPay',
+        channelTH: 'พร้อมเพย์',
+        number: 'QC-' + new Date().getTime().toString(32),
         price: caseRef.data().payment.price,
         status: 'Paid',
         statusTH: 'ชำระแล้ว',

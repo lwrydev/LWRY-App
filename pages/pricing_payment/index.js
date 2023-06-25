@@ -93,7 +93,7 @@ export default function PricingAndPayment({ user, setUser }) {
                 <></>
               }
               {selectedMenu == "Menu2" ?
-                <PaymentHistory /> :
+                <PaymentHistory user={user} /> :
                 <></>
               }
               {selectedMenu == "Menu3" ?

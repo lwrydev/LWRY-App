@@ -59,7 +59,7 @@
 
 .boxHeaderText {
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 300;
   letter-spacing: 0px;
   color: #6E6E6E;
   text-align: center;
@@ -68,4 +68,20 @@
 .boxBody {
   display: flex;
   padding: 6px;
+}
+
+.boxBodyText {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0px;
+  color: #434343;
+  text-align: center;
+}
+
+.note {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0px;
+  color: #C0C0C0;
+  padding: 20px 30px;
 }

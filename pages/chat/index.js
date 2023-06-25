@@ -153,7 +153,8 @@ export default function Chat({ user }) {
     if (!doc.path) {
       return
     }
-    console.log(doc);
+
+    console.log(doc.path);
 
     const pathReference = ref(storage, doc.path)
     getDownloadURL(pathReference).then(url => {
