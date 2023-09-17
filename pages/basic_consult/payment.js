@@ -7,7 +7,7 @@ import IconBook from '../../assets/logo/book.svg'
 import IconEdit from '../../assets/logo/edit.svg'
 import IconMoneyCheck from '../../assets/logo/money_check.svg'
 import IconCorrect from '../../assets/logo/correct.svg'
-import Payments from '../../components/Payments/Payments'
+// import Payments from '../../components/Payments/Payments'
 
 
 export default function Payment({ user }) {
@@ -43,7 +43,7 @@ export default function Payment({ user }) {
         </div>
         <div className='col-2'></div>
       </div>
-      <Payments user={user} />
+      {/* <Payments user={user} /> */}
     </div>
   )
 }

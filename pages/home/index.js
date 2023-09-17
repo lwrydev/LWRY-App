@@ -43,8 +43,8 @@ export default function Home({ user }) {
                   <div className="d-flex justify-content-center align-items-center">
                     <div className={styles.serviceItem}>
                       <Image src={IconFeature} height='230' />
-                      <div className={styles.serviceItemTitle}>ให้คำปรึกษาเบื้องต้น</div>
-                      <div className={styles.serviceItemDetail}>ช่วยให้ท่านเข้าถึงวิธีการแก้ไขในปัญหาเบื้องต้น เพื่อนำทางท่านไปยังบริการอื่นที่เหมาะสม</div>
+                      <div className={styles.serviceItemTitle}>ปรึกษาปัญหาเบื้องต้น</div>
+                      <div className={styles.serviceItemDetail}>ช่วยให้ท่านเข้าถึงวิธีการแก้ไขปัญหาทางกฎหมายในเบื้องต้น</div>
                       <Button
                         className={styles.btn}
                       >

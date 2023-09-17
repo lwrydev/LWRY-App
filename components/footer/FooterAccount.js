@@ -1,27 +1,20 @@
 import styles from './footer.module.css'
 import Image from 'next/image'
 
+import '../../config/firebase'
+import { getAuth } from 'firebase/auth'
+
 import { useRouter } from "next/router"
 
 //icon
 import IconGoogleCircle from '../../assets/logo/google_circle.svg'
 import IconFacebookCircle from '../../assets/logo/facebook_circle.svg'
-import { useEffect, useState } from 'react'
+
+const auth = getAuth()
 
 export default function FooterAccount({ user }) {
-  const [pf, setPf] = useState("")
 
   const router = useRouter()
-
-  useEffect(() => {
-    if (user) {
-      if (user.data().displayName.split(" ").length > 1) {
-        setPf(user.data().displayName.split(" ")[0][0] + user.data().displayName.split(" ")[1][0])
-      } else {
-        setPf(user.data().displayName.split(" ")[0][0])
-      }
-    }
-  }, [user])
 
   return (
     <div className={styles.contentAcc}>
@@ -33,7 +26,7 @@ export default function FooterAccount({ user }) {
               <div className={styles.account}>
                 <div className='row'>
                   <div className='col-4 row justify-content-center align-content-center'>
-                    <div className={styles.profilePic}>{pf}</div>
+                    <img className={styles.profilePic} src={auth.currentUser.photoURL} width={60} height={60} />
                     <div className={styles.displayName}>{user ? user.data().displayName : ''}</div>
                     <div className={styles.editBtn}>แก้ไขโปรไฟล์</div>
                   </div>
@@ -66,7 +59,7 @@ export default function FooterAccount({ user }) {
               <div className={styles.menu}>
                 <div className='row'>
                   <div className='col-6'>
-                    <div className={styles.menuTitle}>ซัพพอร์ต</div>
+                    <div className={styles.menuTitle}>Support</div>
                     <div className={styles.subMenuGrp}>
                       <div className={styles.subMenu}>วิธีการสั่งซื้อบริการ</div>
                       <div className={styles.subMenu}>ขั้นตอนการรับคำปรึกษา</div>
