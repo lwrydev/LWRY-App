@@ -163,7 +163,7 @@ export default function create({ user }) {
             <div className={styles.termsBox}>
               <div className='row'>
                 <div className="col-5" style={{ paddingRight: '40px' }}>
-                  <div className={styles.consultTitle}>บริการให้คำแนะนำเบื้องต้น</div>
+                  <div className={styles.consultTitle}>บริการให้คำปรึกษาเบื้องต้น</div>
                   <div className={styles.consultList}>
                     <div className='d-flex'>
                       <div>
@@ -175,19 +175,19 @@ export default function create({ user }) {
                       <div>
                         <div className={styles.dot2}></div>
                       </div>
-                      <div className={styles.consultItem}>ท่านสามารถพิมพ์ปัญหาทางกฎหมายได้ไม่เกิน 3000 ตัวอักษร และถามคำถามได้ไม่เกิน 500 ตัวอักษรเพื่อความสะดวกในการให้บริการ ข้อความของท่านควรกระชับ เป็นลำดับขั้นตอน และเข้าใจได้ง่าย</div>
+                      <div className={styles.consultItem}>ท่านสามารถพิมพ์ปัญหาทางกฎหมายได้ไม่เกิน 3,000 ตัวอักษร และถามคำถามได้ไม่เกิน 500 ตัวอักษรเพื่อความสะดวกในการให้บริการ ข้อความของท่านควรกระชับ เป็นลำดับขั้นตอน และเข้าใจได้ง่าย</div>
                     </div>
                     <div className='d-flex'>
                       <div>
                         <div className={styles.dot2}></div>
                       </div>
-                      <div className={styles.consultItem}>หากข้อมูลของท่านไม่เพียงพอที่ทนายความจะให้คำแนะนำเบื้องต้นได้ ทนายความอาจส่งข้อความร้องขอข้อมูลเพิ่มเติมจากท่านก่อนให้คำตอบ</div>
+                      <div className={styles.consultItem}>หากข้อมูลของท่านไม่เพียงพอที่ทนายความจะให้คำปรึกษาเบื้องต้นได้ ทนายความอาจส่งข้อความร้องขอข้อมูลเพิ่มเติมจากท่านก่อนให้คำตอบ</div>
                     </div>
                     <div className='d-flex'>
                       <div>
                         <div className={styles.dot2}></div>
                       </div>
-                      <div className={styles.consultItem}>เมื่อทนายความให้คำแนะนำเบื้องต้นแก่ท่านแล้วท่านสามารถเลือกใช้บริการอื่นๆ ได้ตามที่ทนายความแนะนำ หรือสามารถใช้บริการให้คำแนะนำเบื้องต้นซ้ำอีกในประเด็นอื่นได้</div>
+                      <div className={styles.consultItem}>เมื่อทนายความให้คำปรึกษาเบื้องต้นแก่ท่านแล้วท่านสามารถเลือกใช้บริการอื่นๆ ได้ตามที่ทนายความแนะนำ หรือสามารถใช้บริการให้คำปรึกษาเบื้องต้นซ้ำอีกในประเด็นอื่นได้</div>
                     </div>
                     <div className='d-flex'>
                       <div>
@@ -226,7 +226,7 @@ export default function create({ user }) {
                 <div className="col-7">
                   <div className={styles.consultTitle}></div>
                   <div className={styles.consultList}>
-                    <div className={styles.problemTitle}>อธิบายปัญหาทางกฎหมาย</div>
+                    <div className={styles.problemTitle}>อธิบายปัญหาที่พบ</div>
                     <FloatingLabel controlId="floatingTextarea2" label="รายละเอียดปัญหา..." style={{ fontWeight: 300, color: '#6E6E6E' }}>
                       <Form.Control
                         as="textarea"
@@ -300,7 +300,7 @@ export default function create({ user }) {
                           <Form.Control
                             className={styles.questionText}
                             style={{ height: '76px' }}
-                            placeholder="คำถามที่ต้องการปรึกษา..."
+                            placeholder="กรอกคำถามที่ต้องการปรึกษาเบื้องต้น"
                             as="textarea"
                             aria-label="question"
                             aria-describedby="basic-addon1"
@@ -313,12 +313,16 @@ export default function create({ user }) {
                     })}
                   </div>
                   <div className={styles.addQuestion}>
-                    <div
-                      className={styles.addQuestionBtn}
-                      onClick={() => setQuestionList(questionList.concat({ question: '' }))}
-                    >
-                      เพิ่มคำถาม
-                    </div>
+                    {questionList.length < 2 ?
+                      <div
+                        className={styles.addQuestionBtn}
+                        onClick={() => setQuestionList(questionList.concat({ question: '' }))}
+                      >
+                        เพิ่มคำถาม
+                      </div>
+                      :
+                      <></>
+                    }
                   </div>
                   <div className='d-flex justify-content-end'>
                     <div

@@ -57,7 +57,7 @@ export default function basicConsult({ user }) {
             <div className={styles.termsList}>
               <div className='d-flex align-items-center'>
                 <div className={styles.dot}></div>
-                <div className={styles.termItem}>ขอคำแนะนำในราคา 50 บาทต่อ 1 คำถาม โดยไม่จำกัดจำนวนคำถาม</div>
+                <div className={styles.termItem}>ค่าบริการ 50 บาท ต่อ 1 คำถาม โดยไม่จำกัดจำนวนคำถาม</div>
               </div>
               <div className='d-flex align-items-center'>
                 <div className={styles.dot}></div>
@@ -66,10 +66,6 @@ export default function basicConsult({ user }) {
               <div className='d-flex align-items-center'>
                 <div className={styles.dot}></div>
                 <div className={styles.termItem}>ระบบจะตอบกลับภายใน 6 ชั่วโมง โดยทนายมืออาชีพ</div>
-              </div>
-              <div className='d-flex align-items-center'>
-                <div className={styles.dot}></div>
-                <div className={styles.termItem}>ขอคำแนะนำเพิ่มเติมได้ในราคา 50 บาทต่อหนึ่งคำถาม</div>
               </div>
               <div className='d-flex align-items-center'>
                 <div className={styles.dot}></div>

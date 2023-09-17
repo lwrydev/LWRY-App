@@ -90,18 +90,18 @@ export default function AccountTransfer({ user }) {
             <div className='d-flex justify-content-center'>
               <div className='p-1'>
                 <Button
-                  className={styles.btn}
-                  onClick={() => onPressProofPayment()}
+                  className={styles.btnCancel}
+                  onClick={() => router.replace('/home/caselist')}
                 >
-                  <div>แจ้งโอนเงิน</div>
+                  <div>ย้อนกลับ</div>
                 </Button>
               </div>
               <div className='p-1'>
                 <Button
-                  className={styles.btnCancel}
-                  onClick={() => router.replace('/home/caselist')}
+                  className={styles.btn}
+                  onClick={() => onPressProofPayment()}
                 >
-                  <div>กลับไปหน้าหลัก</div>
+                  <div>แจ้งโอนเงิน</div>
                 </Button>
               </div>
             </div>
