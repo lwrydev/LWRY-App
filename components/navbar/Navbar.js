@@ -93,7 +93,6 @@ export default function NavBar({ user, setUser }) {
             <Nav.Item>
               <div onClick={() => setShowAccount(true)}>
                 <Nav.Link>
-                  {/* <div className={styles.profileImg}>{pf}</div> */}
                   <img className={styles.profileImg} src={auth.currentUser.photoURL} width={28} height={28} />
                 </Nav.Link>
               </div>

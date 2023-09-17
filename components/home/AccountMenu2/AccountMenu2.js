@@ -4,21 +4,30 @@ import Image from 'next/image'
 //icon
 import IconGoogleCircle from '../../../assets/logo/google_circle.svg'
 import IconFacebookCircle from '../../../assets/logo/facebook_circle.svg'
+
 import { getAuth } from 'firebase/auth'
+
+import { useRouter } from "next/router"
 
 const auth = getAuth()
 
 export default function AccountMenu2({ user }) {
 
+  const router = useRouter()
+
   return (
     <div>
       <div className={styles.account}>
         <div className='row justify-content-center align-content-center'>
-          {/* <div className={styles.profilePic}>{pf}</div> */}
           <img className={styles.profilePic} src={auth.currentUser.photoURL} width={70} height={70} />
 
           <div className={styles.displayName}>{user ? user.data().displayName : ''}</div>
-          <div className={styles.editBtn}>แก้ไขโปรไฟล์</div>
+          <div
+            className={styles.editBtn}
+            onClick={() => router.push("/account_security")}
+          >
+            แก้ไขโปรไฟล์
+          </div>
         </div>
         <div className={styles.line}></div>
         <div className=''>
@@ -40,7 +49,7 @@ export default function AccountMenu2({ user }) {
         </div>
       </div>
       <div className={styles.menu}>
-        <div className={styles.menuTitle}>ซัพพอร์ต</div>
+        <div className={styles.menuTitle}>Support</div>
         <div className={styles.subMenuGrp}>
           <div className={styles.subMenu}>วิธีการสั่งซื้อบริการ</div>
           <div className={styles.subMenu}>ขั้นตอนการรับคำปรึกษา</div>
