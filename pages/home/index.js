@@ -4,10 +4,9 @@ import Image from 'next/image'
 
 import { useRouter } from "next/router"
 
-import { firestore } from '../../config/firebase'
-import { collection, doc, getDoc, getDocs, limit, query, where } from "firebase/firestore"
-
 import IconFeature from '../../assets/logo/icon_feature.svg'
+import IconConsult1 from '../../assets/logo/consult1.svg'
+import IconConsult3 from '../../assets/logo/consult3.svg'
 import { Button } from "react-bootstrap"
 
 import FooterAccount from "../../components/footer/FooterAccount"
@@ -40,9 +39,11 @@ export default function Home({ user }) {
                 <div className="col-2"></div>
                 <div className="col-8">
                   <div className={styles.serviceDetail}>ปัจจุบันโลกธุรกิจของเรามีการเปลี่ยนแปลงอย่างรวดเร็วตามการพัฒนาของเทคโนโลยีที่มีความก้าวหน้า อย่างไม่หยุดยั้งทำให้ผู้ประกอบการคงจะใช้วิธีการผลิต การจำหน่าย หรือการบริการแบบเดิม ๆ อีกต่อไปไม่ได้ เพราะอาจไม่สามารถตอบสนอง</div>
-                  <div className="d-flex justify-content-center align-items-center">
-                    <div className={styles.serviceItem}>
-                      <Image src={IconFeature} height='230' />
+                  <div className="d-flex justify-content-center row">
+                    <div className={styles.serviceItem + ' col-4'}>
+                      <div className={styles.serviceImg}>
+                        <Image src={IconConsult1} height='230' />
+                      </div>
                       <div className={styles.serviceItemTitle}>ปรึกษาปัญหาเบื้องต้น</div>
                       <div className={styles.serviceItemDetail}>ช่วยให้ท่านเข้าถึงวิธีการแก้ไขปัญหาทางกฎหมายในเบื้องต้น</div>
                       <Button
@@ -51,8 +52,10 @@ export default function Home({ user }) {
                         <div onClick={() => initAdviceService()}>เลือกใช้บริการ</div>
                       </Button>
                     </div>
-                    <div className={styles.serviceItem}>
-                      <Image src={IconFeature} height='230' />
+                    <div className={styles.serviceItem + ' col-4'}>
+                      <div className={styles.serviceImg}>
+                        <Image src={IconFeature} height='230' />
+                      </div>
                       <div className={styles.serviceItemTitle}>ปรึกษากับทนาย</div>
                       <div className={styles.serviceItemDetail}>ช่วยให้ท่านเข้าถึงวิธีการแก้ไขในปัญหาเบื้องต้น เพื่อนำทางท่านไปยังบริการอื่นที่เหมาะสม</div>
                       <Button
@@ -61,8 +64,10 @@ export default function Home({ user }) {
                         <div>เลือกใช้บริการ</div>
                       </Button>
                     </div>
-                    <div className={styles.serviceItem}>
-                      <Image src={IconFeature} height='230' />
+                    <div className={styles.serviceItem + ' col-4'}>
+                      <div className={styles.serviceImg}>
+                        <Image src={IconConsult3} height='230' />
+                      </div>
                       <div className={styles.serviceItemTitle}>ว่าจ้างทนาย</div>
                       <div className={styles.serviceItemDetail}>ช่วยให้ท่านเข้าถึงวิธีการแก้ไขในปัญหาเบื้องต้น เพื่อนำทางท่านไปยังบริการอื่นที่เหมาะสม</div>
                       <Button

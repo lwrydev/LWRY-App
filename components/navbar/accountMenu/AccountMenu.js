@@ -36,7 +36,7 @@ export default function AccountMenu({ setShowAccount, setSelectMenu,  user, setU
             setShowAccount(false)
           }}
         >
-          จัดการบัญชี
+          บัญชีและความปลอดภัย
         </div>
         <div
           className={styles.accountListMenu}

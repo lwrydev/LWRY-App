@@ -38,8 +38,8 @@
 .serviceItem {
   background: #FFFFFF;
   border-radius: 12px;
-  padding: 28px;
-  margin: 40px 10px 0 10px;
+  padding: 16px;
+  /* margin: 40px 10px 0 10px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,6 +48,10 @@
 .serviceItem:hover {
   background: #F9F9F9;
   border-radius: 12px;
+}
+
+.serviceImg {
+  height: 230px;
 }
 
 .serviceItemTitle {
@@ -65,10 +69,11 @@
   letter-spacing: 0px;
   color: #6E6E6E;
   text-align: center;
+  padding: 0 16px;
 }
 
 .btn {
-  height: 36px;
+  min-height: 36px;
   background: #0A66E2 0% 0% no-repeat padding-box;
   border-radius: 13px;
   opacity: 1;

@@ -41,6 +41,11 @@ export default function NavBar({ user, setUser }) {
     router.push('/pricing_payment')
   }
 
+  const goNotiPage = () => {
+    setSelectMenu('menu4')
+    router.push('/pricing_payment')
+  }
+
   return (
     <Navbar expand="lg" className={styles.content}>
       <div className="col-1"></div>
@@ -64,14 +69,14 @@ export default function NavBar({ user, setUser }) {
                 ภาพรวม
               </Nav.Link>
             </div>
-            <div
+            {/* <div
               className={selectMenu == 'menu2' ? styles.focusMenu : styles.menu}
               onClick={() => goAccountPage()}
             >
               <Nav.Link>
                 บัญชีและความปลอดภัย
               </Nav.Link>
-            </div>
+            </div> */}
             <div
               className={selectMenu == 'menu3' ? styles.focusMenu : styles.menu}
               onClick={() => goPricingPage()}
@@ -82,6 +87,14 @@ export default function NavBar({ user, setUser }) {
             </div>
             <div
               className={selectMenu == 'menu4' ? styles.focusMenu : styles.menu}
+              onClick={() => goNotiPage()}
+            >
+              <Nav.Link>
+              แจ้งเตือนและข่าวสาร
+              </Nav.Link>
+            </div>
+            <div
+              className={selectMenu == 'menu5' ? styles.focusMenu : styles.menu}
               onClick={() => window.location.assign(process.env.NEXT_PUBLIC_ENDPOINT_PUBLIC)}
             >
               <Nav.Link>

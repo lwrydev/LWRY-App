@@ -31,7 +31,7 @@ export default function basicConsult({ user }) {
               <div className={styles.progressLineInActive}></div>
               <div className={styles.progressBoxInActive}>
                 <Image src={IconEdit} />
-                <div className={styles.progressTxtInActive}>กรอกข้อมูลเพื่อรับคำแนะนำเบื้องต้น</div>
+                <div className={styles.progressTxtInActive}>กรอกข้อมูลเพื่อรับคำปรึกษาเบื้องต้น</div>
               </div>
               <div className={styles.progressLineInActive}></div>
               <div className={styles.progressBoxInActive}>
@@ -52,8 +52,8 @@ export default function basicConsult({ user }) {
         <div className="col-1"></div>
         <div className="col-10">
           <div className={styles.termsBox}>
-            <div className={styles.termsTitle}>การใช้บริการให้คำแนะนำเบื้องต้น</div>
-            <div className={styles.termsDetail}>บริการให้คำแนะนำเบื้องต้นของ Lawlivery เป็นบริการที่ช่วยให้คำแนะนำสำหรับคนที่กำลังประสบปัญหาทางกฎหมาย แต่ไม่รู้ว่าจะต้องเริ่มต้นอย่างไร ไม่รู้ว่ามี กระบวณการอะไรบ้าง บริการนี้จะช่วยให้สามารถเข้าถึงวิธีการแก้ไขปัญหาอย่างง่ายระดับเบื้องต้นเท่านั้น เพื่อทำทางไปบริการอื่นที่เหมาะสมกับท่านต่อไป</div>
+            <div className={styles.termsTitle}>ข้อตกลงการใช้บริการให้คำปรึกษาเบื้องต้น</div>
+            <div className={styles.termsDetail}>บริการให้คำแนะนำเบื้องต้นของ Lawlivery เป็นบริการที่ช่วยให้คำแนะนำสำหรับคนที่กำลังประสบปัญหาทางกฎหมาย แต่ไม่ทราบว่าจะต้องเริ่มต้นอย่างไรและมีกระบวนการอะไรบ้าง บริการนี้จะช่วยให้สามารถเข้าถึงวิธีการแก้ไขปัญหาในระดับเบื้องต้นเท่านั้น</div>
             <div className={styles.termsList}>
               <div className='d-flex align-items-center'>
                 <div className={styles.dot}></div>

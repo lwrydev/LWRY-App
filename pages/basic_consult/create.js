@@ -139,7 +139,7 @@ export default function create({ user }) {
               <div className={styles.progressLineActive}></div>
               <div className={styles.progressBoxActive}>
                 <Image src={IconEdit} />
-                <div className={styles.progressTxtActive}>กรอกข้อมูลเพื่อรับคำแนะนำเบื้องต้น</div>
+                <div className={styles.progressTxtActive}>กรอกข้อมูลเพื่อรับคำปรึกษาเบื้องต้น</div>
               </div>
               <div className={styles.progressLineInActive}></div>
               <div className={styles.progressBoxInActive}>
