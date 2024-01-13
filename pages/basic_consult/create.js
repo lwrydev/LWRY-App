@@ -71,7 +71,7 @@ export default function create({ user }) {
     await setQuestionList(questionsRef.map(item => item))
   }
 
-  const onSubmitCase = (e) => {
+  const onSubmitCase = async (e) => {
     e.preventDefault()
     let id = new Date().getTime().toString()
     let docs = files.map(file => ({
@@ -79,7 +79,7 @@ export default function create({ user }) {
       path: '/' + id + '/' + file.name2,
       data: file.file
     }))
-    setDoc(doc(firestore, 'cases', id), {
+    await setDoc(doc(firestore, 'cases', id), {
       owner: user.id,
       caseNo: 'A-' + new Date().getTime().toString(36).toUpperCase(),
       acceptPolicy: termsChecked,
@@ -112,9 +112,9 @@ export default function create({ user }) {
       createdDate: new Date(),
       changedDate: new Date()
     }).then(() => {
-      docs.forEach(doc => {
+      docs.forEach(async doc => {
         const storageRef = ref(storage, doc.path)
-        uploadBytes(storageRef, doc.data)
+        await uploadBytes(storageRef, doc.data)
       })
       router.push({
         pathname: '/payment',

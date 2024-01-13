@@ -44,7 +44,7 @@ export default function AccountTransfer({ user }) {
 
   return (
     <div className={styles.content}>
-      {caseRef.data().type === 'Basic Consult' ?
+      {caseRef && caseRef.data().type === 'Basic Consult' ?
         <BasicConsultProcessBar /> :
         <></>
       }
